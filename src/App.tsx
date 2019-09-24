@@ -6,6 +6,6 @@ const App: React.FC = () => {
       Admin Seed
     </div>
   );
-}
+};
 
 export default App;
