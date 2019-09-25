@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { checkEnv } from 'helpers';
+
 const App: React.FC = () => {
   return (
     <div className="App">
-      Admin Seed
+      {checkEnv() ? 'Admin Seed' : 'Error!!!'}
     </div>
   );
 };

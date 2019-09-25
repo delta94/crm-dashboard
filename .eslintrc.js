@@ -2,28 +2,30 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
   ],
   env: {
-    "browser": true
+    "browser": true,
+    "node": true,
+    "commonjs": true,
   },
   parser: "@typescript-eslint/parser",
   parserOptions: {
     "ecmaVersion": 2017,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
-    }
+      "jsx": true,
+    },
   },
   plugins: [
     "@typescript-eslint/eslint-plugin",
-    "react"
+    "react",
   ],
   settings: {
     "react": {
       "pragma": "React",
-      "version": "detect"
-    }
+      "version": "detect",
+    },
   },
   rules: {
     "comma-dangle": ["error", "always-multiline"],
@@ -33,6 +35,7 @@ module.exports = {
     "object-curly-spacing": ["error", "always"],
     "array-bracket-spacing": ["error", "never"],
     "quotes": ["error", "single"],
-    "jsx-quotes": ["error", "prefer-double"]
-  }
-}
+    "jsx-quotes": ["error", "prefer-double"],
+    "@typescript-eslint/explicit-function-return-type": "off",
+  },
+};
