@@ -1,11 +1,17 @@
 import React from 'react';
 
-import { checkEnv } from 'helpers';
+import { checkEnv, env } from 'helpers';
 
 const App: React.FC = () => {
+  if (!checkEnv()) {
+    return <div>Environment variables is not defined</div>;
+  }
+
   return (
     <div className="App">
-      {checkEnv() ? 'Admin Seed' : 'Error!!!'}
+      <p>BASE_URL: {env('BASE_URL')}</p>
+      <p>API_URL: {env('API_URL')}</p>
+      <p>MY_VAR: {env('MY_VAR')}</p>
     </div>
   );
 };
