@@ -5,7 +5,7 @@ export const isDevMod = process.env.NODE_ENV === 'development';
 export const isEnvDefined = () => {
   if (isDevMod) return true;
   const envsValues = Object.values(envs);
-  return envsValues.length && envsValues.every(variable => variable !== '');
+  return !!envsValues.length && envsValues.every(variable => variable !== '');
 };
 
 export const env = (name: string) => {
