@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { checkEnv, env } from 'helpers';
+import { isEnvDefined, env } from 'helpers';
 
 const App: React.FC = () => {
-  if (!checkEnv()) {
+  if (!isEnvDefined()) {
     return <div>Environment variables is not defined</div>;
   }
 
