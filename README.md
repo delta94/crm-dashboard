@@ -1,4 +1,4 @@
-# Admin Seed Project
+# CRM Dashboard Project
 
 ## Development
 
@@ -16,8 +16,8 @@ You will also see any lint errors in the console.
 ## Production
 
 ```
-docker build . -t admin-seed
-docker run -p 3000:80 -e REACT_APP_API_URL=https://staging.api.com -e REACT_APP_BASE_URL=https://base.url.com -e REACT_APP_MY_VAR=myVar -t admin-seed
+docker build . -t crm-dashboard
+docker run -p 3000:80 -e REACT_APP_API_URL=https://staging.api.com -e REACT_APP_BASE_URL=https://base.url.com -e REACT_APP_MY_VAR=myVar -t crm-dashboard
 ```
 
 ## Environment
