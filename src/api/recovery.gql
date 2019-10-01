@@ -1,0 +1,9 @@
+mutation recovery($username: String!) {
+  recovery(username: $username) {
+    ok
+    errors {
+      message
+      type
+    }
+  }
+}
