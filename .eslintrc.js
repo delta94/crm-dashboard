@@ -8,6 +8,7 @@ module.exports = {
     "browser": true,
     "node": true,
     "commonjs": true,
+    "es6": true,
   },
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -37,5 +38,6 @@ module.exports = {
     "quotes": ["error", "single"],
     "jsx-quotes": ["error", "prefer-double"],
     "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   },
 };

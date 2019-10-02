@@ -1,6 +1,12 @@
 import React from 'react';
+import { Admin, Resource, ListGuesser } from 'react-admin';
 
-import { isEnvDefined, env } from 'helpers';
+import { isEnvDefined } from 'helpers';
+import Login from 'pages/Login';
+import authProvider from 'authProvider';
+import jsonServerProvider from 'ra-data-json-server';
+
+const mockDataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
 
 const App: React.FC = () => {
   if (!isEnvDefined()) {
@@ -8,11 +14,13 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="App">
-      <p>BASE_URL: {env('BASE_URL')}</p>
-      <p>API_URL: {env('API_URL')}</p>
-      <p>MY_VAR: {env('MY_VAR')}</p>
-    </div>
+    <Admin
+      loginPage={Login}
+      dataProvider={mockDataProvider}
+      authProvider={authProvider}
+    >
+      <Resource name="users" list={ListGuesser} />
+    </Admin>
   );
 };
 
