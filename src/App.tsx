@@ -1,10 +1,9 @@
 import React from 'react';
 import { Admin, Resource, ListGuesser } from 'react-admin';
-
-import { isEnvDefined } from 'helpers';
-import Login from 'pages/Login';
-import authProvider from 'authProvider';
 import jsonServerProvider from 'ra-data-json-server';
+import Login from 'pages/Login';
+import { isEnvDefined } from 'helpers';
+import authProvider from 'authProvider';
 
 const mockDataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
 

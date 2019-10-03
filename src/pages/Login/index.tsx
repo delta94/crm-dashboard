@@ -1,7 +1,8 @@
-import React, { SyntheticEvent, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import { translate, userLogin } from 'react-admin';
+import { Translate } from 'ra-core';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -16,9 +17,10 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { lightTheme } from 'components/layout/themes';
-import { IconDummy } from 'components/assets/icons';
-import styles from './styles';
+import { IconDummy } from 'assets/icons';
 import { env } from 'helpers';
+
+import styles from './styles';
 
 const frameSrc = `${env('AUTH_URL')}/auth1/login`;
 
@@ -32,8 +34,8 @@ interface Auth1Message {
 interface Props {
   classes: any;
   isLoading: boolean;
-  translate: (params: any) => any;
-  userLogin: (auth: any) => any;
+  translate: Translate;
+  userLogin: (payload: object) => void;
 }
 
 const Login: React.FC<Props> = (props: Props) => {
@@ -101,6 +103,7 @@ const Login: React.FC<Props> = (props: Props) => {
           <Fade in={isFrameActive}>
             <div className={classes.modalContent}>
               <iframe
+                title="authForm"
                 slot="main"
                 className={classes.frame}
                 height="100%"

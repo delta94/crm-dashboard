@@ -1,11 +1,10 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK, AuthProvider } from 'ra-core';
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AuthProvider } from 'ra-core';
 import { env, setCookie, getCookie, deleteCookie } from 'helpers';
 
 const logoutSrc = `${env('AUTH_URL')}/auth1/logout`;
 
-export default (type: any, params: any) => {
+const authProvider: AuthProvider = (type, params) => {
   // called when the user attempts to log in
-  console.log(type, params);
   if (type === AUTH_LOGIN) {
     const { success, accessToken, error } = params;
 
@@ -28,3 +27,5 @@ export default (type: any, params: any) => {
   }
   return Promise.reject('Unknown method');
 };
+
+export default authProvider;
