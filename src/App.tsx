@@ -19,7 +19,7 @@ const App: React.FC = () => {
       loginPage={Login}
       dataProvider={mockDataProvider}
       authProvider={authProvider}
-      locale="ru"
+      locale="en"
       i18nProvider={i18nProvider}
     >
       <Resource name="users" list={ListGuesser} />
