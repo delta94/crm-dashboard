@@ -4,6 +4,8 @@ import jsonServerProvider from 'ra-data-json-server';
 import Login from 'pages/Login';
 import { isEnvDefined } from 'helpers';
 import authProvider from 'authProvider';
+import i18nProvider from 'i18nProvider';
+
 
 const mockDataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
 
@@ -17,6 +19,8 @@ const App: React.FC = () => {
       loginPage={Login}
       dataProvider={mockDataProvider}
       authProvider={authProvider}
+      locale="en"
+      i18nProvider={i18nProvider}
     >
       <Resource name="users" list={ListGuesser} />
     </Admin>

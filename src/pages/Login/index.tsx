@@ -4,8 +4,6 @@ import compose from 'recompose/compose';
 import { translate, userLogin } from 'react-admin';
 import { Translate } from 'ra-core';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {
@@ -17,6 +15,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { lightTheme } from 'components/layout/themes';
+import LocaleSwitcher from 'components/LocaleSwitcher';
 import { IconDummy } from 'assets/icons';
 import { env } from 'helpers';
 
@@ -66,18 +65,15 @@ const Login: React.FC<Props> = (props: Props) => {
   return (
     <div className={classes.authBoard}>
       <FormControl className={classes.locales}>
-        <Select color="inherit" value="ru">
-          <MenuItem value="ru">Русский</MenuItem>
-          <MenuItem value="en">English</MenuItem>
-        </Select>
+        <LocaleSwitcher />
       </FormControl>
       <div className={classes.container}>
         <IconDummy />
         <span className={classes.title}>
-          {translate('title')}
+          {translate('pages.login.title')}
         </span>
         <span className={classes.text}>
-          {translate('text')}
+          {translate('pages.login.text')}
         </span>
         <Button
           variant="raised"
@@ -89,7 +85,7 @@ const Login: React.FC<Props> = (props: Props) => {
           {isLoading && (
             <CircularProgress size={25} thickness={2} />
           )}
-          {translate('login')} or {translate('register')}
+          {translate('pages.login.buttonText')}
         </Button>
         <Modal
           className={classes.modal}
