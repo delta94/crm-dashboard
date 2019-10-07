@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import { translate, userLogin } from 'react-admin';
-import { Translate } from 'ra-core';
-import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { userLogin } from 'react-admin';
+import { TranslationContextProps, translate } from 'ra-core';
+import { FormControl, CircularProgress, Button, Modal, Backdrop, Fade } from '@material-ui/core';
 import {
   MuiThemeProvider,
   createMuiTheme,
   withStyles,
 } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 import { lightTheme } from 'components/Layout/themes';
-import LocaleSwitcher from 'components/LocaleSwitcher';
+import { LocaleSwitcher } from 'components';
 import { IconDummy } from 'assets/icons';
 import { env } from 'helpers';
 
@@ -33,11 +28,10 @@ interface Auth1Message {
 interface Props {
   classes: any;
   isLoading: boolean;
-  translate: Translate;
   userLogin: (payload: object) => void;
 }
 
-const Login: React.FC<Props> = (props: Props) => {
+const Login: React.FC<Props & TranslationContextProps> = (props: Props & TranslationContextProps) => {
   const { classes, translate, isLoading, userLogin } = props;
   const [isFrameActive, setFrameActive] = useState(false);
   const showFrame = () => setFrameActive(true);
@@ -118,7 +112,7 @@ const Login: React.FC<Props> = (props: Props) => {
 
 const mapStateToProps = (state: any) => ({ isLoading: state.admin.loading > 0 });
 
-const enhance = compose<Props, {}>(
+const enhance = compose<Props & TranslationContextProps, {}>(
   translate,
   connect(
     mapStateToProps,
