@@ -1,10 +1,11 @@
 import React from 'react';
 import { Admin, Resource, ListGuesser } from 'react-admin';
 import jsonServerProvider from 'ra-data-json-server';
-import Login from 'pages/Login';
 import { isEnvDefined } from 'helpers';
 import authProvider from 'authProvider';
 import i18nProvider from 'i18nProvider';
+import Login from 'pages/Login';
+import Layout from 'components/Layout';
 
 
 const mockDataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
@@ -16,6 +17,7 @@ const App: React.FC = () => {
 
   return (
     <Admin
+      appLayout={Layout}
       loginPage={Login}
       dataProvider={mockDataProvider}
       authProvider={authProvider}

@@ -2,6 +2,9 @@ import englishMessages from 'ra-language-english';
 
 export default {
   ...englishMessages,
+  root: {
+    settings: 'Settings',
+  },
   pages: {
     login: {
       title: 'Unsigned user can’t browse any projects',
