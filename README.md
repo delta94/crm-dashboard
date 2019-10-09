@@ -2,6 +2,9 @@
 
 ## Development
 
+[Run Local Hasura](https://docs.hasura.io/1.0/graphql/manual/getting-started/docker-simple.html)
+[Create Tables](https://docs.hasura.io/1.0/graphql/manual/schema/basics.html#create-tables)
+
 ```
 yarn
 yarn start

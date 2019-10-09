@@ -10,7 +10,7 @@
     "@types/react-redux": "^7.1.4",
     "@types/recompose": "^0.30.7",
     "@types/redux-form": "^8.1.7",
-    "ra-data-json-server": "^2.9.6",
+    "ra-data-hasura": "0.0.7",
     "ra-language-russian": "^2.0.3",
     "react": "^16.9.0",
     "react-admin": "^2.9.6",
