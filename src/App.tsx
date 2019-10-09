@@ -1,14 +1,11 @@
 import React from 'react';
 import { Admin, Resource, ListGuesser } from 'react-admin';
-import jsonServerProvider from 'ra-data-json-server';
-import { isEnvDefined } from 'helpers';
+import hasuraDataProvider from 'ra-data-hasura';
+import { isEnvDefined, env } from 'helpers';
 import authProvider from 'authProvider';
 import i18nProvider from 'i18nProvider';
 import Login from 'pages/Login';
 import Layout from 'components/Layout';
-
-
-const mockDataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
 
 const App: React.FC = () => {
   if (!isEnvDefined()) {
@@ -19,7 +16,7 @@ const App: React.FC = () => {
     <Admin
       appLayout={Layout}
       loginPage={Login}
-      dataProvider={mockDataProvider}
+      dataProvider={hasuraDataProvider(env('API_URL'))}
       authProvider={authProvider}
       locale="en"
       i18nProvider={i18nProvider}
