@@ -7,6 +7,8 @@ import i18nProvider from 'i18nProvider';
 import Login from 'pages/Login';
 import Layout from 'components/Layout';
 
+const dataProvider = hasuraDataProvider(env('API_URL'));
+
 const App: React.FC = () => {
   if (!isEnvDefined()) {
     return <div>Environment variables is not defined</div>;
@@ -16,7 +18,7 @@ const App: React.FC = () => {
     <Admin
       appLayout={Layout}
       loginPage={Login}
-      dataProvider={hasuraDataProvider(env('API_URL'))}
+      dataProvider={dataProvider}
       authProvider={authProvider}
       locale="en"
       i18nProvider={i18nProvider}
