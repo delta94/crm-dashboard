@@ -4,6 +4,17 @@ export default {
   ...russianMessages,
   root: {
     settings: 'Настройки',
+    menu: {
+      users: 'Пользователи',
+    },
+  },
+  resources: {
+    users: {
+      name: 'Пользователи',
+    },
+    groups: {
+      name: 'Группы',
+    },
   },
   pages: {
     settings: {

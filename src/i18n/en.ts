@@ -4,6 +4,17 @@ export default {
   ...englishMessages,
   root: {
     settings: 'Settings',
+    menu: {
+      users: 'Users',
+    },
+  },
+  resources: {
+    users: {
+      name: 'Users',
+    },
+    groups: {
+      name: 'Groups',
+    },
   },
   pages: {
     settings: {

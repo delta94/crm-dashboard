@@ -29,7 +29,7 @@ const MyUserMenu = translate((props: TranslationContextProps) => (
 const MyAppBar = (props: AppBarProps) => {
   const { classes } = props;
   return (
-    <AppBar {...props} userMenu={<MyUserMenu />}>
+    <AppBar {...props} color="primary" userMenu={<MyUserMenu />}>
       <Typography
         variant="title"
         color="inherit"

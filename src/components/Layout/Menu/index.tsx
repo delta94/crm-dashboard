@@ -30,18 +30,18 @@ const Menu: React.FC<Props> = (props: Props) => {
         handleToggle={() => toggleMembersMenu(!isMembersMenuOpen)}
         isOpen={isMembersMenuOpen}
         sidebarIsOpen={open}
-        name="pos.menu.members"
+        name="root.menu.users"
         icon={<ProductIcon />}
       >
         <MenuItemLink
           to={'/users'}
-          primaryText={translate('resources.commands.name')}
+          primaryText={translate('resources.users.name')}
           leftIcon={<ProductIcon />}
           onClick={onMenuClick}
         />
         <MenuItemLink
           to={'/groups'}
-          primaryText={translate('resources.invoices.name')}
+          primaryText={translate('resources.groups.name')}
           leftIcon={<ProductIcon />}
           onClick={onMenuClick}
         />
