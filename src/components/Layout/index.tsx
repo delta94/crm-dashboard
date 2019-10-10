@@ -1,12 +1,14 @@
 import React from 'react';
 import { Layout } from 'react-admin';
-import MyAppBar from './AppBar';
+import AppBar from './AppBar';
+import Menu from './Menu';
 
 const MyLayout = (props: any) => {
   return (
     <Layout
       {...props}
-      appBar={MyAppBar}
+      appBar={AppBar}
+      menu={Menu}
     />
   );
 };

@@ -1,11 +1,13 @@
 import React from 'react';
-import { Admin, Resource, ListGuesser } from 'react-admin';
+import { Admin, Resource } from 'react-admin';
 import hasuraDataProvider from 'ra-data-hasura';
 import { isEnvDefined, env } from 'helpers';
 import authProvider from 'authProvider';
 import i18nProvider from 'i18nProvider';
 import Login from 'pages/Login';
 import Layout from 'components/Layout';
+import { UserList } from 'pages/Users';
+import { GroupList } from 'pages/Groups';
 
 import customRoutes from './routes';
 
@@ -26,7 +28,8 @@ const App: React.FC = () => {
       i18nProvider={i18nProvider}
       customRoutes={customRoutes}
     >
-      <Resource name="users" list={ListGuesser} />
+      <Resource name="users" list={UserList} />
+      <Resource name="groups" list={GroupList} />
     </Admin>
   );
 };
