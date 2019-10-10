@@ -11,7 +11,9 @@ import { GroupList } from 'pages/Groups';
 
 import customRoutes from './routes';
 
-const dataProvider = hasuraDataProvider(env('API_URL'));
+const headers = { 'x-hasura-admin-secret': 'insecure' };
+
+const dataProvider = hasuraDataProvider(env('API_URL'), headers);
 
 const App: React.FC = () => {
   if (!isEnvDefined()) {
