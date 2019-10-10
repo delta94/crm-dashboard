@@ -7,6 +7,8 @@ import i18nProvider from 'i18nProvider';
 import Login from 'pages/Login';
 import Layout from 'components/Layout';
 
+import customRoutes from './routes';
+
 const dataProvider = hasuraDataProvider(env('API_URL'));
 
 const App: React.FC = () => {
@@ -22,6 +24,7 @@ const App: React.FC = () => {
       authProvider={authProvider}
       locale="en"
       i18nProvider={i18nProvider}
+      customRoutes={customRoutes}
     >
       <Resource name="users" list={ListGuesser} />
     </Admin>

@@ -15,3 +15,11 @@ export const env = (name: string) => {
 
   return isDevMod ? process.env[key] : envs[key];
 };
+
+export const isEmailValid =
+  // eslint-disable-next-line
+  (email: string) => /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,11})$/i.test(email);
+
+export const isPhoneValid =
+  // eslint-disable-next-line
+  (phone: string) => /^[+]{0,1}[0-9]{0,1}[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/.test(phone);
