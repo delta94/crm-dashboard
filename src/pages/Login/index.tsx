@@ -54,6 +54,7 @@ const Login: React.FC<Props & TranslationContextProps> = (props: Props & Transla
     window.addEventListener('message', listenFrame);
 
     return () => window.removeEventListener('message', listenFrame);
+    // eslint-disable-next-line
   }, []);
 
   return (

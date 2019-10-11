@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import compose from 'recompose/compose';
 import { TranslationContextProps, translate } from 'ra-core';
-import {
-  MuiThemeProvider,
-  createMuiTheme,
-  withStyles,
-} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Stepper, Step, StepLabel, Typography } from '@material-ui/core';
-import { lightTheme } from 'components/Layout/themes';
 
 import { StepCompany, StepBanking, StepContact, StepFinish } from '../components';
 import { styles } from './styles';
@@ -93,17 +88,9 @@ const DocumentsStepper = (props: Props & TranslationContextProps) => {
   );
 };
 
-const enhance = compose<Props & TranslationContextProps, {}>(
+const enhance = compose<Props & TranslationContextProps, any>(
   translate,
   withStyles(styles)
 );
 
-const EnhancedStepper = enhance(DocumentsStepper);
-
-const StepperWithTheme = (props: any) => (
-  <MuiThemeProvider theme={createMuiTheme(lightTheme)}>
-    <EnhancedStepper {...props} />
-  </MuiThemeProvider>
-);
-
-export default StepperWithTheme;
+export default enhance(DocumentsStepper);

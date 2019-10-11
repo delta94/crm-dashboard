@@ -2,14 +2,9 @@ import React from 'react';
 import compose from 'recompose/compose';
 import { TranslationContextProps, translate } from 'ra-core';
 import Button from '@material-ui/core/Button';
-import {
-  MuiThemeProvider,
-  createMuiTheme,
-  withStyles,
-} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { CardActions } from '@material-ui/core';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
-import { lightTheme } from 'components/Layout/themes';
 import { RenderInput } from 'components';
 
 import { styles } from './styles';
@@ -101,7 +96,7 @@ const StepCompany = (props: Props & InjectedFormProps & TranslationContextProps)
   );
 };
 
-const enhance = compose<Props & InjectedFormProps & TranslationContextProps, {}>(
+const enhance = compose<Props & InjectedFormProps & TranslationContextProps, any>(
   translate,
   reduxForm({
     form: 'wizard',
@@ -111,12 +106,4 @@ const enhance = compose<Props & InjectedFormProps & TranslationContextProps, {}>
   withStyles(styles)
 );
 
-const EnhancedStepCompany = enhance(StepCompany);
-
-const StepCompanyWithTheme = (props: Props) => (
-  <MuiThemeProvider theme={createMuiTheme(lightTheme)}>
-    <EnhancedStepCompany {...props} />
-  </MuiThemeProvider>
-);
-
-export default StepCompanyWithTheme;
+export default enhance(StepCompany);
