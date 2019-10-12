@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import ProductIcon from '@material-ui/icons/Collections';
 import { withRouter } from 'react-router-dom';
+import { TranslationContextProps } from 'ra-core';
 import {
   translate,
   DashboardMenuItem,
   MenuItemLink,
   Responsive,
 } from 'react-admin';
-
 import SubMenu from '../SubMenu';
-import { TranslationContextProps } from 'ra-core';
+
+import groups from '../../../resources/Groups';
 
 interface Props extends TranslationContextProps {
   onMenuClick: () => void;
@@ -42,7 +43,7 @@ const Menu: React.FC<Props> = (props: Props) => {
         <MenuItemLink
           to={'/groups'}
           primaryText={translate('resources.groups.name')}
-          leftIcon={<ProductIcon />}
+          leftIcon={<groups.icon />}
           onClick={onMenuClick}
         />
       </SubMenu>

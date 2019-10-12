@@ -14,6 +14,10 @@ export default {
     },
     groups: {
       name: 'Группы',
+      fields: {
+        name: 'Название',
+        role: 'Роль',
+      },
     },
   },
   pages: {
