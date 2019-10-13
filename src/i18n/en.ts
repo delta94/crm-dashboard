@@ -9,6 +9,14 @@ export default {
     },
   },
   resources: {
+    invites: {
+      name: 'Invites',
+      fields: {
+        email: 'Email',
+        group: 'Group',
+        accepted: 'Accepted',
+      },
+    },
     users: {
       name: 'Users',
     },

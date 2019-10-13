@@ -13,6 +13,7 @@ import {
 import SubMenu from '../SubMenu';
 
 import groups from '../../../resources/Groups';
+import invites from '../../../resources/Invites';
 
 interface Props extends TranslationContextProps {
   onMenuClick: () => void;
@@ -34,6 +35,12 @@ const Menu: React.FC<Props> = (props: Props) => {
         name="root.menu.users"
         icon={<ProductIcon />}
       >
+        <MenuItemLink
+          to={'/invites'}
+          primaryText={translate('resources.invites.name')}
+          leftIcon={<invites.icon />}
+          onClick={onMenuClick}
+        />
         <MenuItemLink
           to={'/users'}
           primaryText={translate('resources.users.name')}
