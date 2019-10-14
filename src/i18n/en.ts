@@ -4,6 +4,29 @@ export default {
   ...englishMessages,
   root: {
     settings: 'Settings',
+    menu: {
+      users: 'Users',
+    },
+  },
+  resources: {
+    invites: {
+      name: 'Invites',
+      fields: {
+        email: 'Email',
+        group: 'Group',
+        accepted: 'Accepted',
+      },
+    },
+    users: {
+      name: 'Users',
+    },
+    groups: {
+      name: 'Groups',
+      fields: {
+        name: 'Name',
+        role: 'Role',
+      },
+    },
   },
   pages: {
     settings: {

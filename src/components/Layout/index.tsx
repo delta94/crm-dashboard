@@ -1,12 +1,17 @@
 import React from 'react';
 import { Layout } from 'react-admin';
-import MyAppBar from './AppBar';
+import AppBar from './AppBar';
+import Menu from './Menu';
+import { lightTheme } from './themes';
 
 const MyLayout = (props: any) => {
+
   return (
     <Layout
       {...props}
-      appBar={MyAppBar}
+      appBar={AppBar}
+      theme={lightTheme}
+      menu={Menu}
     />
   );
 };

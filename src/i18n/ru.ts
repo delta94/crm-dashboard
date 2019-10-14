@@ -4,6 +4,29 @@ export default {
   ...russianMessages,
   root: {
     settings: 'Настройки',
+    menu: {
+      users: 'Пользователи',
+    },
+  },
+  resources: {
+    invites: {
+      name: 'Приглашения',
+      fields: {
+        email: 'Email',
+        group: 'Группа',
+        accepted: 'Принято',
+      },
+    },
+    users: {
+      name: 'Пользователи',
+    },
+    groups: {
+      name: 'Группы',
+      fields: {
+        name: 'Название',
+        role: 'Роль',
+      },
+    },
   },
   pages: {
     settings: {

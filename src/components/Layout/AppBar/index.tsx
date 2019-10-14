@@ -8,6 +8,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { TranslationContextProps } from 'ra-core';
 import { QilinLogo } from 'assets/icons';
+import  { LocaleSwitcher } from 'components';
 
 import styles from './styles';
 
@@ -29,7 +30,7 @@ const MyUserMenu = translate((props: TranslationContextProps) => (
 const MyAppBar = (props: AppBarProps) => {
   const { classes } = props;
   return (
-    <AppBar {...props} userMenu={<MyUserMenu />}>
+    <AppBar {...props} color="default" userMenu={<MyUserMenu />}>
       <Typography
         variant="title"
         color="inherit"
@@ -45,6 +46,7 @@ const MyAppBar = (props: AppBarProps) => {
       <IconButton color="inherit">
         <NotificationsIcon />
       </IconButton>
+      <LocaleSwitcher />
     </AppBar>
   );
 };
