@@ -12,7 +12,7 @@ import {
 } from 'react-admin';
 import SubMenu from '../SubMenu';
 
-import groups from '../../../resources/Groups';
+import groups from 'resources/Groups';
 import invites from '../../../resources/Invites';
 
 interface Props extends TranslationContextProps {
