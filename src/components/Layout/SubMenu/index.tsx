@@ -26,14 +26,14 @@ const SubMenu: React.FC<Props> = (props: Props) => {
 
   const [isOpen, setOpen] = useState(false);
 
-  const handleToggle = () => setOpen(!isOpen);
+  const handleOpen = () => setOpen(!isOpen);
 
   return (
     <Fragment>
       <ListItem
         dense
         button
-        onClick={handleToggle}
+        onClick={handleOpen}
         className={classes.listItem}
       >
         <ListItemIcon>{isOpen ? <ExpandMore /> : icon}</ListItemIcon>
