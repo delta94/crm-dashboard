@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import ProductIcon from '@material-ui/icons/Collections';
@@ -23,14 +23,12 @@ interface Props extends TranslationContextProps {
 
 const Menu: React.FC<Props> = (props: Props) => {
   const { onMenuClick, open, logout, translate } = props;
-  const [isMembersMenuOpen, toggleMembersMenu] = useState(false);
+
   return (
     <div>
       {' '}
       <DashboardMenuItem onClick={onMenuClick} />
       <SubMenu
-        handleToggle={() => toggleMembersMenu(!isMembersMenuOpen)}
-        isOpen={isMembersMenuOpen}
         sidebarIsOpen={open}
         name="root.menu.users"
         icon={<ProductIcon />}
@@ -68,7 +66,7 @@ const mapStateToProps = (state: any) => ({
   locale: state.i18n.locale,
 });
 
-const enhance = compose<Props, {}>(
+const enhance = compose<Props, any>(
   withRouter,
   connect(
     mapStateToProps,

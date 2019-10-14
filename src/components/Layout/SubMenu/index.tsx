@@ -1,39 +1,32 @@
-import React, { Fragment, ReactElement } from 'react';
+import React, { Fragment, ReactElement, useState } from 'react';
 import { TranslationContextProps, translate } from 'ra-core';
-import compose from 'recompose/compose';
+import { List, ListItem, ListItemIcon, ListItemText, Divider, Collapse, withStyles } from '@material-ui/core';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import { List, ListItem, ... } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import compose from 'recompose/compose';
 
 import styles from './styles';
 
 interface Props extends TranslationContextProps {
-  handleToggle: () => void;
   sidebarIsOpen: boolean;
-  isOpen: boolean;
   name: string;
   classes: any;
   children: ReactElement;
   icon: ReactElement;
 }
 
-
 const SubMenu: React.FC<Props> = (props: Props) => {
   const {
-    handleToggle,
     sidebarIsOpen,
-    isOpen,
     name,
     icon,
     classes,
     children,
     translate,
   } = props;
+
+  const [isOpen, setOpen] = useState(false);
+
+  const handleToggle = () => setOpen(!isOpen);
 
   return (
     <Fragment>
