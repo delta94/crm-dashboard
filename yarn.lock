@@ -8835,13 +8835,10 @@ ra-core@^2.9.6:
     redux-saga "~0.16.0"
     reselect "~3.0.0"
 
-ra-data-json-server@^2.9.6:
-  version "2.9.6"
-  resolved "https://registry.yarnpkg.com/ra-data-json-server/-/ra-data-json-server-2.9.6.tgz#75be855f9870d598f8c42121aafd1aeb6025e9e7"
-  integrity sha512-g2lN8o45gAuKJQ5sAG/jUXbBFj28rC7chKizdc8Z7W1bkuCSmyzPuBh+Bs0Yb3BTyUEipEUWnDn/xvMAmoC/+w==
-  dependencies:
-    query-string "~5.1.1"
-    ra-core "^2.9.6"
+ra-data-hasura@0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/ra-data-hasura/-/ra-data-hasura-0.0.7.tgz#484c62492a53d154f66db9655e54e46c12f4affd"
+  integrity sha512-y9+W5QQjG4byTJoyoFw4alZ5SRslf/3qXGIMPAibo6HIarPx/F4MSVSAI2/QXpiGwmNkOe8yq38nlep4Mvp6ig==
 
 ra-language-english@^2.9.3:
   version "2.9.3"
