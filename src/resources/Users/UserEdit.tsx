@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit, SimpleForm, TextInput, BooleanInput, DateInput } from 'react-admin';
+import { Edit, SimpleForm, TextInput, BooleanInput, ReferenceInput, SelectInput } from 'react-admin';
 
 const UserEdit = (props: any) => (
   <Edit {...props}>
@@ -7,12 +7,10 @@ const UserEdit = (props: any) => (
       <TextInput source="email" />
       <BooleanInput source="status" />
       <TextInput source="first_name" />
-      <TextInput optionText="id" />
-      <TextInput source="role" />
-      <TextInput source="picture" />
       <TextInput source="last_name" />
-      <DateInput source="created_at" />
-      <TextInput source="id" />
+      <ReferenceInput source="role" reference="user_role">
+        <SelectInput optionText="id" />
+      </ReferenceInput>
     </SimpleForm>
   </Edit>
 );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import ProductIcon from '@material-ui/icons/Collections';
 import { withRouter } from 'react-router-dom';
 import { TranslationContextProps } from 'ra-core';
 import {
@@ -10,10 +9,11 @@ import {
   MenuItemLink,
   Responsive,
 } from 'react-admin';
-import SubMenu from '../SubMenu';
-
 import groups from 'resources/Groups';
 import invites from 'resources/Invites';
+import users from 'resources/Users';
+
+import SubMenu from '../SubMenu';
 
 interface Props extends TranslationContextProps {
   onMenuClick: () => void;
@@ -31,7 +31,7 @@ const Menu: React.FC<Props> = (props: Props) => {
       <SubMenu
         sidebarIsOpen={open}
         name="root.menu.users"
-        icon={<ProductIcon />}
+        icon={<users.icon />}
       >
         <MenuItemLink
           to={'/invites'}
@@ -42,7 +42,7 @@ const Menu: React.FC<Props> = (props: Props) => {
         <MenuItemLink
           to={'/users'}
           primaryText={translate('resources.users.name')}
-          leftIcon={<ProductIcon />}
+          leftIcon={<users.icon />}
           onClick={onMenuClick}
         />
         <MenuItemLink
