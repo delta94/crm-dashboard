@@ -19,6 +19,15 @@ export default {
     },
     users: {
       name: 'Users',
+      fields: {
+        email: 'Email',
+        'first_name': 'FirstName',
+        'last_name': 'LastName',
+        status: 'Active',
+        role: 'Role',
+        'created_at': 'Created',
+        picture: 'Picture',
+      },
     },
     groups: {
       name: 'Groups',

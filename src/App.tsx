@@ -5,9 +5,10 @@ import { isEnvDefined, env } from 'helpers';
 import authProvider from 'authProvider';
 import i18nProvider from 'i18nProvider';
 import Login from 'pages/Login';
-import Layout from 'components/Layout';
 import groups from 'resources/Groups';
 import invites from 'resources/Invites';
+import users from 'resources/Users';
+import { Layout } from 'components';
 
 import customRoutes from './routes';
 
@@ -32,7 +33,10 @@ const App: React.FC = () => {
     >
       <Resource name="groups" {...groups} />
       <Resource name="invites" {...invites} />
+      <Resource name="users" {...users} />
+      {/* Next line need for user_role from useredit */}
       <Resource name="group_role" />
+      <Resource name="user_role" />
     </Admin>
   );
 };

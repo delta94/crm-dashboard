@@ -18,7 +18,16 @@ export default {
       },
     },
     users: {
-      name: 'Пользователи',
+      name: 'Юзеры',
+      fields: {
+        email: 'Почта',
+        'first_name': 'Имя',
+        'last_name': 'Фамилия',
+        status: 'Активен',
+        role: 'Роль',
+        'created_at': 'Создан',
+        picture: 'Аватар',
+      },
     },
     groups: {
       name: 'Группы',
