@@ -4,6 +4,11 @@ export default {
   ...englishMessages,
   root: {
     settings: 'Settings',
+    notifications: {
+      title: 'Notifications',
+      noContentTitle: 'In this section you will see notifications',
+      noContentText: 'There\'s nothing here yet',
+    },
     menu: {
       users: 'Users',
     },
