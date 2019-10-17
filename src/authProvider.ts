@@ -4,7 +4,7 @@ import { env, getCookie, deleteCookie } from 'helpers';
 const logoutSrc = `${env('AUTH_URL')}logout`;
 
 const authProvider: AuthProvider = (type, params) => {
-  // called when the user logged in
+  // called when the user attempts to log in
   if (type === AUTH_LOGIN) {
     return Promise.resolve();
   }
@@ -14,7 +14,7 @@ const authProvider: AuthProvider = (type, params) => {
     fetch(logoutSrc, { credentials: 'include' });
     return Promise.resolve();
   }
-  // called when the user navigates to a new location or log in
+  // called when the user navigates to a new location
   if (type === AUTH_CHECK) {
     return getCookie('TOKEN')
       ? Promise.resolve()

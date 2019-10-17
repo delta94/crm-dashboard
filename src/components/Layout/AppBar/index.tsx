@@ -28,9 +28,9 @@ const MyUserMenu = translate((props: TranslationContextProps) => (
 
 
 const MyAppBar = (props: AppBarProps) => {
-  const { classes } = props;
+  const { classes, ...rest } = props;
   return (
-    <AppBar {...props} color="default" userMenu={<MyUserMenu />}>
+    <AppBar {...rest} color="default" userMenu={<MyUserMenu />}>
       <QilinLogo />
       <Typography variant="headline" color="inherit">Qilin CRM</Typography>
       <span className={classes.spacer}></span>
