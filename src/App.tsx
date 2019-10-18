@@ -1,8 +1,9 @@
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
-import hasuraDataProvider from 'ra-data-hasura';
-import { isEnvDefined, env } from 'helpers';
+import { createBrowserHistory as createHistory } from 'history';
+import { isEnvDefined } from 'helpers';
 import authProvider from 'authProvider';
+import dataProvider from 'dataProvider';
 import i18nProvider from 'i18nProvider';
 import Login from 'pages/Login';
 import groups from 'resources/Groups';
@@ -12,9 +13,9 @@ import { Layout } from 'components';
 
 import customRoutes from './routes';
 
-const headers = { 'x-hasura-admin-secret': 'insecure' };
+const history = createHistory();
 
-const dataProvider = hasuraDataProvider(env('API_URL'), headers);
+
 
 const App: React.FC = () => {
   if (!isEnvDefined()) {
@@ -30,6 +31,7 @@ const App: React.FC = () => {
       locale="en"
       i18nProvider={i18nProvider}
       customRoutes={customRoutes}
+      history={history}
     >
       <Resource name="groups" {...groups} />
       <Resource name="invites" {...invites} />

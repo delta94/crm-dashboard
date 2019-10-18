@@ -1,16 +1,11 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AuthProvider, AUTH_ERROR } from 'ra-core';
-import { env, setCookie, getCookie, deleteCookie } from 'helpers';
+import { env, getCookie, deleteCookie } from 'helpers';
 
-const logoutSrc = `${env('AUTH_URL')}/auth1/logout`;
+const logoutSrc = `${env('AUTH_URL')}/logout`;
 
 const authProvider: AuthProvider = (type, params) => {
   // called when the user attempts to log in
   if (type === AUTH_LOGIN) {
-    const { success, accessToken, error } = params;
-
-    if (!success) Promise.reject(error);
-
-    setCookie('TOKEN', accessToken);
     return Promise.resolve();
   }
   // called when the user clicks on the logout button
