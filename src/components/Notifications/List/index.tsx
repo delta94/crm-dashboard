@@ -6,7 +6,7 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 
 import styles from './styles';
 
-interface Notification {
+export interface Notification {
   id: number;
   text: string;
   viewed: boolean;
@@ -14,7 +14,7 @@ interface Notification {
 
 interface NotificationListProps extends WithStyles<typeof styles>, TranslationContextProps {
   loading: boolean;
-  list: Array<Notification>;
+  list: Notification[];
 }
 
 const NotificationList = (props: NotificationListProps) => {
