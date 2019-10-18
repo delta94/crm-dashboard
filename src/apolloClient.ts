@@ -1,17 +1,20 @@
 import { ApolloClient, InMemoryCache, split, HttpLink } from 'apollo-boost';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-import { env, httpUrlToWebSocketUrl } from 'helpers';
+import { env, httpUrlToWebSocketUrl, getToken } from 'helpers';
 
-const headers = { 'x-hasura-admin-secret': 'insecure' };
+const token = getToken();
+
+const headers = {
+  'x-hasura-admin-secret': 'insecure',
+  'Authorization': `Bearer ${token}`,
+};
 
 const wsLink = new WebSocketLink({
   uri: `${httpUrlToWebSocketUrl(env('API_URL'))}/v1/graphql`,
   options: {
     reconnect: true,
-    connectionParams: {
-      headers,
-    },
+    connectionParams: { headers },
   },
 });
 
@@ -34,9 +37,4 @@ const link = split(
 
 const cache = new InMemoryCache();
 
-const client = new ApolloClient({
-  cache: cache,
-  link: link,
-});
-
-export default client;
+export default new ApolloClient({ cache, link });
