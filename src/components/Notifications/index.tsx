@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useSubscription } from '@apollo/react-hooks';
+import { useSubscription, useMutation } from '@apollo/react-hooks';
 import { TranslationContextProps, translate } from 'ra-core';
 import { IconButton, Paper, ClickAwayListener, Typography, Badge } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import compose from 'recompose/compose';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import client from 'apolloWSClient';
-import { NOTIFICATIONS_SUBSCRIPTION } from './query';
+import client from 'apolloClient';
 import NotificationList, { Notification } from './List';
+import { NOTIFICATIONS_SUBSCRIPTION, NOTIFICATION_UPDATE } from './query';
 
 import styles from './styles';
 
@@ -21,8 +21,10 @@ const Notifications = (props: WithStyles<typeof styles> & TranslationContextProp
   const handleClick = () => setOpen(!isOpen);
   const handleClickAway = () => setOpen(false);
   const { data, loading } = useSubscription<Notifications>(NOTIFICATIONS_SUBSCRIPTION, { client });
+  const [viewNotification] = useMutation(NOTIFICATION_UPDATE, { client });
   const { notifications = [] } = data || {};
   const notViwedCount = !loading ? notifications.filter(({ viewed }) => !viewed).length : 0;
+  const onClickNotification = (id: number) => viewNotification({ variables: { id } });
 
   return (
     <div className={classes.root}>
@@ -42,7 +44,7 @@ const Notifications = (props: WithStyles<typeof styles> & TranslationContextProp
               <div className={classes.header}>
                 <Typography variant="subheading">{translate('root.notifications.title')}</Typography>
               </div>
-              <NotificationList loading={loading} list={notifications} />
+              <NotificationList onClickItem={onClickNotification} loading={loading} list={notifications} />
             </Paper>
           ) : null}
         </div>
