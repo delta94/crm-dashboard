@@ -1,4 +1,5 @@
 import React from 'react';
+import { Mutation } from 'react-admin';
 import compose from 'recompose/compose';
 import { List, ListItem, ListItemText, CircularProgress, Typography } from '@material-ui/core';
 import { TranslationContextProps, translate } from 'ra-core';
@@ -44,10 +45,19 @@ const NotificationList = (props: NotificationListProps) => {
       className={classes.list}
     >
       {list.map(({ id, text, viewed }) => (
-        <ListItem divider button key={id}>
-          <ListItemText primary={text} />
-          {!viewed && <div className={classes.new} />}
-        </ListItem>
+        <Mutation
+          key={id}
+          type="UPDATE"
+          resource="notifications"
+          payload={{ id, data: { viewed: true } }}
+        >
+          {(viewNotification: () => void) => (
+            <ListItem divider button onClick={!viewed ? viewNotification : () => { }}>
+              <ListItemText primary={text} />
+              {!viewed && <div className={classes.new} />}
+            </ListItem>
+          )}
+        </Mutation>
       ))}
     </List>
   );
