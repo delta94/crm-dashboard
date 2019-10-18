@@ -3,7 +3,7 @@ import { Loading } from 'react-admin';
 import { Redirect } from 'react-router';
 import { env, getCookie, setCookie } from 'helpers';
 
-const fetchUrl = `${env('AUTH_URL')}jwt`;
+const fetchUrl = `${env('AUTH_URL')}/jwt`;
 
 const AuthSuccess = () => {
   const [loading, setLoading] = useState(true);

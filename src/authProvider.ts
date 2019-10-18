@@ -1,7 +1,7 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AuthProvider, AUTH_ERROR } from 'ra-core';
 import { env, getCookie, deleteCookie } from 'helpers';
 
-const logoutSrc = `${env('AUTH_URL')}logout`;
+const logoutSrc = `${env('AUTH_URL')}/logout`;
 
 const authProvider: AuthProvider = (type, params) => {
   // called when the user attempts to log in

@@ -1,11 +1,12 @@
 import React from 'react';
 import compose from 'recompose/compose';
 import { TranslationContextProps, translate } from 'ra-core';
-import { FormControl, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import {
   MuiThemeProvider,
   createMuiTheme,
   withStyles,
+  WithStyles,
 } from '@material-ui/core/styles';
 import { lightTheme } from 'components/Layout/themes';
 import { LocaleSwitcher } from 'components';
@@ -14,20 +15,18 @@ import { env } from 'helpers';
 
 import styles from './styles';
 
-const frameSrc = `${env('AUTH_URL')}login`;
+const frameSrc = `${env('AUTH_URL')}/login`;
 
-interface Props {
-  classes: any;
-}
+type Props = TranslationContextProps & WithStyles<typeof styles>;
 
-const Login: React.FC<Props & TranslationContextProps> = (props: Props & TranslationContextProps) => {
+const Login: React.FC<Props> = (props: Props) => {
   const { classes, translate } = props;
 
   return (
     <div className={classes.authBoard}>
-      <FormControl className={classes.locales}>
+      <div className={classes.locales}>
         <LocaleSwitcher />
-      </FormControl>
+      </div>
       <div className={classes.container}>
         <IconDummy />
         <span className={classes.title}>
@@ -49,16 +48,16 @@ const Login: React.FC<Props & TranslationContextProps> = (props: Props & Transla
   );
 };
 
-const enhance = compose<Props & TranslationContextProps, {}>(
+const enhance = compose<Props, {}>(
   translate,
   withStyles(styles)
 );
 
 const EnhancedLogin = enhance(Login);
 
-const LoginWithTheme = (props: any) => (
+const LoginWithTheme = () => (
   <MuiThemeProvider theme={createMuiTheme(lightTheme)}>
-    <EnhancedLogin {...props} />
+    <EnhancedLogin />
   </MuiThemeProvider>
 );
 

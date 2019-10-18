@@ -1,10 +1,9 @@
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
-import hasuraDataProvider from 'ra-data-hasura';
-import { fetchUtils } from 'ra-core';
 import { createBrowserHistory as createHistory } from 'history';
-import { isEnvDefined, env, getCookie } from 'helpers';
+import { isEnvDefined } from 'helpers';
 import authProvider from 'authProvider';
+import dataProvider from 'dataProvider';
 import i18nProvider from 'i18nProvider';
 import Login from 'pages/Login';
 import groups from 'resources/Groups';
@@ -16,17 +15,7 @@ import customRoutes from './routes';
 
 const history = createHistory();
 
-const httpClient = (url: string, options: any = {}) => {
-  if (!options.headers) {
-    options.headers = new Headers({ Accept: 'application/json' });
-  }
-  const token = getCookie('TOKEN') || '';
-  options.headers.set('x-hasura-admin-secret', 'insecure');
-  options.headers.set('Authorization', `Bearer ${token}`);
-  return fetchUtils.fetchJson(url, options);
-};
 
-const dataProvider = hasuraDataProvider(env('API_URL'), httpClient);
 
 const App: React.FC = () => {
   if (!isEnvDefined()) {
