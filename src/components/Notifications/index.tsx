@@ -7,7 +7,7 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 import compose from 'recompose/compose';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import client from 'apolloWSClient';
-import NotificationList from './List';
+import NotificationList, { Notification } from './List';
 
 import styles from './styles';
 
@@ -22,15 +22,19 @@ const NOTIFICATIONS_SUBSCRIPTION = gql`
   }
 `;
 
+interface Notifications {
+  notifications: Notification[];
+}
+
 const Notifications = (props: WithStyles<typeof styles> & TranslationContextProps) => {
   const { classes, translate } = props;
   const [isOpen, setOpen] = useState(false);
   const handleClick = () => setOpen(!isOpen);
   const handleClickAway = () => setOpen(false);
-  const { data, loading } = useSubscription(NOTIFICATIONS_SUBSCRIPTION, { client });
-  const { notifications } = data || {};
+  const { data, loading } = useSubscription<Notifications>(NOTIFICATIONS_SUBSCRIPTION, { client });
+  const { notifications = [] } = data || {};
 
-  const notViwedCount = !loading ? notifications.filter(({ viewed }: any) => !viewed).length : 0;
+  const notViwedCount = !loading ? notifications.filter(({ viewed }) => !viewed).length : 0;
 
   return (
     <div className={classes.root}>
@@ -59,7 +63,7 @@ const Notifications = (props: WithStyles<typeof styles> & TranslationContextProp
   );
 };
 
-export default compose<WithStyles<typeof styles> & TranslationContextProps, any>(
+export default compose<WithStyles<typeof styles> & TranslationContextProps, {}>(
   translate,
   withStyles(styles)
 )(Notifications);
