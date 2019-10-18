@@ -1,5 +1,4 @@
 import React from 'react';
-import { Mutation } from 'react-admin';
 import compose from 'recompose/compose';
 import { List, ListItem, ListItemText, CircularProgress, Typography } from '@material-ui/core';
 import { TranslationContextProps, translate } from 'ra-core';
@@ -16,10 +15,11 @@ export interface Notification {
 interface NotificationListProps extends WithStyles<typeof styles>, TranslationContextProps {
   loading: boolean;
   list: Notification[];
+  onClickItem: (id: number) => void;
 }
 
 const NotificationList = (props: NotificationListProps) => {
-  const { classes, loading, list, translate } = props;
+  const { classes, loading, list, translate, onClickItem } = props;
 
   if (loading) {
     return (
@@ -45,19 +45,15 @@ const NotificationList = (props: NotificationListProps) => {
       className={classes.list}
     >
       {list.map(({ id, text, viewed }) => (
-        <Mutation
+        <ListItem
           key={id}
-          type="UPDATE"
-          resource="notifications"
-          payload={{ id, data: { viewed: true } }}
+          divider
+          button
+          onClick={!viewed ? () => onClickItem(id) : () => { }}
         >
-          {(viewNotification: () => void) => (
-            <ListItem divider button onClick={!viewed ? viewNotification : () => { }}>
-              <ListItemText primary={text} />
-              {!viewed && <div className={classes.new} />}
-            </ListItem>
-          )}
-        </Mutation>
+          <ListItemText primary={text} />
+          {!viewed && <div className={classes.new} />}
+        </ListItem>
       ))}
     </List>
   );

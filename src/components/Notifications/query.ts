@@ -10,3 +10,11 @@ export const NOTIFICATIONS_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const NOTIFICATION_UPDATE = gql`
+  mutation viewNotification($id: Int) {
+    update_notifications(where: {id: {_eq: $id}}, _set: {viewed: true}) {
+      affected_rows
+    }
+  }
+`;
