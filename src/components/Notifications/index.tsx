@@ -39,14 +39,14 @@ const Notifications = (props: WithStyles<typeof styles> & TranslationContextProp
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          {isOpen ? (
+          {isOpen && (
             <Paper className={classes.paper}>
               <div className={classes.header}>
                 <Typography variant="subheading">{translate('root.notifications.title')}</Typography>
               </div>
               <NotificationList onClickItem={onClickNotification} loading={loading} list={notifications} />
             </Paper>
-          ) : null}
+          )}
         </div>
       </ClickAwayListener>
     </div>
