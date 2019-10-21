@@ -4,6 +4,11 @@ export default {
   ...russianMessages,
   root: {
     settings: 'Настройки',
+    notifications: {
+      title: 'Уведомления',
+      noContentTitle: 'Здесь пока ничего нет',
+      noContentText: 'В этом разделе будут собраны уведомления',
+    },
     menu: {
       users: 'Пользователи',
     },

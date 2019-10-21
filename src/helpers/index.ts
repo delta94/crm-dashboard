@@ -1,3 +1,5 @@
+import { getCookie } from './cookies';
+
 const envs: { [key: string]: string } = (window as any)._env_;
 
 export * from './cookies';
@@ -23,3 +25,7 @@ export const isEmailValid =
 export const isPhoneValid =
   // eslint-disable-next-line
   (phone: string) => /^[+]{0,1}[0-9]{0,1}[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/.test(phone);
+
+export const httpUrlToWebSocketUrl = (url = '') => url.replace(/(http)(s)?:\/\//, 'ws$2://');
+
+export const getToken = () => getCookie('TOKEN') || '';

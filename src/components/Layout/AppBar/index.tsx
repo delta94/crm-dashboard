@@ -1,20 +1,20 @@
 import React from 'react';
 import { AppBar, UserMenu, MenuItemLink, translate } from 'react-admin';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import SettingsIcon from '@material-ui/icons/Settings';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import { Typography, IconButton } from '@material-ui/core';
+import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
+import { Settings as SettingsIcon, HelpOutline as HelpOutlineIcon } from '@material-ui/icons';
 import { TranslationContextProps } from 'ra-core';
 import { QilinLogo } from 'assets/icons';
-import { LocaleSwitcher } from 'components';
+import { LocaleSwitcher, Notifications } from 'components';
 
-import styles from './styles';
-
-interface AppBarProps {
-  classes: any;
-}
+const styles = createStyles({
+  spacer: {
+    flex: 1,
+  },
+  switcher: {
+    margin: '0 1em',
+  },
+});
 
 const MyUserMenu = translate((props: TranslationContextProps) => (
   <UserMenu {...props}>
@@ -26,9 +26,9 @@ const MyUserMenu = translate((props: TranslationContextProps) => (
   </UserMenu>
 ));
 
-
-const MyAppBar = (props: AppBarProps) => {
+const MyAppBar = (props: WithStyles<typeof styles>) => {
   const { classes, ...rest } = props;
+
   return (
     <AppBar {...rest} color="default" userMenu={<MyUserMenu />}>
       <QilinLogo />
@@ -37,9 +37,7 @@ const MyAppBar = (props: AppBarProps) => {
       <IconButton color="inherit" href="https://github.com/qilin/crm-dashboard" target="_blank" rel="noopener">
         <HelpOutlineIcon />
       </IconButton>
-      <IconButton color="inherit">
-        <NotificationsIcon />
-      </IconButton>
+      <Notifications />
       <div className={classes.switcher}>
         <LocaleSwitcher />
       </div>
