@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
+import { ApolloClient, NormalizedCacheObject } from 'apollo-boost';
 import { TranslationContextProps, translate } from 'ra-core';
 import { IconButton, Paper, ClickAwayListener, Typography, Badge } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
-import compose from 'recompose/compose';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import client from 'apolloClient';
+import compose from 'recompose/compose';
+
 import NotificationList, { Notification } from './List';
 import { NOTIFICATIONS_SUBSCRIPTION, NOTIFICATION_UPDATE } from './query';
-
 import styles from './styles';
 
 interface Notifications {
   notifications: Notification[];
 }
 
-const Notifications = (props: WithStyles<typeof styles> & TranslationContextProps) => {
+interface WithClient {
+  client: ApolloClient<NormalizedCacheObject>;
+}
+
+type InjectedProps = WithStyles<typeof styles> & TranslationContextProps & WithClient;
+
+const Notifications = (props: InjectedProps) => {
   const { classes, translate } = props;
+  const [client, setClient] = useState(props.client);
   const [isOpen, setOpen] = useState(false);
   const handleClick = () => setOpen(!isOpen);
   const handleClickAway = () => setOpen(false);
@@ -25,6 +33,10 @@ const Notifications = (props: WithStyles<typeof styles> & TranslationContextProp
   const { notifications = [] } = data || {};
   const notViwedCount = !loading ? notifications.filter(({ viewed }) => !viewed).length : 0;
   const onClickNotification = (id: number) => viewNotification({ variables: { id } });
+
+  useEffect(() => {
+    setClient(props.client);
+  }, [props.client]);
 
   return (
     <div className={classes.root}>
@@ -53,7 +65,10 @@ const Notifications = (props: WithStyles<typeof styles> & TranslationContextProp
   );
 };
 
-export default compose<WithStyles<typeof styles> & TranslationContextProps, {}>(
+const mapStateToProps = (state: any) => ({ client: state.client });
+
+export default compose<InjectedProps, {}>(
   translate,
+  connect(mapStateToProps),
   withStyles(styles)
 )(Notifications);
