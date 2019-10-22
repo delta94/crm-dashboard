@@ -2,10 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Loading } from 'react-admin';
 import { Redirect } from 'react-router';
 import { env, getCookie, setCookie } from 'helpers';
+import { connect } from 'react-redux';
+import { userLogin } from 'ra-core';
 
 const fetchUrl = `${env('AUTH_URL')}/jwt`;
 
-const AuthSuccess = () => {
+interface Props {
+  userLogin: any;
+}
+
+const AuthSuccess = (props: Props) => {
   const [loading, setLoading] = useState(true);
   const getJWTToken = async () => {
     const isUserLoggedIn = !!getCookie('TOKEN');
@@ -22,6 +28,7 @@ const AuthSuccess = () => {
       const { jwt } = json;
       setCookie('TOKEN', jwt);
       setLoading(false);
+      props.userLogin({ jwt });
     } catch (error) {
       console.error(error);
       setLoading(false);
@@ -37,4 +44,9 @@ const AuthSuccess = () => {
     : <Redirect to="/" />;
 };
 
-export default AuthSuccess;
+const mapStateToProps = (state: any) => ({ client: state.client });
+
+export default connect(
+  mapStateToProps,
+  { userLogin }
+)(AuthSuccess);

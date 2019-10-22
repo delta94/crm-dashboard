@@ -2,11 +2,11 @@ import { gql } from 'apollo-boost';
 
 export const NOTIFICATIONS_SUBSCRIPTION = gql`
   subscription getNotifications {
-    notifications(order_by: {timestamp: desc}) {
+    notifications(order_by: {created_at: desc}) {
       id
       text
-      timestamp
       viewed
+      created_at
     }
   }
 `;
