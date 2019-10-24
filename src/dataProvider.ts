@@ -2,6 +2,12 @@ import hasuraDataProvider from 'ra-data-hasura';
 import { fetchUtils } from 'ra-core';
 import { env, getCookie } from 'helpers';
 
+const config = {
+  'primaryKey': {
+    'game_platforms': 'platform',
+  },
+};
+
 const httpClient = (url: string, options: any = {}) => {
   if (!options.headers) {
     options.headers = new Headers({ Accept: 'application/json' });
@@ -12,4 +18,4 @@ const httpClient = (url: string, options: any = {}) => {
   return fetchUtils.fetchJson(url, options);
 };
 
-export default hasuraDataProvider(env('API_URL'), httpClient);
+export default hasuraDataProvider(env('API_URL'), httpClient, config);

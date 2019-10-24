@@ -30,7 +30,7 @@ const Menu: React.FC<Props> = (props: Props) => {
       {' '}
       <DashboardMenuItem onClick={onMenuClick} />
       <MenuItemLink
-        to={'/game'}
+        to={'/games'}
         primaryText={translate('resources.games.name')}
         leftIcon={<games.icon />}
       />

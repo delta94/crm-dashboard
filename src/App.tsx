@@ -37,11 +37,13 @@ const App: React.FC = () => {
       history={history}
     >
       <Resource name="groups" {...groups} />
+      <Resource name="group_role" />
       <Resource name="invites" {...invites} />
       <Resource name="users" {...users} />
-      <Resource name="game" {...games} />
-      <Resource name="group_role" />
       <Resource name="user_role" />
+      <Resource name="games" {...games} />
+      <Resource name="game_platforms" />
+      <Resource name="genres" />
     </Admin>
   );
 };
