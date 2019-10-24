@@ -9,6 +9,7 @@ import Login from 'pages/Login';
 import groups from 'resources/Groups';
 import invites from 'resources/Invites';
 import users from 'resources/Users';
+import games from 'resources/Games';
 import { Layout } from 'components';
 import reducers from 'reducers';
 
@@ -38,7 +39,7 @@ const App: React.FC = () => {
       <Resource name="groups" {...groups} />
       <Resource name="invites" {...invites} />
       <Resource name="users" {...users} />
-      {/* Next line need for user_role from useredit */}
+      <Resource name="game" {...games} />
       <Resource name="group_role" />
       <Resource name="user_role" />
     </Admin>

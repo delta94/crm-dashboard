@@ -12,6 +12,7 @@ import {
 import groups from 'resources/Groups';
 import invites from 'resources/Invites';
 import users from 'resources/Users';
+import games from 'resources/Games';
 
 import SubMenu from '../SubMenu';
 
@@ -28,6 +29,11 @@ const Menu: React.FC<Props> = (props: Props) => {
     <div>
       {' '}
       <DashboardMenuItem onClick={onMenuClick} />
+      <MenuItemLink
+        to={'/game'}
+        primaryText={translate('resources.games.name')}
+        leftIcon={<games.icon />}
+      />
       <SubMenu
         sidebarIsOpen={open}
         name="root.menu.users"

@@ -14,6 +14,9 @@ export default {
     },
   },
   resources: {
+    games: {
+      name: 'Игры',
+    },
     invites: {
       name: 'Приглашения',
       fields: {
