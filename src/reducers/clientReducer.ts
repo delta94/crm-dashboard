@@ -1,7 +1,9 @@
 import getClient from 'apolloClient';
 import { USER_LOGIN, USER_LOGOUT } from 'ra-core';
+import { getCookie } from 'helpers';
 
-const defaultClient = getClient('');
+const token = getCookie('TOKEN') || '';
+const defaultClient = getClient(token);
 
 export default (state = defaultClient, action: any) => {
   const { type, payload } = action;
