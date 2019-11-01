@@ -1,4 +1,4 @@
-export const styles = (theme: any) => ({
+export const styles = () => ({
   root: {
     width: '90%',
     padding: '1em',

@@ -16,8 +16,6 @@ import customRoutes from './routes';
 
 const history = createHistory();
 
-
-
 const App: React.FC = () => {
   if (!isEnvDefined()) {
     return <div>Environment variables is not defined</div>;

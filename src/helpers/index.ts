@@ -1,5 +1,3 @@
-import { getCookie } from './cookies';
-
 const envs: { [key: string]: string } = (window as any)._env_;
 
 export * from './cookies';

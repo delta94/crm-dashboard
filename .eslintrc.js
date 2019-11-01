@@ -37,6 +37,8 @@ module.exports = {
     "array-bracket-spacing": ["error", "never"],
     "quotes": ["error", "single"],
     "jsx-quotes": ["error", "prefer-double"],
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+    "eol-last": ["error", "always"],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "off"
   },
