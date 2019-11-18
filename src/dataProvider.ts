@@ -7,7 +7,6 @@ const httpClient = (url: string, options: any = {}) => {
     options.headers = new Headers({ Accept: 'application/json' });
   }
   const token = getCookie('TOKEN') || '';
-  options.headers.set('x-hasura-admin-secret', 'insecure');
   options.headers.set('Authorization', `Bearer ${token}`);
   return fetchUtils.fetchJson(url, options);
 };
