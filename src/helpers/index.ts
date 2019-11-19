@@ -1,6 +1,7 @@
 const envs: { [key: string]: string } = (window as any)._env_;
 
 export * from './cookies';
+export * from './parseJwt';
 
 export const isDevMod = process.env.NODE_ENV === 'development';
 
