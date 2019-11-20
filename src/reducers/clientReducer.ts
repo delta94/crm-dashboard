@@ -9,9 +9,9 @@ export default (state = defaultClient, action: any) => {
   const { type, payload } = action;
   switch (type) {
     case USER_LOGIN:
-      return getClient(payload.jwt);
+      return payload.client;
     case USER_LOGOUT:
-      return getClient('');
+      return null;
     default:
       return state;
   }

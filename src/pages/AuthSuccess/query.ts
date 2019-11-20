@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 export const USER_QUERY = gql`
-  query user {
-    users {
+  query user($id: Int) {
+    users(where: {id: {_eq: $id}}) {
       email
       first_name
       id
