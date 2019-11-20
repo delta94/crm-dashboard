@@ -21,7 +21,10 @@ export const getUser = async (client: ApolloClient<NormalizedCacheObject>, id: n
   const userData = await client.query({
     query: USER_QUERY,
     variables: { id },
-  }).catch(err => console.log(err));
+  }).catch(err => {
+    console.log(err);
+    return null;
+  });
 
-  return userData && userData.data && userData.data.users && userData.data.users[0];
+  return userData && userData.data && userData.data.users && userData.data.users[0] || null;
 };
