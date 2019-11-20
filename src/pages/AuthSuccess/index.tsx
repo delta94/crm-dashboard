@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Loading } from 'react-admin';
 import { Redirect } from 'react-router';
-import { env, setCookie } from 'helpers';
 import { connect } from 'react-redux';
 import { userLogin } from 'ra-core';
 import getClient from 'apolloClient';
-import { getUserId } from 'helpers';
-
-import { USER_QUERY } from './query';
+import { getUserId, getUser, env, setCookie } from 'helpers';
 
 const fetchUrl = `${env('AUTH_URL')}/jwt`;
 
@@ -31,12 +28,8 @@ const AuthSuccess = (props: Props) => {
 
       if (!userId) throw new Error('Unknown user');
 
-      const userData = await client.query({
-        query: USER_QUERY,
-        variables: { id: +userId },
-      }).catch(err => console.log(err));
+      const user = await getUser(client, +userId);
 
-      const user = userData && userData.data && userData.data.users && userData.data.users[0];
       setCookie('TOKEN', jwt);
 
       setLoading(false);

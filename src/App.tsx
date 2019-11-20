@@ -11,6 +11,7 @@ import invites from 'resources/Invites';
 import users from 'resources/Users';
 import { Layout } from 'components';
 import reducers from 'reducers';
+import sagas from 'sagas';
 
 import customRoutes from './routes';
 
@@ -31,6 +32,7 @@ const App: React.FC = () => {
       i18nProvider={i18nProvider}
       customRoutes={customRoutes}
       customReducers={reducers}
+      customSagas={sagas}
       history={history}
     >
       <Resource name="groups" {...groups} />
