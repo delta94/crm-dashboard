@@ -6,6 +6,7 @@ import authProvider from 'authProvider';
 import dataProvider from 'dataProvider';
 import i18nProvider from 'i18nProvider';
 import Login from 'pages/Login';
+import games from 'resources/Games';
 import groups from 'resources/Groups';
 import invites from 'resources/Invites';
 import users from 'resources/Users';
@@ -35,6 +36,7 @@ const App: React.FC = () => {
       customSagas={sagas}
       history={history}
     >
+      <Resource name="games" {...games} />
       <Resource name="groups" {...groups} />
       <Resource name="invites" {...invites} />
       <Resource name="users" {...users} />

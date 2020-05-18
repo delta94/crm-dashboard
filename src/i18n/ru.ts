@@ -41,6 +41,13 @@ export default {
         role: 'Роль',
       },
     },
+    games: {
+      name: 'Игры',
+      fields: {
+        name: 'Название',
+        role: 'Роль',
+      },
+    },
   },
   pages: {
     settings: {
