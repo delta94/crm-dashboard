@@ -7,29 +7,7 @@ import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { TranslationContextProps } from 'ra-core';
 import { translate } from 'react-admin';
 
-import GameGeneral from './GameGeneral';
-import GameDescription from './GameDescription';
-import GameRatings from './GameRatings';
-import GameMedia from './GameMedia';
-
-const tabs = [
-  {
-    label: 'general',
-    Component: GameGeneral,
-  },
-  {
-    label: 'description',
-    Component: GameDescription,
-  },
-  {
-    label: 'ratings',
-    Component: GameRatings,
-  },
-  {
-    label: 'media',
-    Component: GameMedia,
-  },
-];
+import gameTabs from './gameTabs';
 
 interface TabContainerProps {
   children: ReactNode;
@@ -70,12 +48,12 @@ const GameTabs = (props: WithStyles<typeof styles> & TranslationContextProps) =>
           scrollable
           scrollButtons="auto"
         >
-          {tabs.map(({ label }) => (
+          {gameTabs.map(({ label }) => (
             <Tab label={translate(`resources.games.tabs.${label}`)} key={label} />
           ))}
         </Tabs>
       </AppBar>
-      {tabs.map(({ Component }, index) => (
+      {gameTabs.map(({ Component }, index) => (
         activeTab === index && <TabContainer><Component /></TabContainer>
       ))}
     </div>
