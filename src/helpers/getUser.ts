@@ -26,5 +26,5 @@ export const getUser = async (client: ApolloClient<NormalizedCacheObject>, id: n
     return null;
   });
 
-  return userData && userData.data && userData.data.users && userData.data.users[0] || null;
+  return (userData && userData.data && userData.data.users && userData.data.users[0]) || null;
 };

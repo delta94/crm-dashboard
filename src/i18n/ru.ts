@@ -41,6 +41,19 @@ export default {
         role: 'Роль',
       },
     },
+    games: {
+      name: 'Игры',
+      fields: {
+        name: 'Название',
+        role: 'Роль',
+      },
+      tabs: {
+        general: 'Главная',
+        description: 'Описание',
+        ratings: 'Рейтинги',
+        media: 'Медиа',
+      },
+    },
   },
   pages: {
     settings: {
