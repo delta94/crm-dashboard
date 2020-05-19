@@ -42,6 +42,7 @@ const AuthSuccess = (props: Props) => {
 
   useEffect(() => {
     onAuthSuccess();
+    // eslint-disable-next-line
   }, []);
 
   return loading

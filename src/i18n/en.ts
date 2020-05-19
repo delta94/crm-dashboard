@@ -47,6 +47,12 @@ export default {
         name: 'Name',
         role: 'Role',
       },
+      tabs: {
+        general: 'General',
+        description: 'Description',
+        ratings: 'Ratings',
+        media: 'Media',
+      },
     },
   },
   pages: {
