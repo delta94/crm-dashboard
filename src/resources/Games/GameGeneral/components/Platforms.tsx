@@ -40,7 +40,7 @@ const Platforms = (props: any) => {
               .map(platform => formData.platforms[platform] ? platform : '')
               .filter(Boolean)
             : [];
-          console.log(formData);
+
           return <PlatformsTabs platforms={platforms} />;
         }}
       </FormDataConsumer>

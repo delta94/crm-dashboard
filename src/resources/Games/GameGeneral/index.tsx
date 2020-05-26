@@ -10,6 +10,7 @@ import Platforms from './components/Platforms';
 
 const GameGeneral = (props: any) => {
   const { translate } = props;
+
   return (
     <SimpleForm redirect="list">
       <TextInput source="title" label="resources.games.fields.title" fullWidth />
