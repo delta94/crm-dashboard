@@ -9025,11 +9025,6 @@ ra-core@^2.9.6:
     redux-saga "~0.16.0"
     reselect "~3.0.0"
 
-ra-data-hasura@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/ra-data-hasura/-/ra-data-hasura-0.0.7.tgz#484c62492a53d154f66db9655e54e46c12f4affd"
-  integrity sha512-y9+W5QQjG4byTJoyoFw4alZ5SRslf/3qXGIMPAibo6HIarPx/F4MSVSAI2/QXpiGwmNkOe8yq38nlep4Mvp6ig==
-
 ra-language-english@^2.9.3:
   version "2.9.3"
   resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-2.9.3.tgz#346528ad8bc54c16ba23c011b7866d98541c6d7b"

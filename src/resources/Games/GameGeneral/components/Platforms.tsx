@@ -35,7 +35,7 @@ const Platforms = (props: any) => {
       </Grid>
       <FormDataConsumer>
         {({ formData }: any) => {
-          const platforms: string[] = formData.platforms
+          const platforms: string[] = formData && formData.platforms
             ? Object.keys(formData.platforms)
               .map(platform => formData.platforms[platform] ? platform : '')
               .filter(Boolean)

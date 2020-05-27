@@ -40,7 +40,7 @@ const App: React.FC = () => {
       <Resource name="groups" {...groups} />
       <Resource name="invites" {...invites} />
       <Resource name="users" {...users} />
-      {/* Next line need for user_role from useredit */}
+
       <Resource name="group_role" />
       <Resource name="user_role" />
     </Admin>
