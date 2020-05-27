@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { fetchUtils } from 'ra-core';
-import { env, getCookie } from 'helpers';
+import { env } from 'helpers';
 import {
   GET_LIST,
   GET_ONE,
@@ -10,15 +10,6 @@ import {
   GET_MANY,
   GET_MANY_REFERENCE,
 } from 'react-admin';
-
-// const httpClient = (url: string, options: any = {}) => {
-//   if (!options.headers) {
-//     options.headers = new Headers({ Accept: 'application/json' });
-//   }
-//   const token = getCookie('TOKEN') || '';
-//   options.headers.set('Authorization', `Bearer ${token}`);
-//   return fetchUtils.fetchJson(url, options);
-// };
 
 const apiUrl = `${env('API_URL')}/api/v1`;
 
