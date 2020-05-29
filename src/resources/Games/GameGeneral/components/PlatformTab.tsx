@@ -4,7 +4,7 @@ import { translate } from 'ra-core';
 import { Typography, Paper, Grid } from '@material-ui/core';
 import { capitalize } from 'helpers';
 import { createStyles, withStyles } from '@material-ui/core/styles';
-import { compose } from 'recompose';
+import compose from 'recompose/compose';
 
 const styles = createStyles({
   root: {
