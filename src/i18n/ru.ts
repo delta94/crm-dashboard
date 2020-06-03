@@ -132,6 +132,28 @@ export default {
           storage: 'Storage',
           other: 'Other',
         },
+        description: {
+          label: 'Description',
+        },
+        summary: {
+          label: 'Summary',
+        },
+        review: {
+          label: 'Review',
+          pressName: 'Press name',
+          link: 'The link',
+          quote: 'Quote',
+          score: 'Score',
+        },
+        socialLinks: {
+          label: 'Social links',
+          facebook: 'Facebook',
+          reddit: 'Reddit',
+          twitter: 'Twitter',
+          twitch: 'Twitch',
+          youTube: 'YouTube',
+          discord: 'Discord',
+        },
       },
       tabs: {
         general: 'General',
