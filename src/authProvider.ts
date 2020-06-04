@@ -16,9 +16,10 @@ const authProvider: AuthProvider = (type, params) => {
   }
   // called when the user navigates to a new location
   if (type === AUTH_CHECK) {
-    return getCookie('TOKEN')
-      ? Promise.resolve()
-      : Promise.reject();
+    // return getCookie('TOKEN')
+    //   ? Promise.resolve()
+    //   : Promise.reject();
+    return Promise.resolve();
   }
   // called when the api request return error
   if (type === AUTH_ERROR) {
