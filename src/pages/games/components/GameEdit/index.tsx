@@ -1,10 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Game } from 'types/games';
-import { makeStyles } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { makeStyles, Paper, Tabs, Tab } from '@material-ui/core';
 
 import General from './components/General';
 import Rating from './components/Rating';

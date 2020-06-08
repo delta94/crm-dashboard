@@ -1,18 +1,28 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { makeStyles, FormGroup } from '@material-ui/core';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import {
+  makeStyles,
+  FormGroup,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  TextField,
+  DialogActions,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+} from '@material-ui/core';
 
 interface Props {
   open: boolean;
   onClose: () => void;
 }
+
+const gameTypes = ['desktop', 'web'];
 
 const useStyles = makeStyles({
   field: {
@@ -90,17 +100,27 @@ const GameCreate = (props: Props) => {
               helperText={formik.errors.slug}
             />
           </FormGroup>
-          <FormGroup className={classes.field}>
-            <TextField
-              error={!!formik.errors.type}
+          <FormControl
+            variant="outlined"
+            error={!!formik.errors.type}
+            className={classes.field}
+          >
+            <InputLabel>{t('games.fields.type')}</InputLabel>
+            <Select
               name="type"
               label={t('games.fields.type')}
               variant="outlined"
               value={formik.values.type}
               onChange={formik.handleChange}
-              helperText={formik.errors.type}
-            />
-          </FormGroup>
+            >
+              {gameTypes.map(type => (
+                <MenuItem value={type} key={type}>{type}</MenuItem>
+              ))}
+            </Select>
+            {formik.errors.type && (
+              <FormHelperText>{formik.errors.type}</FormHelperText>
+            )}
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancell} color="primary">
