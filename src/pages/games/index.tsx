@@ -35,9 +35,9 @@ const GamesPage = () => {
   const gamesList = Object.values(gamesMap);
   const game = gamesMap[id];
 
-  if (!game) return <GamesList games={gamesList} />;
+  if (!game) return <GamesList onUpdate={getGames} games={gamesList} />;
 
-  return <GameEdit game={game} />;
+  return <GameEdit game={game} onUpdate={getGames} />;
 };
 
 export default GamesPage;

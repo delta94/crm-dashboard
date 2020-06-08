@@ -1,11 +1,11 @@
 const apiUrl = `${process.env.REACT_APP_API_URL}`;
 
-const getGamesUrl = `${apiUrl}/games`;
-const getDevelopersUrl = `${apiUrl}/developers`;
-const getPublishersUrl = `${apiUrl}/publishers`;
-const getTagsUrl = `${apiUrl}/tags`;
-const getGenresUrl = `${apiUrl}/genres`;
-const getFeaturesUrl = `${apiUrl}/features`;
+const gamesUrl = `${apiUrl}/games`;
+const developersUrl = `${apiUrl}/developers`;
+const publishersUrl = `${apiUrl}/publishers`;
+const tagsUrl = `${apiUrl}/tags`;
+const genresUrl = `${apiUrl}/genres`;
+const featuresUrl = `${apiUrl}/features`;
 
 const getGETRequest = (url: string) => async () => {
   try {
@@ -20,9 +20,30 @@ const getGETRequest = (url: string) => async () => {
   }
 };
 
-export const getGamesRequest = getGETRequest(getGamesUrl);
-export const getDevelopersRequest = getGETRequest(getDevelopersUrl);
-export const getPublishersRequest = getGETRequest(getPublishersUrl);
-export const getTagsRequest = getGETRequest(getTagsUrl);
-export const getGenresRequest = getGETRequest(getGenresUrl);
-export const getFeaturesRequest = getGETRequest(getFeaturesUrl);
+const getPOSTRequest = (url: string) => async (data: any) => {
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
+
+    if (res.status !== 200) throw new Error(json.error);
+
+    return { json };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const getGamesRequest = getGETRequest(gamesUrl);
+export const getDevelopersRequest = getGETRequest(developersUrl);
+export const getPublishersRequest = getGETRequest(publishersUrl);
+export const getTagsRequest = getGETRequest(tagsUrl);
+export const getGenresRequest = getGETRequest(genresUrl);
+export const getFeaturesRequest = getGETRequest(featuresUrl);
+
+export const createOrUpdateGameRequest = getPOSTRequest(gamesUrl);

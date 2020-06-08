@@ -3,6 +3,7 @@ export default {
   translation: {
     save: 'Save',
     create: 'Create',
+    openOnCreate: 'Open on create',
     cancell: 'Cancell',
     name: 'Name',
     slug: 'Slug',

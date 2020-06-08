@@ -16,10 +16,11 @@ const useStyles = makeStyles({
 
 interface Props {
   game: Game;
+  onUpdate: () => void;
 }
 
 const GameEdit = (props: Props) => {
-  const { game } = props;
+  const { game, onUpdate } = props;
   const classes = useStyles();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = React.useState(0);

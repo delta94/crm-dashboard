@@ -38,11 +38,12 @@ const useStyles = makeStyles({
 
 interface Props {
   games: Game[];
+  onUpdate: () => void;
 }
 
 const GamesList = (props: Props) => {
   const { t } = useTranslation();
-  const { games } = props;
+  const { games, onUpdate } = props;
   const classes = useStyles();
   const history = useHistory();
   const [page, setPage] = useState(0);
@@ -115,6 +116,7 @@ const GamesList = (props: Props) => {
       <GameCreate
         open={openModal}
         onClose={handleCloseModal}
+        onUpdate={onUpdate}
       />
     </Paper>
   );
