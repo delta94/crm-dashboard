@@ -1,50 +1,35 @@
-import React from 'react';
-import { Admin, Resource } from 'react-admin';
-import { createBrowserHistory as createHistory } from 'history';
-import { isEnvDefined } from 'helpers';
-import authProvider from 'authProvider';
-import dataProvider from 'dataProvider';
-import i18nProvider from 'i18nProvider';
-import Login from 'pages/Login';
-import games from 'resources/Games';
-import groups from 'resources/Groups';
-import invites from 'resources/Invites';
-import users from 'resources/Users';
-import { Layout } from 'components';
-import reducers from 'reducers';
-import sagas from 'sagas';
+import React, { Suspense } from 'react';
+import 'fontsource-roboto';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
+import Layout from 'components/layout';
 
-import customRoutes from './routes';
+import './i18n';
 
-const history = createHistory();
+const Games = React.lazy(() => import('./pages/games'));
 
-const App: React.FC = () => {
-  if (!isEnvDefined()) {
-    return <div>Environment variables is not defined</div>;
-  }
-
+function App() {
   return (
-    <Admin
-      appLayout={Layout}
-      loginPage={Login}
-      dataProvider={dataProvider}
-      authProvider={authProvider}
-      locale="en"
-      i18nProvider={i18nProvider}
-      customRoutes={customRoutes}
-      customReducers={reducers}
-      customSagas={sagas}
-      history={history}
-    >
-      <Resource name="games" {...games} />
-      <Resource name="groups" {...groups} />
-      <Resource name="invites" {...invites} />
-      <Resource name="users" {...users} />
-
-      <Resource name="group_role" />
-      <Resource name="user_role" />
-    </Admin>
+    <Router>
+      <Suspense fallback={<div>Загрузка...</div>}>
+        <Layout>
+          <Switch>
+            <Route path="/games" exact>
+              <Games />
+            </Route>
+            <Route path="/games/:id">
+              <Games />
+            </Route>
+            <Redirect to="/games" />
+          </Switch>
+        </Layout>
+      </Suspense>
+    </Router>
   );
-};
+}
 
 export default App;
