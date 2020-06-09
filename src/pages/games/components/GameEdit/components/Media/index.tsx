@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Game } from 'types/games';
+import ImageUpload from './components/ImageUpload';
+import { Typography } from '@material-ui/core';
 
 interface Props {
   game: Game;
@@ -8,12 +10,19 @@ interface Props {
 }
 
 const Media = (props: Props) => {
+  const { game, onEdit } = props;
+  const { covers, screenshots } = game.revision.media;
+  console.log(covers, screenshots);
   const { t } = useTranslation();
 
   return (
-    <h2>
-      {t('Media')}
-    </h2>
+    <div>
+      <Typography gutterBottom variant="h6">
+        {t('games.fields.media.label')}
+      </Typography>
+      <ImageUpload type="vertical" onChangeId={() => { console.log(''); }} />
+      <ImageUpload type="horizontal" onChangeId={() => { console.log(''); }} />
+    </div>
   );
 };
 

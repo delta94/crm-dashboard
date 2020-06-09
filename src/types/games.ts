@@ -21,10 +21,22 @@ export interface MediaType {
   ResultWidth: number;
 }
 
-export interface Media {
+export interface Image {
   id: number;
-  type: MediaType;
+  type: string;
   url: string;
+}
+
+export interface Media {
+  covers: {
+    catalog: Image;
+    horizontal: Image;
+    horizontal_small: Image;
+    large_single: Image;
+    vertical: Image;
+    wide_slider: Image;
+  };
+  screenshots: Image[] | null;
 }
 
 export interface Rating {
@@ -71,7 +83,7 @@ export interface Revision {
   id: number;
   license: string;
   localization?: Localization[];
-  media: Media[];
+  media: Media;
   platforms: string[];
   play_time: number;
   rating: Rating[];

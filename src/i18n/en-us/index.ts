@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable max-len */
 export default {
   translation: {
     save: 'Save',
     create: 'Create',
+    upload: 'Upload',
+    replace: 'Replace',
     openOnCreate: 'Open on create',
     cancell: 'Cancell',
     name: 'Name',
@@ -128,6 +131,16 @@ export default {
           You may only enter a rating below if your game has been rated by that rating agency.`,
           displayOnlineNotice: 'Display online rating notice',
           showAgeRestrict: 'Show age restrict',
+        },
+        media: {
+          label: 'Media',
+          catalog: 'Catalog',
+          horizontal: 'Horizontal',
+          horizontal_small: 'Horizontal small',
+          large_single: 'Large single',
+          vertical: 'Vertical',
+          wide_slider: 'Wide slider',
+          screenshots: 'Screenshots',
         },
       },
       tabs: {
