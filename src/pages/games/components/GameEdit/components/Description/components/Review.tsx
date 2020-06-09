@@ -51,6 +51,7 @@ const Review = (props: Props) => {
           />
           <TextField
             variant="outlined"
+            type="number"
             label={t('games.fields.review.score')}
             name={`review[${i}.score]`}
             value={value[i].score}

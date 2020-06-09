@@ -11,6 +11,7 @@ import SocialLinks from './components/SocialLinks';
 
 interface Props {
   game: Game;
+  onEdit: (data: any) => void;
 }
 
 const useStyles = makeStyles({
@@ -20,7 +21,8 @@ const useStyles = makeStyles({
 });
 
 const Description = (props: Props) => {
-  const { revision } = props.game;
+  const { game, onEdit } = props;
+  const { revision } = game;
   const {
     summary = '',
     description: initDescription = '',
@@ -38,7 +40,12 @@ const Description = (props: Props) => {
       social_links,
     },
     onSubmit: (values: any) => {
-      console.log(values);
+      const gameData = {
+        ...values,
+        description,
+      };
+
+      onEdit(gameData);
     },
   });
 
@@ -49,7 +56,7 @@ const Description = (props: Props) => {
       </Typography>
       <FormGroup className={classes.field}>
         <TextField
-          name="title"
+          name="summary"
           label={t('games.fields.summary.label')}
           variant="outlined"
           value={formik.values.summary}

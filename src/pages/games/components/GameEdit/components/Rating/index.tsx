@@ -17,10 +17,11 @@ import {
   Grid,
 } from '@material-ui/core';
 
-import agencies from './agencies';
+import { agencies, labels } from './const';
 
 interface Props {
   game: Game;
+  onEdit: (data: any) => void;
 }
 
 const useStyles = makeStyles({
@@ -33,7 +34,8 @@ const useStyles = makeStyles({
 });
 
 const Rating = (props: Props) => {
-  const { revision } = props.game;
+  const { game, onEdit } = props;
+  const { revision } = game;
   const { rating = [] } = revision;
   const classes = useStyles();
   const { t } = useTranslation();
@@ -46,7 +48,15 @@ const Rating = (props: Props) => {
   const formik = useFormik({
     initialValues: { rating: ratingMap },
     onSubmit: (values: any) => {
-      console.log(values);
+      const ratingMap = values.rating;
+      const gameData = {
+        rating: Object.keys(ratingMap).map(agency => ({
+          ...ratingMap[agency],
+          agency,
+        })),
+      };
+
+      onEdit(gameData);
     },
   });
 
@@ -56,7 +66,7 @@ const Rating = (props: Props) => {
         {t('games.fields.rating.warning')}
       </Typography>
       <Grid container>
-        {agencies.map(({ name, ageLabels }) => (
+        {agencies.map(name => (
           <Grid item sm={6} key={name} className={classes.field}>
             <Typography variant="h6">
               {name}
@@ -66,11 +76,11 @@ const Rating = (props: Props) => {
               <Select
                 value={formik.values.rating[name]?.agency}
                 onChange={formik.handleChange}
-                name={`rating.${name}.agency`}
+                name={`rating.${name}.rating`}
                 className={classes.field}
                 label={t('games.fields.rating.label')}
               >
-                {ageLabels.map(age => (
+                {labels.map(age => (
                   <MenuItem key={age} value={age}>
                     {age}
                   </MenuItem>

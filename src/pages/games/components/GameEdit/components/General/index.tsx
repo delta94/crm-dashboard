@@ -17,6 +17,7 @@ import SystemRequirements from './components/SystemRequirements';
 
 interface Props {
   game: Game;
+  onEdit: (data: any) => void;
 }
 
 const useStyles = makeStyles({
@@ -25,15 +26,26 @@ const useStyles = makeStyles({
   },
 });
 
+const transformRequirements = (requirements: any) => {
+  const { disk_space, ram, diskSpaceUnit = 1, ramUnit = 1, ...rest } = requirements;
+
+  return {
+    ...rest,
+    ...(disk_space && { disk_space: disk_space * diskSpaceUnit }),
+    ...(ram && { ram: ram * ramUnit }),
+  };
+};
+
 const General = (props: Props) => {
-  const { revision, title, slug, id } = props.game;
+  const { game, onEdit } = props;
+  const { revision, title } = game;
   const {
     developers = [],
     publishers = [],
     localization = [],
     genres = [],
     tags = [],
-    release_date = '',
+    release_date,
     features = [],
     controllers = '',
     system_requirements = [],
@@ -50,9 +62,7 @@ const General = (props: Props) => {
 
   const formik = useFormik({
     initialValues: {
-      id,
       title,
-      slug,
       developers,
       publishers,
       localization,
@@ -65,7 +75,26 @@ const General = (props: Props) => {
       platforms,
     },
     onSubmit: (values: any) => {
-      console.log(values);
+      const { release_date, requirements: requirementsMap } = values;
+      const releaseDateISO = release_date ? new Date(release_date).toISOString() : release_date;
+
+      const gameData = {
+        ...values,
+        release_date: releaseDateISO,
+        system_requirements: Object.keys(requirementsMap).map(platform => {
+          const { minimal, recommended } = requirementsMap[platform];
+
+          return {
+            platform,
+            minimal: transformRequirements(minimal),
+            recommended: transformRequirements(recommended),
+          };
+        }),
+      };
+
+      // console.log(gameData);
+
+      onEdit(gameData);
     },
   });
 

@@ -29,11 +29,12 @@ const useStyles = makeStyles({
 interface Props {
   value: any;
   onChange: (e: React.ChangeEvent<any>) => void;
+  nameSpace: string;
   title: string;
 }
 
 const Requirements = (props: Props) => {
-  const { value = {}, onChange, title } = props;
+  const { value = {}, onChange, title, nameSpace } = props;
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -44,16 +45,16 @@ const Requirements = (props: Props) => {
       </Typography>
       <FormGroup className={classes.field}>
         <TextField
-          name="requirements.os"
+          name={`${nameSpace}.os`}
           label={t('games.fields.supportedPlatforms.system')}
           variant="outlined"
-          value={value.cpu}
+          value={value.os}
           onChange={onChange}
         />
       </FormGroup>
       <FormGroup className={classes.field}>
         <TextField
-          name="requirements.cpu"
+          name={`${nameSpace}.cpu`}
           label={t('games.fields.supportedPlatforms.processor')}
           variant="outlined"
           value={value.cpu}
@@ -62,16 +63,16 @@ const Requirements = (props: Props) => {
       </FormGroup>
       <FormGroup className={classes.field}>
         <TextField
-          name="requirements.gpu"
+          name={`${nameSpace}.gpu`}
           label={t('games.fields.supportedPlatforms.graphics')}
           variant="outlined"
-          value={value.cpu}
+          value={value.gpu}
           onChange={onChange}
         />
       </FormGroup>
       <div className={classes.field}>
         <TextField
-          name="requirements.disk_space"
+          name={`${nameSpace}.disk_space`}
           type="number"
           label={t('games.fields.supportedPlatforms.storage')}
           variant="outlined"
@@ -80,9 +81,9 @@ const Requirements = (props: Props) => {
           className={classes.halfField}
         />
         <Select
-          name="requirements.diskSpaceUnit"
+          name={`${nameSpace}.diskSpaceUnit`}
           variant="outlined"
-          value={value.cpu}
+          value={value.diskSpaceUnit}
           onChange={onChange}
           className={classes.halfField}
           defaultValue={1}
@@ -93,7 +94,7 @@ const Requirements = (props: Props) => {
       </div>
       <div className={classes.field}>
         <TextField
-          name="requirements.ram"
+          name={`${nameSpace}.ram`}
           type="number"
           label={t('games.fields.supportedPlatforms.memory')}
           variant="outlined"
@@ -102,9 +103,9 @@ const Requirements = (props: Props) => {
           className={classes.halfField}
         />
         <Select
-          name="requirements.ramUnit"
+          name={`${nameSpace}.ramUnit`}
           variant="outlined"
-          value={value.cpu}
+          value={value.ramUnit}
           onChange={onChange}
           className={classes.halfField}
           defaultValue={1}

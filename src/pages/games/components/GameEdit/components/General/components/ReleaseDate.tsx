@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { TextField, Typography, Box } from '@material-ui/core';
 
 interface Props {
-  value: string;
+  value?: string;
   onChange: (e: React.ChangeEvent<any>) => void;
 }
 
@@ -23,7 +23,7 @@ const ReleaseDate = (props: Props) => {
         type="date"
         variant="outlined"
         name="release_date"
-        value={value.slice(0, 10)}
+        value={value && value.slice(0, 10)}
         onChange={onChange}
       />
     </Box>

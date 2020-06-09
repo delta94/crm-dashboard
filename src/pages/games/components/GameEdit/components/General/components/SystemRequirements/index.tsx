@@ -29,6 +29,11 @@ const useStyles = makeStyles({
   },
 });
 
+// const defaultRequirements = {
+//   minimal: {},
+//   recommended: {},
+// }
+
 interface Props {
   platformsValue: string[];
   requirementsValue: any;
@@ -89,26 +94,36 @@ const SystemRequirements = (props: Props) => {
       </Paper>
 
       {
-        platformsValue.map(platform => (
-          <div key={platform} className={classes.tab} hidden={activeTab !== platform}>
-            <Grid container>
-              <Grid item xs={12} md={6}>
-                <Requirements
-                  value={requirementsValue[platform]?.minimal}
-                  onChange={onChange}
-                  title={t('games.fields.supportedPlatforms.minimal')}
-                />
+        platformsValue.map(platform => {
+          if (!requirementsValue[platform]) {
+            requirementsValue[platform] = {
+              minimal: {},
+              recommended: {},
+            };
+          }
+          return (
+            <div key={platform} className={classes.tab} hidden={activeTab !== platform}>
+              <Grid container>
+                <Grid item xs={12} md={6}>
+                  <Requirements
+                    nameSpace={`requirements.${platform}.minimal`}
+                    value={requirementsValue[platform].minimal}
+                    onChange={onChange}
+                    title={t('games.fields.supportedPlatforms.minimal')}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Requirements
+                    nameSpace={`requirements.${platform}.recommended`}
+                    value={requirementsValue[platform].recommended}
+                    onChange={onChange}
+                    title={t('games.fields.supportedPlatforms.recommended')}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <Requirements
-                  value={requirementsValue[platform]?.minimal}
-                  onChange={onChange}
-                  title={t('games.fields.supportedPlatforms.recommended')}
-                />
-              </Grid>
-            </Grid>
-          </div>
-        ))
+            </div>
+          );
+        })
       }
     </Box >
   );

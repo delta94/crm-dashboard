@@ -40,10 +40,8 @@ const SocialLinks = (props: Props) => {
 
   const handleAddLink = () => {
     value[count] = {
-      press_name: '',
-      link: '',
-      score: '',
-      quote: '',
+      type: '',
+      url: '',
     };
 
     setCount(count + 1);
