@@ -93,12 +93,12 @@ export interface Revision {
   summary: string;
   system_requirements?: SystemRequirements[];
   trailer: string;
-  developers?: number[];
-  publishers?: number[];
-  genres?: number[];
-  tags?: number[];
+  developers?: NameWithId[];
+  publishers?: NameWithId[];
+  genres?: NameWithId[];
+  tags?: NameWithId[];
   release_date?: string;
-  features?: number[];
+  features?: NameWithId[];
   controllers?: string;
 }
 

@@ -47,7 +47,6 @@ const General = (props: Props) => {
     tags = [],
     release_date,
     features = [],
-    controllers = '',
     system_requirements = [],
     platforms = [],
   } = revision;
@@ -63,23 +62,22 @@ const General = (props: Props) => {
   const formik = useFormik({
     initialValues: {
       title,
-      developers,
-      publishers,
+      developers: developers.map(({ id }) => id),
+      publishers: publishers.map(({ id }) => id),
       localization,
-      genres,
-      tags,
+      genres: genres.map(({ id }) => id),
+      tags: tags.map(({ id }) => id),
       release_date,
-      features,
-      controllers,
+      features: features.map(({ id }) => id),
       requirements,
       platforms,
     },
     onSubmit: (values: any) => {
-      const { release_date, requirements: requirementsMap } = values;
+      const { release_date, requirements: requirementsMap, ...rest } = values;
       const releaseDateISO = release_date ? new Date(release_date).toISOString() : release_date;
 
       const gameData = {
-        ...values,
+        ...rest,
         release_date: releaseDateISO,
         system_requirements: Object.keys(requirementsMap).map(platform => {
           const { minimal, recommended } = requirementsMap[platform];
@@ -91,8 +89,6 @@ const General = (props: Props) => {
           };
         }),
       };
-
-      // console.log(gameData);
 
       onEdit(gameData);
     },
@@ -153,12 +149,6 @@ const General = (props: Props) => {
       <FormGroup className={classes.field}>
         <Features
           value={formik.values.features}
-          onChange={formik.handleChange}
-        />
-      </FormGroup>
-      <FormGroup className={classes.field}>
-        <Controllers
-          value={formik.values.controllers}
           onChange={formik.handleChange}
         />
       </FormGroup>
