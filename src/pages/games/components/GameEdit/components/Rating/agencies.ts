@@ -1,4 +1,4 @@
-export const agencies = [
+export default [
   {
     name: 'ESRB',
     labels: [

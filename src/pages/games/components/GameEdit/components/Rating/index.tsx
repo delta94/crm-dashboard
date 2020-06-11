@@ -16,7 +16,7 @@ import {
   Grid,
 } from '@material-ui/core';
 
-import { agencies } from './const';
+import agencies from './agencies';
 
 interface Props {
   game: Game;

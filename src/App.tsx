@@ -6,7 +6,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import Layout from 'components/layout';
+import Layout from 'components/Layout';
 
 import './i18n';
 

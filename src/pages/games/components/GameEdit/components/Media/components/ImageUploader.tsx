@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Button } from '@material-ui/core';
 import { createGameMediaRequest, uploadMediaRequest } from 'api';
+import { snakeToCamelCase } from 'helpers';
 
 const useStyles = makeStyles({
   imageWrapper: {
@@ -47,7 +48,9 @@ const ImageUpload = (props: Props) => {
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.currentTarget.files;
-    const { error: createError, json: createJson } = await createGameMediaRequest({ type });
+    const { error: createError, json: createJson } = await createGameMediaRequest({
+      type: snakeToCamelCase(type),
+    });
 
     if (createError) {
       alert(createError.message);
