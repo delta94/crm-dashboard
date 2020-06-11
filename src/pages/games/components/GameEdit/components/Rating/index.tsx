@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Game, Rating as RatingType } from 'types/games';
@@ -17,7 +16,7 @@ import {
   Grid,
 } from '@material-ui/core';
 
-import { agencies, labels } from './const';
+import { agencies } from './const';
 
 interface Props {
   game: Game;
@@ -40,7 +39,11 @@ const Rating = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const ratingMap = rating.reduce((acc: Record<string, RatingType>, item) => {
-    acc[item.agency] = item;
+    acc[item.agency] = {
+      display_online_notice: false,
+      show_age_restrict: false,
+      ...item,
+    };
 
     return acc;
   }, {});
@@ -66,7 +69,7 @@ const Rating = (props: Props) => {
         {t('games.fields.rating.warning')}
       </Typography>
       <Grid container>
-        {agencies.map(name => (
+        {agencies.map(({ name, labels }) => (
           <Grid item sm={6} key={name} className={classes.field}>
             <Typography variant="h6">
               {name}

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable max-len */
 export default {
   translation: {
@@ -6,6 +5,7 @@ export default {
     create: 'Create',
     upload: 'Upload',
     replace: 'Replace',
+    add: 'Add',
     openOnCreate: 'Open on create',
     cancell: 'Cancell',
     name: 'Name',

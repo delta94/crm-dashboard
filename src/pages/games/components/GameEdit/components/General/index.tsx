@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Game, SystemRequirements as SystemRequirementsType } from 'types/games';
@@ -12,7 +11,6 @@ import Genres from './components/Genres';
 import Tags from './components/Tags';
 import ReleaseDate from './components/ReleaseDate';
 import Features from './components/Features';
-import Controllers from './components/Controllers';
 import SystemRequirements from './components/SystemRequirements';
 
 interface Props {

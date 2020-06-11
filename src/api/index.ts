@@ -29,6 +29,29 @@ const getPOSTRequest = (url: string) => async (data: any) => {
       },
       body: JSON.stringify(data),
     });
+
+    const json = await res.json();
+
+    if (res.status !== 200) throw new Error(json.error);
+
+    return { json };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const uploadMediaRequest = async (id: string, file: Blob) => {
+  const url = `${gamesUrl}/media/${id}`;
+  const formData = new FormData();
+
+  formData.append('image', file);
+
+  try {
+    const res = await fetch(url, {
+      method: 'PUT',
+      body: formData,
+    });
+
     const json = await res.json();
 
     if (res.status !== 200) throw new Error(json.error);
@@ -47,3 +70,4 @@ export const getGenresRequest = getGETRequest(genresUrl);
 export const getFeaturesRequest = getGETRequest(featuresUrl);
 
 export const createOrUpdateGameRequest = getPOSTRequest(gamesUrl);
+export const createGameMediaRequest = getPOSTRequest(`${gamesUrl}/media`);
