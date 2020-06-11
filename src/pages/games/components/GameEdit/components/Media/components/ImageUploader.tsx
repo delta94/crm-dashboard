@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Button } from '@material-ui/core';
+import { makeStyles, Button, CircularProgress } from '@material-ui/core';
 import { createGameMediaRequest, uploadMediaRequest } from 'api';
 import { snakeToCamelCase } from 'helpers';
 
@@ -43,28 +43,41 @@ interface Props {
 const ImageUpload = (props: Props) => {
   const { type, src, onChangeId, multiple = false } = props;
   const [imageSrc, setImageSrc] = useState(src);
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
   const { t } = useTranslation();
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.currentTarget.files;
+
+    setLoading(true);
+
     const { error: createError, json: createJson } = await createGameMediaRequest({
       type: snakeToCamelCase(type),
     });
 
     if (createError) {
       alert(createError.message);
+      setLoading(false);
+
       return;
     }
 
-    if (!fileList || !fileList[0]) return;
+    if (!fileList || !fileList[0]) {
+      setLoading(false);
+
+      return;
+    }
 
     const { id } = createJson;
 
     const { error: uploadError, json: uploadJson } = await uploadMediaRequest(id, fileList[0]);
 
+    setLoading(false);
+
     if (uploadError) {
       alert(uploadError.message);
+
       return;
     }
 
@@ -88,9 +101,16 @@ const ImageUpload = (props: Props) => {
             type="file"
             accept="image/png"
             onChange={handleImageChange}
+            disabled={loading}
             hidden
           />
-          <Button variant="contained" color="primary" component="span">
+          <Button
+            variant="contained"
+            color="primary"
+            component="span"
+            disabled={loading}
+            startIcon={loading && <CircularProgress size="1em" />}
+          >
             {imageSrc ? t('replace') : t('upload')}
           </Button>
         </label>
