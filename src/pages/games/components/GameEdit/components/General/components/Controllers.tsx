@@ -40,7 +40,6 @@ const Controllers = (props: Props) => {
         />
       </RadioGroup>
     </Box>
-
   );
 };
 

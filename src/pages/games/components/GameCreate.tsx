@@ -77,7 +77,6 @@ const GameCreate = (props: Props) => {
       open: false,
     },
     onSubmit: async (values: any, { resetForm }) => {
-      console.log(values);
       const { open, ...rest } = values;
 
       const { error, json } = await createOrUpdateGameRequest(rest);

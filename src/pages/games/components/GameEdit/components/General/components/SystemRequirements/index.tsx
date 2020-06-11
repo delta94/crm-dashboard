@@ -29,11 +29,6 @@ const useStyles = makeStyles({
   },
 });
 
-// const defaultRequirements = {
-//   minimal: {},
-//   recommended: {},
-// }
-
 interface Props {
   platformsValue: string[];
   requirementsValue: any;

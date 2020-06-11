@@ -27,7 +27,6 @@ const ReleaseDate = (props: Props) => {
         onChange={onChange}
       />
     </Box>
-
   );
 };
 

@@ -12,6 +12,7 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import { SocialLink } from 'types/games';
 
 const useStyles = makeStyles({
   select: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
 });
 
 interface Props {
-  value: any;
+  value: SocialLink[];
   onChange: (e: React.ChangeEvent<any>) => void;
 }
 

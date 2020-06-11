@@ -115,7 +115,6 @@ const Requirements = (props: Props) => {
         </Select>
       </div>
     </Box>
-
   );
 };
 
