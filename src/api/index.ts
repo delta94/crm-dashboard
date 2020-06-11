@@ -1,4 +1,4 @@
-const apiUrl = `${process.env.REACT_APP_API_URL}`;
+const apiUrl = `${process.env.REACT_APP_API_URL}` || 'https://crm.tst.qilin.super.com/api/v1';
 
 const gamesUrl = `${apiUrl}/games`;
 const developersUrl = `${apiUrl}/developers`;

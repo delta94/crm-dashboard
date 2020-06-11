@@ -20,7 +20,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { useStyles } from './styles';
 import navLinks from './navLinks';
 
-const storeName = process.env.REACT_APP_STORE_NAME;
+const storeName = process.env.REACT_APP_STORE_NAME || 'Qilin';
 
 interface Props {
   children: ReactNode;
