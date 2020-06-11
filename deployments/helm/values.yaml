@@ -1,0 +1,51 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+enableCertIssuer: true
+
+ingress:
+  hostname: partner.tst.qilin.super.com
+  stgHostname:
+  prodHostname: 
+  path: /
+  hostnamePrefix:
+
+certIssuer:
+  email: admin@protocol.one
+
+backend:
+  name: gobackend
+  role: qilin-crm-dashboard
+  image: "p1hub/qilin-crm-dashboard"
+  imageTag: latest
+  port: 80
+  ingressPort: 80
+  healthPort: 8081
+  replicas: 1
+  service: 
+    type: ClusterIP
+    port: 80
+    protocol: TCP
+  env:
+    - REACT_APP_STORE_NAME
+    - REACT_APP_API_URL
+    - REACT_APP_BASE_URL
+
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
