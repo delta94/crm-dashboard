@@ -1,4 +1,8 @@
 *
-!/deployments/build/docker
-!/build
-!.env
+!/deployments
+!/public
+!/scripts
+!/src
+!package.json
+!yarn.lock
+!tsconfig.json
