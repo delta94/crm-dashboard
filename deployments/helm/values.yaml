@@ -4,7 +4,7 @@
 enableCertIssuer: true
 
 ingress:
-  hostname: partner.tst.qilin.super.com
+  hostname: crm.tst.qilin.super.com
   stgHostname:
   prodHostname: 
   path: /
