@@ -2,7 +2,17 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Game, SystemRequirements as SystemRequirementsType } from 'types/games';
 import { useFormik } from 'formik';
-import { TextField, Button, makeStyles, FormGroup, Typography } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  makeStyles,
+  FormGroup,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@material-ui/core';
 
 import Developers from './components/Developers';
 import Publishers from './components/Publishers';
@@ -12,6 +22,7 @@ import Tags from './components/Tags';
 import ReleaseDate from './components/ReleaseDate';
 import Features from './components/Features';
 import SystemRequirements from './components/SystemRequirements';
+import { gameTypes } from 'pages/games/const';
 
 interface Props {
   game: Game;
@@ -36,7 +47,7 @@ const transformRequirements = (requirements: any) => {
 
 const General = (props: Props) => {
   const { game, onEdit } = props;
-  const { revision, title } = game;
+  const { revision, title, slug, type } = game;
   const {
     developers = [],
     publishers = [],
@@ -60,6 +71,8 @@ const General = (props: Props) => {
   const formik = useFormik({
     initialValues: {
       title,
+      slug,
+      type,
       developers: developers.map(({ id }) => id),
       publishers: publishers.map(({ id }) => id),
       localization,
@@ -97,6 +110,9 @@ const General = (props: Props) => {
       <Typography className={classes.field} variant="h6">
         {t('games.description')}
       </Typography>
+      <Typography variant="h6" gutterBottom>
+        {`${t('games.fields.title')} *`}
+      </Typography>
       <FormGroup className={classes.field}>
         <TextField
           name="title"
@@ -105,6 +121,36 @@ const General = (props: Props) => {
           value={formik.values.title}
           onChange={formik.handleChange}
         />
+      </FormGroup>
+      <Typography variant="h6" gutterBottom>
+        {`${t('games.fields.slug')} *`}
+      </Typography>
+      <FormGroup className={classes.field}>
+        <TextField
+          name="slug"
+          label={t('games.fields.slug')}
+          variant="outlined"
+          value={formik.values.slug}
+          onChange={formik.handleChange}
+        />
+      </FormGroup>
+      <Typography variant="h6" gutterBottom>
+        {`${t('games.fields.type')} *`}
+      </Typography>
+      <FormGroup className={classes.field}>
+        <FormControl variant="outlined">
+          <InputLabel>{t('games.fields.type')}</InputLabel>
+          <Select
+            value={formik.values.type}
+            onChange={formik.handleChange}
+            name="type"
+            label={t('games.fields.type')}
+          >
+            {gameTypes.map(type => (
+              <MenuItem value={type} key={type}>{type}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </FormGroup>
       <FormGroup className={classes.field}>
         <Developers

@@ -23,14 +23,13 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
 import { createOrUpdateGameRequest } from 'api';
 import { useHistory } from 'react-router-dom';
+import { gameTypes } from '../const';
 
 interface Props {
   open: boolean;
   onClose: () => void;
   onUpdate: () => void;
 }
-
-const gameTypes = ['desktop', 'web'];
 
 const useStyles = makeStyles({
   field: {

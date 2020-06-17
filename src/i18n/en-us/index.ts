@@ -5,6 +5,7 @@ export default {
     create: 'Create',
     upload: 'Upload',
     replace: 'Replace',
+    delete: 'Delete',
     add: 'Add',
     openOnCreate: 'Open on create',
     cancell: 'Cancell',
