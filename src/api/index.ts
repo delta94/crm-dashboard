@@ -1,12 +1,11 @@
-// const apiUrl = `${process.env.REACT_APP_API_URL}`;
-const apiUrl = 'https://crm.tst.qilin.super.com/api/v1';
+import { API_URL } from 'const';
 
-const gamesUrl = `${apiUrl}/games`;
-const developersUrl = `${apiUrl}/developers`;
-const publishersUrl = `${apiUrl}/publishers`;
-const tagsUrl = `${apiUrl}/tags`;
-const genresUrl = `${apiUrl}/genres`;
-const featuresUrl = `${apiUrl}/features`;
+const gamesUrl = `${API_URL}/games`;
+const developersUrl = `${API_URL}/developers`;
+const publishersUrl = `${API_URL}/publishers`;
+const tagsUrl = `${API_URL}/tags`;
+const genresUrl = `${API_URL}/genres`;
+const featuresUrl = `${API_URL}/features`;
 
 const getGETRequest = (url: string) => async () => {
   try {

@@ -16,11 +16,10 @@ import {
   Drawer,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import { STORE_NAME } from 'const';
 
 import { useStyles } from './styles';
 import navLinks from './navLinks';
-
-const storeName = process.env.REACT_APP_STORE_NAME || 'Qilin';
 
 interface Props {
   children: ReactNode;
@@ -70,7 +69,7 @@ const Layout = (props: Props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            {storeName}
+            {STORE_NAME}
           </Typography>
         </Toolbar>
       </AppBar>
