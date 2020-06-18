@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Game } from 'types/games';
 import { getGamesRequest } from 'api';
+import Loader from 'components/Loader';
 
 import GamesList from './components/GamesList';
 import GameEdit from './components/GameEdit';
@@ -30,7 +31,7 @@ const GamesPage = () => {
     getGames();
   }, []);
 
-  if (loading) return <h3>...loading</h3>;
+  if (loading) return <Loader />;
 
   const gamesList = Object.values(gamesMap);
   const game = gamesMap[id];

@@ -7,6 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import Layout from 'components/Layout';
+import Loader from 'components/Loader';
 
 import './i18n';
 
@@ -15,7 +16,7 @@ const Games = React.lazy(() => import('./pages/games'));
 function App() {
   return (
     <Router>
-      <Suspense fallback={<div>Загрузка...</div>}>
+      <Suspense fallback={<Loader />}>
         <Layout>
           <Switch>
             <Route path="/games" exact>

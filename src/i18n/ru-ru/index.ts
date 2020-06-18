@@ -9,6 +9,7 @@ export default {
     add: 'Add',
     openOnCreate: 'Open on create',
     cancell: 'Cancell',
+    publish: 'Publish',
     name: 'Name',
     slug: 'Slug',
     games: {

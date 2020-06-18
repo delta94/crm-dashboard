@@ -19,13 +19,11 @@ import AddIcon from '@material-ui/icons/Add';
 import { Game } from 'types/games';
 
 import GameCreate from './GameCreate';
+import ListItem from './ListItem';
 
 const useStyles = makeStyles({
   table: {
     minWidth: 400,
-  },
-  row: {
-    cursor: 'pointer',
   },
   root: {
     width: '100%',
@@ -89,17 +87,16 @@ const GamesList = (props: Props) => {
               <TableCell>ID</TableCell>
               <TableCell align="right">{t('name')}</TableCell>
               <TableCell align="right">{t('slug')}</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {games.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(({ id, slug, title }) => (
-              <TableRow key={id} onClick={handleRowClick(id)} className={classes.row}>
-                <TableCell component="th" scope="row">
-                  {id}
-                </TableCell>
-                <TableCell align="right">{title}</TableCell>
-                <TableCell align="right">{slug}</TableCell>
-              </TableRow>
+            {games.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(game => (
+              <ListItem
+                key={game.id}
+                game={game}
+                onClick={handleRowClick(game.id)}
+              />
             ))}
           </TableBody>
         </Table>
