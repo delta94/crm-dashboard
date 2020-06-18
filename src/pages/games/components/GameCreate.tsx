@@ -78,7 +78,17 @@ const GameCreate = (props: Props) => {
     onSubmit: async (values: any, { resetForm }) => {
       const { open, ...rest } = values;
 
-      const { error, json } = await createOrUpdateGameRequest(rest);
+      const { error, json } = await createOrUpdateGameRequest({
+        ...rest,
+        localization: [
+          {
+            audio: true,
+            interface: true,
+            language: 'eng',
+            subtitles: true,
+          },
+        ],
+      });
 
       if (error) {
         setErrorText(error.message);

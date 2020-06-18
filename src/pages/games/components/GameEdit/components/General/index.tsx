@@ -75,7 +75,7 @@ const General = (props: Props) => {
       type,
       developers: developers.map(({ id }) => id),
       publishers: publishers.map(({ id }) => id),
-      localization,
+      localization: localization || [],
       genres: genres.map(({ id }) => id),
       tags: tags.map(({ id }) => id),
       release_date,
@@ -164,14 +164,12 @@ const General = (props: Props) => {
           onChange={formik.handleChange}
         />
       </FormGroup>
-      {revision.localization?.length && (
-        <FormGroup className={classes.field}>
-          <Languages
-            value={formik.values.localization}
-            onChange={formik.handleChange}
-          />
-        </FormGroup>
-      )}
+      <FormGroup className={classes.field}>
+        <Languages
+          value={formik.values.localization}
+          onChange={formik.handleChange}
+        />
+      </FormGroup>
       <FormGroup className={classes.field}>
         <Genres
           value={formik.values.genres}
