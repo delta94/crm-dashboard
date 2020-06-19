@@ -72,6 +72,14 @@ export const getFeaturesRequest = getGETRequest(featuresUrl);
 export const createOrUpdateGameRequest = getPOSTRequest(gamesUrl);
 export const createGameMediaRequest = getPOSTRequest(`${gamesUrl}/media`);
 
+export const getGameByIdRequest = async (id: string) => {
+  const url = `${gamesUrl}/${id}`;
+
+  const request = getGETRequest(url);
+
+  return await request();
+};
+
 export const publishGameRequest = async (id: string) => {
   const url = `${gamesUrl}/${id}/publish`;
 

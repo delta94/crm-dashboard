@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { Game } from 'types/games';
 import { getGamesRequest } from 'api';
 import Loader from 'components/Loader';
 
 import GamesList from './components/GamesList';
-import GameEdit from './components/GameEdit';
 
 const GamesPage = () => {
-  const [gamesMap, setGamesMap] = useState<Record<string, Game>>({});
+  const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
-  const { id = '' } = useParams();
 
   const getGames = async () => {
     const { json, error } = await getGamesRequest();
 
     if (!error) {
-      setGamesMap(
-        (json.games as Game[])?.reduce((acc: Record<string, Game>, game) => {
-          acc[game.id] = game;
-          return acc;
-        }, {}),
-      );
+      setGames(json.games);
     }
 
     setLoading(false);
@@ -33,12 +25,7 @@ const GamesPage = () => {
 
   if (loading) return <Loader />;
 
-  const gamesList = Object.values(gamesMap);
-  const game = gamesMap[id];
-
-  if (!game) return <GamesList onUpdate={getGames} games={gamesList} />;
-
-  return <GameEdit game={game} onUpdate={getGames} />;
+  return <GamesList onUpdate={getGames} games={games} />;
 };
 
 export default GamesPage;

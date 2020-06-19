@@ -12,6 +12,7 @@ import Loader from 'components/Loader';
 import './i18n';
 
 const Games = React.lazy(() => import('./pages/games'));
+const Game = React.lazy(() => import('./pages/game'));
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
               <Games />
             </Route>
             <Route path="/games/:id">
-              <Games />
+              <Game />
             </Route>
             <Redirect to="/games" />
           </Switch>
