@@ -13,6 +13,7 @@ import {
   Select,
   MenuItem,
 } from '@material-ui/core';
+import { gameTypes } from 'pages/games/const';
 
 import Developers from './components/Developers';
 import Publishers from './components/Publishers';
@@ -22,7 +23,6 @@ import Tags from './components/Tags';
 import ReleaseDate from './components/ReleaseDate';
 import Features from './components/Features';
 import SystemRequirements from './components/SystemRequirements';
-import { gameTypes } from 'pages/games/const';
 
 interface Props {
   game: Game;
