@@ -23,6 +23,11 @@ const GamesPage = () => {
     setPage(0);
   };
 
+  const handleGameCreate = () => {
+    setGames([]);
+    setPage(0);
+  };
+
   const getGames = async () => {
     const { json, error } = await getGamesRequest(start, rowsPerPage);
 
@@ -46,7 +51,7 @@ const GamesPage = () => {
 
   return (
     <GamesList
-      onUpdate={getGames}
+      onCreate={handleGameCreate}
       games={currentGames}
       total={total}
       page={page}

@@ -29,7 +29,7 @@ import { gameTypes } from '../const';
 interface Props {
   open: boolean;
   onClose: () => void;
-  onUpdate: () => void;
+  onCreate: () => void;
 }
 
 const useStyles = makeStyles({
@@ -63,7 +63,7 @@ const validate = (values: any) => {
 };
 
 const GameCreate = (props: Props) => {
-  const { open, onClose, onUpdate } = props;
+  const { open, onClose, onCreate } = props;
   const classes = useStyles();
   const [errorText, setErrorText] = useState('');
   const { t } = useTranslation();
@@ -100,7 +100,7 @@ const GameCreate = (props: Props) => {
         history.push(`/games/${json.id}`);
       }
 
-      onUpdate();
+      onCreate();
       resetForm();
       onClose();
     },

@@ -32,11 +32,18 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  cell: {
+    maxWidth: 50,
+    width: '25%',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
 });
 
 interface Props {
   games: Game[];
-  onUpdate: () => void;
+  onCreate: () => void;
   total: number;
   page: number;
   rowsPerPage: number;
@@ -48,7 +55,7 @@ const GamesList = (props: Props) => {
   const { t } = useTranslation();
   const {
     games,
-    onUpdate,
+    onCreate,
     total,
     page,
     rowsPerPage,
@@ -86,10 +93,10 @@ const GamesList = (props: Props) => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell align="right">{t('name')}</TableCell>
-              <TableCell align="right">{t('slug')}</TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell className={classes.cell} align="center">ID</TableCell>
+              <TableCell className={classes.cell} align="center">{t('name')}</TableCell>
+              <TableCell className={classes.cell} align="center">{t('slug')}</TableCell>
+              <TableCell className={classes.cell} align="center">{t('publish')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -98,6 +105,7 @@ const GamesList = (props: Props) => {
                 key={game.id}
                 game={game}
                 onClick={handleRowClick(game.id)}
+                cellClassName={classes.cell}
               />
             ))}
           </TableBody>
@@ -115,7 +123,7 @@ const GamesList = (props: Props) => {
       <GameCreate
         open={openModal}
         onClose={handleCloseModal}
-        onUpdate={onUpdate}
+        onCreate={onCreate}
       />
     </Paper>
   );

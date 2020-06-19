@@ -20,11 +20,12 @@ const useStyles = makeStyles({
 interface Props {
   game: Game;
   onClick: () => void;
+  cellClassName?: string;
 }
 
 const ListItem = (props: Props) => {
   const { t } = useTranslation();
-  const { game, onClick } = props;
+  const { game, onClick, cellClassName } = props;
   const { id, title, slug } = game;
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
@@ -44,12 +45,12 @@ const ListItem = (props: Props) => {
 
   return (
     <TableRow onClick={onClick} className={classes.row}>
-      <TableCell component="th" scope="row">
+      <TableCell align="center" className={cellClassName}>
         {id}
       </TableCell>
-      <TableCell align="right">{title}</TableCell>
-      <TableCell align="right">{slug}</TableCell>
-      <TableCell align="right">
+      <TableCell align="center" className={cellClassName}>{title}</TableCell>
+      <TableCell align="center" className={cellClassName}>{slug}</TableCell>
+      <TableCell align="center" className={cellClassName}>
         <Button
           variant="outlined"
           color="primary"
