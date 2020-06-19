@@ -37,28 +37,30 @@ const useStyles = makeStyles({
 interface Props {
   games: Game[];
   onUpdate: () => void;
+  total: number;
+  page: number;
+  rowsPerPage: number;
+  onPageChange: (event: unknown, newPage: number) => void;
+  onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const GamesList = (props: Props) => {
   const { t } = useTranslation();
-  const { games, onUpdate } = props;
+  const {
+    games,
+    onUpdate,
+    total,
+    page,
+    rowsPerPage,
+    onPageChange,
+    onChangeRowsPerPage,
+  } = props;
   const classes = useStyles();
   const history = useHistory();
-  const [page, setPage] = useState(0);
   const [openModal, setOpenModal] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleRowClick = (id: string) => () => {
     history.push(`/games/${id}`);
-  };
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
   };
 
   const handleCloseModal = () => setOpenModal(false);
@@ -91,7 +93,7 @@ const GamesList = (props: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {games.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(game => (
+            {games.map(game => (
               <ListItem
                 key={game.id}
                 game={game}
@@ -104,11 +106,11 @@ const GamesList = (props: Props) => {
       <TablePagination
         rowsPerPageOptions={[10, 25]}
         component="div"
-        count={games.length}
+        count={total}
         rowsPerPage={rowsPerPage}
         page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onChangePage={onPageChange}
+        onChangeRowsPerPage={onChangeRowsPerPage}
       />
       <GameCreate
         open={openModal}

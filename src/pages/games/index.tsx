@@ -7,25 +7,54 @@ import GamesList from './components/GamesList';
 
 const GamesPage = () => {
   const [games, setGames] = useState<Game[]>([]);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const start = page * rowsPerPage;
+  const end = Math.min((start + rowsPerPage), total);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   const getGames = async () => {
-    const { json, error } = await getGamesRequest();
+    const { json, error } = await getGamesRequest(start, rowsPerPage);
 
     if (!error) {
-      setGames(json.games);
+      setGames([...games.slice(0, start), ...json.games]);
+      setTotal(json.pagination.total);
     }
 
     setLoading(false);
   };
 
   useEffect(() => {
+    if (games[end - 1]) return;
+
     getGames();
-  }, []);
+  }, [page]);
 
   if (loading) return <Loader />;
 
-  return <GamesList onUpdate={getGames} games={games} />;
+  const currentGames = games.slice(start, end);
+
+  return (
+    <GamesList
+      onUpdate={getGames}
+      games={currentGames}
+      total={total}
+      page={page}
+      rowsPerPage={rowsPerPage}
+      onPageChange={handleChangePage}
+      onChangeRowsPerPage={handleChangeRowsPerPage}
+    />
+  );
 };
 
-export default GamesPage;
+export default React.memo(GamesPage);

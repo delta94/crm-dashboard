@@ -62,7 +62,6 @@ export const uploadMediaRequest = async (id: string, file: Blob) => {
   }
 };
 
-export const getGamesRequest = getGETRequest(gamesUrl);
 export const getDevelopersRequest = getGETRequest(developersUrl);
 export const getPublishersRequest = getGETRequest(publishersUrl);
 export const getTagsRequest = getGETRequest(tagsUrl);
@@ -72,9 +71,15 @@ export const getFeaturesRequest = getGETRequest(featuresUrl);
 export const createOrUpdateGameRequest = getPOSTRequest(gamesUrl);
 export const createGameMediaRequest = getPOSTRequest(`${gamesUrl}/media`);
 
+export const getGamesRequest = async (offset: number, limit: number) => {
+  const url = `${gamesUrl}?Offset=${offset}&Limit=${limit}`;
+  const request = getGETRequest(url);
+
+  return await request();
+};
+
 export const getGameByIdRequest = async (id: string) => {
   const url = `${gamesUrl}/${id}`;
-
   const request = getGETRequest(url);
 
   return await request();
