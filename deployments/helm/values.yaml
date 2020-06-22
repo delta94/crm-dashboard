@@ -27,9 +27,6 @@ backend:
     port: 80
     protocol: TCP
   env:
-    - REACT_APP_STORE_NAME
-    - REACT_APP_API_URL
-    - REACT_APP_BASE_URL
 
 
 resources: {}

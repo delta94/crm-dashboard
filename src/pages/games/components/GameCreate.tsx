@@ -24,13 +24,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import { createOrUpdateGameRequest } from 'api';
 import { useHistory } from 'react-router-dom';
 
+import { gameTypes } from '../const';
+
 interface Props {
   open: boolean;
   onClose: () => void;
-  onUpdate: () => void;
+  onCreate: () => void;
 }
-
-const gameTypes = ['desktop', 'web'];
 
 const useStyles = makeStyles({
   field: {
@@ -63,7 +63,7 @@ const validate = (values: any) => {
 };
 
 const GameCreate = (props: Props) => {
-  const { open, onClose, onUpdate } = props;
+  const { open, onClose, onCreate } = props;
   const classes = useStyles();
   const [errorText, setErrorText] = useState('');
   const { t } = useTranslation();
@@ -79,7 +79,17 @@ const GameCreate = (props: Props) => {
     onSubmit: async (values: any, { resetForm }) => {
       const { open, ...rest } = values;
 
-      const { error, json } = await createOrUpdateGameRequest(rest);
+      const { error, json } = await createOrUpdateGameRequest({
+        ...rest,
+        localization: [
+          {
+            audio: true,
+            interface: true,
+            language: 'eng',
+            subtitles: true,
+          },
+        ],
+      });
 
       if (error) {
         setErrorText(error.message);
@@ -90,7 +100,7 @@ const GameCreate = (props: Props) => {
         history.push(`/games/${json.id}`);
       }
 
-      onUpdate();
+      onCreate();
       resetForm();
       onClose();
     },

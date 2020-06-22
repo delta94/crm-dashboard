@@ -1,12 +1,11 @@
-// const apiUrl = `${process.env.REACT_APP_API_URL}`;
-const apiUrl = 'https://crm.tst.qilin.super.com/api/v1';
+import { API_URL } from 'const';
 
-const gamesUrl = `${apiUrl}/games`;
-const developersUrl = `${apiUrl}/developers`;
-const publishersUrl = `${apiUrl}/publishers`;
-const tagsUrl = `${apiUrl}/tags`;
-const genresUrl = `${apiUrl}/genres`;
-const featuresUrl = `${apiUrl}/features`;
+const gamesUrl = `${API_URL}/games`;
+const developersUrl = `${API_URL}/developers`;
+const publishersUrl = `${API_URL}/publishers`;
+const tagsUrl = `${API_URL}/tags`;
+const genresUrl = `${API_URL}/genres`;
+const featuresUrl = `${API_URL}/features`;
 
 const getGETRequest = (url: string) => async () => {
   try {
@@ -63,7 +62,6 @@ export const uploadMediaRequest = async (id: string, file: Blob) => {
   }
 };
 
-export const getGamesRequest = getGETRequest(gamesUrl);
 export const getDevelopersRequest = getGETRequest(developersUrl);
 export const getPublishersRequest = getGETRequest(publishersUrl);
 export const getTagsRequest = getGETRequest(tagsUrl);
@@ -72,3 +70,25 @@ export const getFeaturesRequest = getGETRequest(featuresUrl);
 
 export const createOrUpdateGameRequest = getPOSTRequest(gamesUrl);
 export const createGameMediaRequest = getPOSTRequest(`${gamesUrl}/media`);
+
+export const getGamesRequest = async (offset: number, limit: number) => {
+  const url = `${gamesUrl}?Offset=${offset}&Limit=${limit}`;
+  const request = getGETRequest(url);
+
+  return await request();
+};
+
+export const getGameByIdRequest = async (id: string) => {
+  const url = `${gamesUrl}/${id}`;
+  const request = getGETRequest(url);
+
+  return await request();
+};
+
+export const publishGameRequest = async (id: string) => {
+  const url = `${gamesUrl}/${id}/publish`;
+
+  const request = getPOSTRequest(url);
+
+  return await request({});
+};

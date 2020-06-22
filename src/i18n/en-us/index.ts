@@ -5,9 +5,11 @@ export default {
     create: 'Create',
     upload: 'Upload',
     replace: 'Replace',
+    delete: 'Delete',
     add: 'Add',
     openOnCreate: 'Open on create',
     cancell: 'Cancell',
+    publish: 'Publish',
     name: 'Name',
     slug: 'Slug',
     games: {

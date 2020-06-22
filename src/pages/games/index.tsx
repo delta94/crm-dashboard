@@ -1,43 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { Game } from 'types/games';
 import { getGamesRequest } from 'api';
+import Loader from 'components/Loader';
 
 import GamesList from './components/GamesList';
-import GameEdit from './components/GameEdit';
 
 const GamesPage = () => {
-  const [gamesMap, setGamesMap] = useState<Record<string, Game>>({});
+  const [games, setGames] = useState<Game[]>([]);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
-  const { id = '' } = useParams();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const start = page * rowsPerPage;
+  const end = Math.min((start + rowsPerPage), total);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const handleGameCreate = () => {
+    setGames([]);
+    setPage(0);
+  };
 
   const getGames = async () => {
-    const { json, error } = await getGamesRequest();
+    const { json, error } = await getGamesRequest(start, rowsPerPage);
 
     if (!error) {
-      setGamesMap(
-        (json.games as Game[])?.reduce((acc: Record<string, Game>, game) => {
-          acc[game.id] = game;
-          return acc;
-        }, {}),
-      );
+      setGames([...games.slice(0, start), ...json.games]);
+      setTotal(json.pagination.total);
     }
 
     setLoading(false);
   };
 
   useEffect(() => {
+    if (games[end - 1]) return;
+
     getGames();
-  }, []);
+  }, [page]);
 
-  if (loading) return <h3>...loading</h3>;
+  if (loading) return <Loader />;
 
-  const gamesList = Object.values(gamesMap);
-  const game = gamesMap[id];
+  const currentGames = games.slice(start, end);
 
-  if (!game) return <GamesList onUpdate={getGames} games={gamesList} />;
-
-  return <GameEdit game={game} onUpdate={getGames} />;
+  return (
+    <GamesList
+      onCreate={handleGameCreate}
+      games={currentGames}
+      total={total}
+      page={page}
+      rowsPerPage={rowsPerPage}
+      onPageChange={handleChangePage}
+      onChangeRowsPerPage={handleChangeRowsPerPage}
+    />
+  );
 };
 
-export default GamesPage;
+export default React.memo(GamesPage);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -19,13 +19,11 @@ import AddIcon from '@material-ui/icons/Add';
 import { Game } from 'types/games';
 
 import GameCreate from './GameCreate';
+import ListItem from './ListItem';
 
 const useStyles = makeStyles({
   table: {
     minWidth: 400,
-  },
-  row: {
-    cursor: 'pointer',
   },
   root: {
     width: '100%',
@@ -34,33 +32,42 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  cell: {
+    maxWidth: 50,
+    width: '25%',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
 });
 
 interface Props {
   games: Game[];
-  onUpdate: () => void;
+  onCreate: () => void;
+  total: number;
+  page: number;
+  rowsPerPage: number;
+  onPageChange: (event: unknown, newPage: number) => void;
+  onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const GamesList = (props: Props) => {
   const { t } = useTranslation();
-  const { games, onUpdate } = props;
+  const {
+    games,
+    onCreate,
+    total,
+    page,
+    rowsPerPage,
+    onPageChange,
+    onChangeRowsPerPage,
+  } = props;
   const classes = useStyles();
   const history = useHistory();
-  const [page, setPage] = useState(0);
   const [openModal, setOpenModal] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleRowClick = (id: string) => () => {
     history.push(`/games/${id}`);
-  };
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
   };
 
   const handleCloseModal = () => setOpenModal(false);
@@ -86,20 +93,20 @@ const GamesList = (props: Props) => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell align="right">{t('name')}</TableCell>
-              <TableCell align="right">{t('slug')}</TableCell>
+              <TableCell className={classes.cell} align="center">ID</TableCell>
+              <TableCell className={classes.cell} align="center">{t('name')}</TableCell>
+              <TableCell className={classes.cell} align="center">{t('slug')}</TableCell>
+              <TableCell className={classes.cell} align="center">{t('publish')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {games.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(({ id, slug, title }) => (
-              <TableRow key={id} onClick={handleRowClick(id)} className={classes.row}>
-                <TableCell component="th" scope="row">
-                  {id}
-                </TableCell>
-                <TableCell align="right">{title}</TableCell>
-                <TableCell align="right">{slug}</TableCell>
-              </TableRow>
+            {games.map(game => (
+              <ListItem
+                key={game.id}
+                game={game}
+                onClick={handleRowClick(game.id)}
+                cellClassName={classes.cell}
+              />
             ))}
           </TableBody>
         </Table>
@@ -107,16 +114,16 @@ const GamesList = (props: Props) => {
       <TablePagination
         rowsPerPageOptions={[10, 25]}
         component="div"
-        count={games.length}
+        count={total}
         rowsPerPage={rowsPerPage}
         page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onChangePage={onPageChange}
+        onChangeRowsPerPage={onChangeRowsPerPage}
       />
       <GameCreate
         open={openModal}
         onClose={handleCloseModal}
-        onUpdate={onUpdate}
+        onCreate={onCreate}
       />
     </Paper>
   );

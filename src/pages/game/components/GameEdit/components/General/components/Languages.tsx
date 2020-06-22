@@ -15,6 +15,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const languages = ['eng', 'rus', 'deu', 'esp'];
 
@@ -38,7 +39,7 @@ const Languages = (props: Props) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const handleAddReview = () => {
+  const handleAddLanguage = () => {
     value[count] = {
       language: '',
       interface: false,
@@ -47,6 +48,12 @@ const Languages = (props: Props) => {
     };
 
     setCount(count + 1);
+  };
+
+  const handleDeleteLanguage = (index: number) => () => {
+    value.splice(index, 1);
+
+    setCount(count - 1);
   };
 
   return (
@@ -70,6 +77,7 @@ const Languages = (props: Props) => {
             <TableCell align="center">
               {t('games.fields.supportedLanguages.subtitles')}
             </TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -114,6 +122,18 @@ const Languages = (props: Props) => {
                   onChange={onChange}
                 />
               </TableCell>
+              <TableCell align="center">
+                <Button
+                  onClick={handleDeleteLanguage(i)}
+                  startIcon={<DeleteIcon />}
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                >
+                  {t('delete')}
+                </Button>
+              </TableCell>
+
             </TableRow>
           ))}
         </TableBody>
@@ -122,7 +142,7 @@ const Languages = (props: Props) => {
         variant="contained"
         color="primary"
         size="large"
-        onClick={handleAddReview}
+        onClick={handleAddLanguage}
         startIcon={<AddIcon />}
       >
         {t('create')}

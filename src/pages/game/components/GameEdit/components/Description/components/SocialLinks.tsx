@@ -12,16 +12,15 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { SocialLink } from 'types/games';
 
 const useStyles = makeStyles({
   select: {
     minWidth: 160,
-    marginBottom: 16,
   },
   field: {
-    minWidth: 'calc(100% - 160px)',
-    marginBottom: 16,
+    flexGrow: 1,
   },
 });
 
@@ -47,13 +46,19 @@ const SocialLinks = (props: Props) => {
     setCount(count + 1);
   };
 
+  const handleDeleteLink = (index: number) => () => {
+    value.splice(index, 1);
+
+    setCount(count - 1);
+  };
+
   return (
     <Box>
       <Typography gutterBottom variant="h6">
         {t('games.fields.socialLinks.label')}
       </Typography>
       {Array(count).fill(0).map((_, i) => (
-        <div key={i}>
+        <Box key={i} display="flex" marginBottom="16px">
           <FormControl variant="outlined">
             <InputLabel>{t('games.fields.socialLinks.name')}</InputLabel>
             <Select
@@ -79,7 +84,16 @@ const SocialLinks = (props: Props) => {
             value={value[i].url}
             onChange={onChange}
           />
-        </div>
+          <Button
+            onClick={handleDeleteLink(i)}
+            startIcon={<DeleteIcon />}
+            variant="outlined"
+            color="primary"
+            size="large"
+          >
+            {t('delete')}
+          </Button>
+        </Box>
       ))}
       <Button
         variant="contained"
