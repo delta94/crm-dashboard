@@ -102,6 +102,7 @@ const GameCreate = (props: Props) => {
 
       onCreate();
       resetForm();
+      setErrorText('');
       onClose();
     },
     validate,
@@ -109,6 +110,7 @@ const GameCreate = (props: Props) => {
 
   const handleCancell = () => {
     formik.resetForm();
+    setErrorText('');
     onClose();
   };
 

@@ -29,6 +29,7 @@ const GamesPage = () => {
 
   useEffect(() => {
     getGame();
+    // eslint-disable-next-line
   }, []);
 
   if (loading) return <Loader />;

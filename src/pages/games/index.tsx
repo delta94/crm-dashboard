@@ -43,6 +43,7 @@ const GamesPage = () => {
     if (games[end - 1]) return;
 
     getGames();
+    // eslint-disable-next-line
   }, [page]);
 
   if (loading) return <Loader />;
