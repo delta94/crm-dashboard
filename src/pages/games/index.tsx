@@ -23,11 +23,6 @@ const GamesPage = () => {
     setPage(0);
   };
 
-  const handleGameCreate = () => {
-    setGames([]);
-    setPage(0);
-  };
-
   const getGames = async () => {
     const { json, error } = await getGamesRequest(start, rowsPerPage);
 
@@ -37,6 +32,12 @@ const GamesPage = () => {
     }
 
     setLoading(false);
+  };
+
+  const handleGameCreate = () => {
+    setGames([]);
+    setPage(0);
+    getGames();
   };
 
   useEffect(() => {
