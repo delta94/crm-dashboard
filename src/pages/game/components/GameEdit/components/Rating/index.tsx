@@ -77,7 +77,7 @@ const Rating = (props: Props) => {
             <FormControl variant="outlined" className={classes.select}>
               <InputLabel>{t('games.fields.rating.label')}</InputLabel>
               <Select
-                value={formik.values.rating[name]?.agency}
+                value={formik.values.rating[name]?.rating}
                 onChange={formik.handleChange}
                 name={`rating.${name}.rating`}
                 className={classes.field}
