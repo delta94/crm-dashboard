@@ -143,6 +143,8 @@ export default {
           vertical: 'Vertical',
           wide_slider: 'Wide slider',
           screenshots: 'Screenshots',
+          covers: 'Covers',
+          trailer: 'Trailer',
         },
       },
       tabs: {

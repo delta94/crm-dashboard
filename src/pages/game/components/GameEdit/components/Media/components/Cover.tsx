@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.shortest,
       }),
     },
+    cover: {
+      cursor: 'pointer',
+    },
   }));
 
 interface Props {
@@ -37,12 +40,14 @@ const Cover = (props: Props) => {
   };
 
   return (
-    <div>
+    <div
+      onClick={toggleOpen}
+      className={classes.cover}
+    >
       <Typography gutterBottom variant="h6">
         {title}
         <IconButton
           className={open ? classes.open : undefined}
-          onClick={toggleOpen}
         >
           <ExpandMoreIcon />
         </IconButton>

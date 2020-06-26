@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Covers as CoversType } from 'types/games';
 
 import Cover from './Cover';
+import { Typography } from '@material-ui/core';
 
 interface Props {
   covers: CoversType;
@@ -15,6 +16,9 @@ const Covers = (props: Props) => {
 
   return (
     <div>
+      <Typography gutterBottom variant="h6">
+        {t('games.fields.media.covers')}
+      </Typography>
       {Object.entries(covers).map(([key, value]) => (
         <Cover
           key={key}

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Game } from 'types/games';
 import Covers from './components/Covers';
 import Screenshots from './components/Screenshots';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, Typography, TextField } from '@material-ui/core';
 
 interface Props {
   game: Game;
@@ -12,7 +12,7 @@ interface Props {
 
 const Media = (props: Props) => {
   const { game, onEdit } = props;
-  const { covers, screenshots } = game.revision.media;
+  const { media: { covers, screenshots }, trailer: initTrailer } = game.revision;
   const [coversIds, setCoversIds] = useState({
     catalog: covers.catalog.id,
     horizontal: covers.horizontal.id,
@@ -24,7 +24,8 @@ const Media = (props: Props) => {
   const [screenshotsIds, setScreenshotsIds] = useState(
     screenshots ? screenshots.map(({ id }) => id) : [],
   );
-  console.log(coversIds, screenshotsIds);
+  const [trailer, setTrailer] = useState(initTrailer);
+
   const { t } = useTranslation();
 
   const handleChangeCoverId = (type: string, id: number) => {
@@ -38,6 +39,10 @@ const Media = (props: Props) => {
     setScreenshotsIds(ids);
   };
 
+  const handleTrailerChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTrailer(e.currentTarget.value);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -46,11 +51,24 @@ const Media = (props: Props) => {
       screenshots: screenshotsIds,
     };
 
-    onEdit({ media });
+    onEdit({ media, trailer });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <Box marginBottom={4}>
+        <Typography gutterBottom variant="h6">
+          {t('games.fields.media.trailer')}
+        </Typography>
+        <TextField
+          name="title"
+          label={t('games.fields.media.trailer')}
+          variant="outlined"
+          value={trailer}
+          onChange={handleTrailerChange}
+          fullWidth
+        />
+      </Box>
       <Box marginBottom={4}>
         <Covers covers={covers} onChangeId={handleChangeCoverId} />
       </Box>
