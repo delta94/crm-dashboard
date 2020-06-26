@@ -85,7 +85,7 @@ const General = (props: Props) => {
     },
     onSubmit: (values: any) => {
       const { release_date, requirements: requirementsMap, ...rest } = values;
-      const releaseDateISO = release_date ? new Date(release_date).toISOString() : release_date;
+      const releaseDateISO = release_date ? new Date(release_date.slice(0, 10)).toISOString() : release_date;
 
       const gameData = {
         ...rest,
