@@ -47,7 +47,7 @@ export default {
         },
         genres: {
           label: 'Genre',
-          description: `Select up to 3 additional genres describes your game. 
+          description: `Select additional genres describes your game. 
           It will be listed in the top of store page.`,
           rolePlaying: 'Role Playing',
         },
