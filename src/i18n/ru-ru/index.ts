@@ -47,13 +47,13 @@ export default {
         },
         genres: {
           label: 'Genre',
-          description: `Select up to 3 additional genres describes your game. 
+          description: `Select additional genres describes your game. 
           It will be listed in the top of store page.`,
           rolePlaying: 'Role Playing',
         },
         tags: {
           label: 'Tags',
-          description: `Any other genre keywords describes your game. Avoid using the genre or platforms provided above. Max of 10.
+          description: `Any other genre keywords describes your game. Avoid using the genre or platforms provided above.
           `,
         },
         releaseDate: {
@@ -143,6 +143,8 @@ export default {
           vertical: 'Vertical',
           wide_slider: 'Wide slider',
           screenshots: 'Screenshots',
+          covers: 'Covers',
+          trailer: 'Trailer',
         },
       },
       tabs: {

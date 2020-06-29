@@ -19,6 +19,12 @@ const useStyles = makeStyles({
   },
 });
 
+const validate = ({ social_links = [] }: { social_links?: any[] }) => {
+  const isValid = social_links.every(({ url }) => !!url);
+
+  return isValid ? {} : { social_links: 'Required' };
+};
+
 const Description = (props: Props) => {
   const { game, onEdit } = props;
   const { revision } = game;
@@ -46,6 +52,7 @@ const Description = (props: Props) => {
 
       onEdit(gameData);
     },
+    validate,
   });
 
   return (
