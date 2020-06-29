@@ -22,6 +22,9 @@ const useStyles = makeStyles({
   field: {
     flexGrow: 1,
   },
+  delete: {
+    height: 56,
+  },
 });
 
 interface Props {
@@ -58,7 +61,7 @@ const SocialLinks = (props: Props) => {
         {t('games.fields.socialLinks.label')}
       </Typography>
       {Array(count).fill(0).map((_, i) => (
-        <Box key={i} display="flex" marginBottom="16px">
+        <Box key={i} display="flex" marginBottom="16px" alignItems="flex-start">
           <FormControl variant="outlined">
             <InputLabel>{t('games.fields.socialLinks.name')}</InputLabel>
             <Select
@@ -77,12 +80,14 @@ const SocialLinks = (props: Props) => {
 
           </FormControl>
           <TextField
+            error={!value[i].url}
             variant="outlined"
             label={t('games.fields.socialLinks.link')}
             name={`social_links[${i}].url`}
             className={classes.field}
             value={value[i].url}
             onChange={onChange}
+            helperText={!value[i].url && 'Required'}
           />
           <Button
             onClick={handleDeleteLink(i)}
@@ -90,6 +95,7 @@ const SocialLinks = (props: Props) => {
             variant="outlined"
             color="primary"
             size="large"
+            className={classes.delete}
           >
             {t('delete')}
           </Button>
