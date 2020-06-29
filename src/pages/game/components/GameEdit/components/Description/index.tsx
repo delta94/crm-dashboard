@@ -20,15 +20,9 @@ const useStyles = makeStyles({
 });
 
 const validate = ({ social_links = [] }: { social_links?: any[] }) => {
-  const errors: Record<string, string> = {};
+  const isValid = social_links.every(({ url }) => !!url);
 
-  social_links.forEach(({ url }) => {
-    if (!url) {
-      errors.social_links = 'Required';
-    }
-  });
-
-  return errors;
+  return isValid ? {} : { social_links: 'Required' };
 };
 
 const Description = (props: Props) => {
