@@ -53,7 +53,7 @@ export default {
         },
         tags: {
           label: 'Tags',
-          description: `Any other genre keywords describes your game. Avoid using the genre or platforms provided above. Max of 10.
+          description: `Any other genre keywords describes your game. Avoid using the genre or platforms provided above.
           `,
         },
         releaseDate: {
