@@ -8,8 +8,9 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import PublishIcon from '@material-ui/icons/Publish';
-import { Game } from 'types/games';
-import { publishGameRequest } from 'api/games';
+import { Post } from 'types/posts';
+import { publishPostRequest } from 'api/posts';
+import { formateIsoDate } from 'helpers';
 
 const useStyles = makeStyles({
   row: {
@@ -18,15 +19,15 @@ const useStyles = makeStyles({
 });
 
 interface Props {
-  game: Game;
-  onClick: (id: string) => void;
+  post: Post;
+  onClick: (id: number) => void;
   cellClassName?: string;
 }
 
 const ListItem = (props: Props) => {
-  const { t } = useTranslation();
-  const { game, onClick, cellClassName } = props;
-  const { id, title, slug } = game;
+  const { t, i18n } = useTranslation();
+  const { post, onClick, cellClassName } = props;
+  const { id, created_at, published_at, status, slug } = post;
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
 
@@ -38,7 +39,7 @@ const ListItem = (props: Props) => {
     event.stopPropagation();
     setLoading(true);
 
-    const { error } = await publishGameRequest(id);
+    const { error } = await publishPostRequest(id);
 
     setLoading(false);
 
@@ -52,7 +53,13 @@ const ListItem = (props: Props) => {
       <TableCell align="center" className={cellClassName}>
         {id}
       </TableCell>
-      <TableCell align="center" className={cellClassName}>{title}</TableCell>
+      <TableCell align="center" className={cellClassName}>{status}</TableCell>
+      <TableCell align="center" className={cellClassName}>
+        {created_at && formateIsoDate(created_at, i18n.language)}
+      </TableCell>
+      <TableCell align="center" className={cellClassName}>
+        {published_at && formateIsoDate(published_at, i18n.language)}
+      </TableCell>
       <TableCell align="center" className={cellClassName}>{slug}</TableCell>
       <TableCell align="center" className={cellClassName}>
         <Button

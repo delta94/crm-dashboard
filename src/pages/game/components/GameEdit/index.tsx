@@ -8,7 +8,7 @@ import Rating from './components/Rating';
 import Media from './components/Media';
 import Description from './components/Description';
 import { useHistory } from 'react-router-dom';
-import { createOrUpdateGameRequest } from 'api';
+import { createOrUpdateGameRequest } from 'api/games';
 
 const useStyles = makeStyles({
   tab: {

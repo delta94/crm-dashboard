@@ -12,7 +12,7 @@ interface Result<T> {
   onChangePage: (event: unknown, newPage: number) => void;
 }
 
-function useItemsList<T>(request: GetItemsRequest): Result<T> {
+function useItemsList<T>(request: GetItemsRequest, itemName: string): Result<T> {
   const [items, setItems] = useState<T[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ function useItemsList<T>(request: GetItemsRequest): Result<T> {
     const { json, error } = await request(start, rowsPerPage);
 
     if (!error) {
-      setItems([...items.slice(0, start), ...json.games]);
+      setItems([...items.slice(0, start), ...json[itemName]]);
       setTotal(json.pagination.total);
     }
 

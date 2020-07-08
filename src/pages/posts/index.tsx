@@ -1,6 +1,6 @@
 import React from 'react';
-import { Game } from 'types/games';
-import { getGamesRequest } from 'api/games';
+import { Post } from 'types/posts';
+import { getPostsRequest } from 'api/posts';
 import Loader from 'components/Loader';
 import useItemsList from 'hooks/useItemsList';
 import { useHistory } from 'react-router-dom';
@@ -20,46 +20,44 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-import GameCreate from './components/GameCreate';
-import ListItem from './components/ListItem';
 import { useStyles } from './styles';
+import ListItem from './components/ListItem';
 
-const GamesPage = () => {
+const PostsPage = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [openModal, setOpenModal] = React.useState(false);
   const { t } = useTranslation();
   const {
     currentItems,
     loading,
     page,
     total,
-    onItemCreate,
     onChangeRowsPerPage,
     onChangePage,
     rowsPerPage,
-  } = useItemsList<Game>(getGamesRequest, 'games');
+  } = useItemsList<Post>(getPostsRequest, 'posts');
 
   if (loading) return <Loader />;
 
-  const handleRowClick = (id: string) => {
-    history.push(`/games/${id}`);
+  const handleRowClick = (id: number) => {
+    history.push(`/posts/${id}`);
   };
 
-  const handleCloseModal = () => setOpenModal(false);
-  const handleOpenModal = () => setOpenModal(true);
+  const handleCreatePost = () => {
+    history.push('/posts/new');
+  };
 
   return (
     <Paper className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6">
-          {t('games.name')}
+          {t('posts.name')}
         </Typography>
         <Button
           variant="contained"
           color="primary"
           size="large"
-          onClick={handleOpenModal}
+          onClick={handleCreatePost}
           startIcon={<AddIcon />}
         >
           {t('create')}
@@ -70,16 +68,18 @@ const GamesPage = () => {
           <TableHead>
             <TableRow>
               <TableCell className={classes.cell} align="center">ID</TableCell>
-              <TableCell className={classes.cell} align="center">{t('name')}</TableCell>
+              <TableCell className={classes.cell} align="center">{t('status')}</TableCell>
+              <TableCell className={classes.cell} align="center">{t('created_at')}</TableCell>
+              <TableCell className={classes.cell} align="center">{t('published_at')}</TableCell>
               <TableCell className={classes.cell} align="center">{t('slug')}</TableCell>
               <TableCell className={classes.cell} align="center">{t('publish')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {currentItems.map(game => (
+            {currentItems.map(post => (
               <ListItem
-                key={game.id}
-                game={game}
+                key={post.id}
+                post={post}
                 onClick={handleRowClick}
                 cellClassName={classes.cell}
               />
@@ -96,13 +96,8 @@ const GamesPage = () => {
         onChangePage={onChangePage}
         onChangeRowsPerPage={onChangeRowsPerPage}
       />
-      <GameCreate
-        open={openModal}
-        onClose={handleCloseModal}
-        onCreate={onItemCreate}
-      />
     </Paper>
   );
 };
 
-export default React.memo(GamesPage);
+export default React.memo(PostsPage);

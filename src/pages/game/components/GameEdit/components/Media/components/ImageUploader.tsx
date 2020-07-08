@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Button, CircularProgress } from '@material-ui/core';
-import { createGameMediaRequest, uploadMediaRequest } from 'api';
+import { createGameMediaRequest, uploadMediaRequest } from 'api/games';
 import { snakeToCamelCase } from 'helpers';
 
 const useStyles = makeStyles({

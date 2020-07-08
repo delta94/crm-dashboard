@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Game } from 'types/games';
-import { getGameByIdRequest } from 'api';
+import { getGameByIdRequest } from 'api/games';
 import Loader from 'components/Loader';
 
 import GameEdit from './components/GameEdit';

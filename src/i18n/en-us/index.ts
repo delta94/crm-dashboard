@@ -12,6 +12,9 @@ export default {
     publish: 'Publish',
     name: 'Name',
     slug: 'Slug',
+    status: 'Status',
+    created_at: 'Created at',
+    published_at: 'Published at',
     games: {
       create: 'Create new game',
       name: 'Games',
@@ -153,6 +156,9 @@ export default {
         rating: 'Rating',
         media: 'Media',
       },
+    },
+    posts: {
+      name: 'Posts',
     },
   },
 };
