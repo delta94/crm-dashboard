@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import PublishIcon from '@material-ui/icons/Publish';
 import { Game } from 'types/games';
-import { publishGameRequest } from 'api';
+import { publishGameRequest } from 'api/games';
 
 const useStyles = makeStyles({
   row: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
 interface Props {
   game: Game;
-  onClick: () => void;
+  onClick: (id: string) => void;
   cellClassName?: string;
 }
 
@@ -29,6 +29,10 @@ const ListItem = (props: Props) => {
   const { id, title, slug } = game;
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
+
+  const handleClick = () => {
+    onClick(id);
+  };
 
   const handlePublishGame = async (event: SyntheticEvent) => {
     event.stopPropagation();
@@ -44,7 +48,7 @@ const ListItem = (props: Props) => {
   };
 
   return (
-    <TableRow onClick={onClick} className={classes.row}>
+    <TableRow onClick={handleClick} className={classes.row}>
       <TableCell align="center" className={cellClassName}>
         {id}
       </TableCell>

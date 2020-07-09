@@ -14,6 +14,10 @@ import './i18n';
 const Games = React.lazy(() => import('./pages/games'));
 const Game = React.lazy(() => import('./pages/game'));
 
+const Posts = React.lazy(() => import('./pages/posts'));
+const PostNew = React.lazy(() => import('./pages/post-new'));
+const PostEdit = React.lazy(() => import('./pages/post-edit'));
+
 function App() {
   return (
     <Router>
@@ -25,6 +29,15 @@ function App() {
             </Route>
             <Route path="/games/:id">
               <Game />
+            </Route>
+            <Route path="/posts" exact>
+              <Posts />
+            </Route>
+            <Route path="/posts/new" exact>
+              <PostNew />
+            </Route>
+            <Route path="/posts/:id">
+              <PostEdit />
             </Route>
             <Redirect to="/games" />
           </Switch>

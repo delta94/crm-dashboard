@@ -21,7 +21,7 @@ import {
 } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
-import { createOrUpdateGameRequest } from 'api';
+import { createOrUpdateGameRequest } from 'api/games';
 import { useHistory } from 'react-router-dom';
 
 import { gameTypes } from '../const';

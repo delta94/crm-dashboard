@@ -1,9 +1,15 @@
-import { Gamepad } from '@material-ui/icons';
+import GamesIcon from '@material-ui/icons/Gamepad';
+import PostsIcon from '@material-ui/icons/MenuBook';
 
 export default [
   {
     title: 'games',
-    Icon: Gamepad,
+    Icon: GamesIcon,
     href: '/games',
+  },
+  {
+    title: 'posts',
+    Icon: PostsIcon,
+    href: '/posts',
   },
 ];
