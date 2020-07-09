@@ -16,6 +16,7 @@ export default {
     status: 'Status',
     created_at: 'Created at',
     published_at: 'Published at',
+    delete_confirm: 'Do you really want to delete it?',
     language: 'Language',
     languages: {
       eng: 'English',

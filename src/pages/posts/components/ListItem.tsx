@@ -57,6 +57,11 @@ const ListItem = (props: Props) => {
 
   const handleDeletePost = async (event: SyntheticEvent) => {
     event.stopPropagation();
+
+    const isConfirmed = window.confirm(t('delete_confirm'));
+
+    if (!isConfirmed) return;
+
     setLoading(true);
 
     const { error } = await deletePostRequest(id);
