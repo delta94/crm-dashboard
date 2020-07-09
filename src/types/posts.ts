@@ -5,7 +5,7 @@ export interface Content {
 }
 
 export interface Post {
-  content: Content[];
+  l10n: Content[];
   cover: string;
   created_at: string;
   id: number;
@@ -19,4 +19,9 @@ export interface PostPayload {
   cover: string;
   id: number;
   slug: string;
+}
+
+export interface Language {
+  id: number;
+  language: string;
 }

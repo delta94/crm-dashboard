@@ -93,7 +93,7 @@ const Languages = (props: Props) => {
                 >
                   {languages.map(lang => (
                     <MenuItem key={lang} value={lang}>
-                      {t(`games.languages.${lang}`)}
+                      {t(`languages.${lang}`)}
                     </MenuItem>
                   ))}
                 </Select>

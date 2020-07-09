@@ -5,6 +5,7 @@ const publishersUrl = `${API_URL}/publishers`;
 const tagsUrl = `${API_URL}/tags`;
 const genresUrl = `${API_URL}/genres`;
 const featuresUrl = `${API_URL}/features`;
+const languagesUrl = `${API_URL}/languages`;
 
 export const createGETRequest = (url: string) => async () => {
   try {
@@ -59,3 +60,4 @@ export const getPublishersRequest = createGETRequest(publishersUrl);
 export const getTagsRequest = createGETRequest(tagsUrl);
 export const getGenresRequest = createGETRequest(genresUrl);
 export const getFeaturesRequest = createGETRequest(featuresUrl);
+export const getLanguagesRequest = createGETRequest(languagesUrl);

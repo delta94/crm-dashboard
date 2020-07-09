@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Game } from 'types/games';
-import { makeStyles, Paper, Tabs, Tab } from '@material-ui/core';
+import { makeStyles, Paper, Tabs, Tab, Typography } from '@material-ui/core';
 
 import General from './components/General';
 import Rating from './components/Rating';
@@ -53,6 +53,9 @@ const GameEdit = (props: Props) => {
 
   return (
     <div>
+      <Typography gutterBottom variant="h5">
+        {t('games.edit')}
+      </Typography>
       <Paper>
         <Tabs
           indicatorColor="primary"

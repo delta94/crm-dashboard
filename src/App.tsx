@@ -15,7 +15,8 @@ const Games = React.lazy(() => import('./pages/games'));
 const Game = React.lazy(() => import('./pages/game'));
 
 const Posts = React.lazy(() => import('./pages/posts'));
-const Post = React.lazy(() => import('./pages/post'));
+const PostNew = React.lazy(() => import('./pages/post-new'));
+const PostEdit = React.lazy(() => import('./pages/post-edit'));
 
 function App() {
   return (
@@ -33,10 +34,10 @@ function App() {
               <Posts />
             </Route>
             <Route path="/posts/new" exact>
-              <Post />
+              <PostNew />
             </Route>
             <Route path="/posts/:id">
-              <Post />
+              <PostEdit />
             </Route>
             <Redirect to="/games" />
           </Switch>
