@@ -10,18 +10,24 @@ export default {
     openOnCreate: 'Open on create',
     cancell: 'Cancell',
     publish: 'Publish',
+    to_draft: 'To draft',
     name: 'Name',
     slug: 'Slug',
+    status: 'Status',
+    created_at: 'Created at',
+    published_at: 'Published at',
+    language: 'Language',
+    languages: {
+      eng: 'English',
+      rus: 'Russian',
+      deu: 'German',
+      esp: 'Spanish',
+    },
     games: {
+      edit: 'Edit game',
       create: 'Create new game',
       name: 'Games',
       description: 'Here you can customize the look and feel of your game page in the store. Fields marked with * are mandatory',
-      languages: {
-        eng: 'English',
-        rus: 'Russian',
-        deu: 'German',
-        esp: 'Spanish',
-      },
       fields: {
         title: 'Title',
         slug: 'Slug',
@@ -152,6 +158,24 @@ export default {
         description: 'Description',
         rating: 'Rating',
         media: 'Media',
+      },
+    },
+    posts: {
+      post: 'Post',
+      name: 'Posts',
+      edit: 'Edit post',
+      create: 'Create new post',
+      fields: {
+        slug: {
+          label: 'Slug',
+        },
+        cover: {
+          label: 'Cover url',
+        },
+        content: {
+          label: 'Content',
+          title: 'Title',
+        },
       },
     },
   },

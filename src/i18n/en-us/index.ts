@@ -10,6 +10,7 @@ export default {
     openOnCreate: 'Open on create',
     cancell: 'Cancell',
     publish: 'Publish',
+    to_draft: 'To draft',
     name: 'Name',
     slug: 'Slug',
     status: 'Status',

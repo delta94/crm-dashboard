@@ -34,6 +34,7 @@ const PostsPage = () => {
     total,
     onChangeRowsPerPage,
     onChangePage,
+    onChangeItem,
     rowsPerPage,
   } = useItemsList<Post>(getPostsRequest, 'posts');
 
@@ -72,7 +73,8 @@ const PostsPage = () => {
               <TableCell className={classes.cell} align="center">{t('created_at')}</TableCell>
               <TableCell className={classes.cell} align="center">{t('published_at')}</TableCell>
               <TableCell className={classes.cell} align="center">{t('slug')}</TableCell>
-              <TableCell className={classes.cell} align="center">{t('publish')}</TableCell>
+              <TableCell className={classes.cell} align="center">{`${t('publish')} / ${t('to_draft')}`}</TableCell>
+              <TableCell className={classes.cell} align="center">{t('delete')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -82,6 +84,7 @@ const PostsPage = () => {
                 post={post}
                 onClick={handleRowClick}
                 cellClassName={classes.cell}
+                onChangeItem={onChangeItem}
               />
             ))}
           </TableBody>

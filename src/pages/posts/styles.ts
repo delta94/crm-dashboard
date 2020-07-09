@@ -17,5 +17,8 @@ export const useStyles = makeStyles({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
+    '&:first-child': {
+      width: '10%',
+    },
   },
 });

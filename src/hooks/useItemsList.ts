@@ -10,6 +10,7 @@ interface Result<T> {
   rowsPerPage: number;
   onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangePage: (event: unknown, newPage: number) => void;
+  onChangeItem: () => void;
 }
 
 function useItemsList<T>(request: GetItemsRequest, itemName: string): Result<T> {
@@ -21,15 +22,6 @@ function useItemsList<T>(request: GetItemsRequest, itemName: string): Result<T> 
   const start = page * rowsPerPage;
   const end = Math.min((start + rowsPerPage), total);
 
-  const onChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const onChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
   const getItems = async () => {
     const { json, error } = await request(start, rowsPerPage);
 
@@ -39,6 +31,19 @@ function useItemsList<T>(request: GetItemsRequest, itemName: string): Result<T> 
     }
 
     setLoading(false);
+  };
+
+  const onChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const onChangeItem = () => {
+    getItems();
+  };
+
+  const onChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
 
   const onItemCreate = () => {
@@ -65,6 +70,7 @@ function useItemsList<T>(request: GetItemsRequest, itemName: string): Result<T> 
     onChangeRowsPerPage,
     onChangePage,
     rowsPerPage,
+    onChangeItem,
   };
 }
 
