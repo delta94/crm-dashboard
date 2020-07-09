@@ -175,6 +175,7 @@ export default {
         content: {
           label: 'Content',
           title: 'Title',
+          summary: 'Summary',
         },
       },
     },

@@ -48,6 +48,7 @@ const Content = (props: Props) => {
       body: '',
       language_id: languages[0]?.id || 0,
       title: '',
+      summary: '',
     };
 
     setCount(count + 1);
@@ -59,7 +60,7 @@ const Content = (props: Props) => {
     setCount(count - 1);
   };
 
-  const handleTitleOrLanguageChange = (e: React.ChangeEvent<any>) => {
+  const handleFieldChange = (e: React.ChangeEvent<any>) => {
     const { name, value } = e.target;
 
     onChange(name, value);
@@ -103,7 +104,7 @@ const Content = (props: Props) => {
               <InputLabel>{t('language')}</InputLabel>
               <Select
                 value={value[i].language_id}
-                onChange={handleTitleOrLanguageChange}
+                onChange={handleFieldChange}
                 name={`l10n[${i}].language_id`}
                 className={classes.select}
                 label={t('language')}
@@ -132,8 +133,21 @@ const Content = (props: Props) => {
               label={t('posts.fields.content.title')}
               variant="outlined"
               value={value[i].title}
-              onChange={handleTitleOrLanguageChange}
+              onChange={handleFieldChange}
               className={classes.field}
+              fullWidth
+            />
+          </Box>
+          <Box marginBottom="16px">
+            <TextField
+              name={`l10n[${i}].summary`}
+              label={t('posts.fields.content.summary')}
+              variant="outlined"
+              value={value[i].summary}
+              onChange={handleFieldChange}
+              className={classes.field}
+              rows={3}
+              multiline
               fullWidth
             />
           </Box>

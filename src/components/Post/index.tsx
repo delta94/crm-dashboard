@@ -65,7 +65,7 @@ const Post = (props: Props) => {
 
   return (
     <Box padding="20px">
-      <Typography gutterBottom variant="h5">
+      <Typography gutterBottom variant="h5" color="primary">
         {t(`posts.${isNewPost ? 'create' : 'edit'}`)}
       </Typography>
       <form onSubmit={formik.handleSubmit}>

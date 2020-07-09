@@ -2,6 +2,7 @@ export interface Content {
   body: string;
   language_id: number;
   title: string;
+  summary: string;
 }
 
 export interface Post {

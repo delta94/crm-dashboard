@@ -53,7 +53,7 @@ const GameEdit = (props: Props) => {
 
   return (
     <div>
-      <Typography gutterBottom variant="h5">
+      <Typography gutterBottom variant="h5" color="primary">
         {t('games.edit')}
       </Typography>
       <Paper>

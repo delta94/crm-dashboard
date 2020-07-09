@@ -51,7 +51,7 @@ const PostsPage = () => {
   return (
     <Paper className={classes.root}>
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h6">
+        <Typography variant="h5" color="primary">
           {t('posts.name')}
         </Typography>
         <Button

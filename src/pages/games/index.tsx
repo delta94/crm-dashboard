@@ -52,7 +52,7 @@ const GamesPage = () => {
   return (
     <Paper className={classes.root}>
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h6">
+        <Typography variant="h5" color="primary">
           {t('games.name')}
         </Typography>
         <Button
