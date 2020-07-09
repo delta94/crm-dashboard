@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Post as PostType } from 'types/posts';
 import { Typography, FormGroup, TextField, Box, makeStyles, Button } from '@material-ui/core';
 import { useFormik } from 'formik';
-
-import Content from './components/Content';
 import { useHistory } from 'react-router-dom';
 import { createOrUpdatePostRequest } from 'api/posts';
+import { Post as PostType } from 'types/posts';
+
+import Content from './components/Content';
 
 const useStyles = makeStyles({
   field: {
