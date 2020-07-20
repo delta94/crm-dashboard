@@ -57,7 +57,7 @@ function useItemsList<T>(request: GetItemsRequest, itemName: string): Result<T> 
 
     getItems();
     // eslint-disable-next-line
-  }, [page]);
+  }, [page, rowsPerPage]);
 
   const currentItems = items.slice(start, end);
 
