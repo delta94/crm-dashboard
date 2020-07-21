@@ -1,5 +1,10 @@
 import { API_URL } from 'const';
-import { createGETRequest, createPOSTRequest, createGetItemsRequest, createPublishItemRequest } from 'api';
+import {
+  createGETRequest,
+  createPOSTRequest,
+  createGetItemsRequest,
+  createPublishItemRequest,
+} from 'admin-library';
 
 const gamesUrl = `${API_URL}/games`;
 
@@ -27,7 +32,6 @@ export const uploadMediaRequest = async (id: string, file: Blob) => {
 
 export const createOrUpdateGameRequest = createPOSTRequest(gamesUrl);
 export const createGameMediaRequest = createPOSTRequest(`${gamesUrl}/media`);
-
 export const getGamesRequest = createGetItemsRequest(gamesUrl);
 
 export const getGameByIdRequest = async (id: string | number) => {
