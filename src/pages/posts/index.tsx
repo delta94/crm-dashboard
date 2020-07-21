@@ -2,7 +2,7 @@ import React from 'react';
 import { Post } from 'types/posts';
 import { getPostsRequest } from 'api/posts';
 import Loader from 'components/Loader';
-import useItemsList from 'hooks/useItemsList';
+import { useItemsList } from 'admin-library';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {

@@ -1,5 +1,10 @@
 import { API_URL } from 'const';
-import { createGetItemsRequest, createPublishItemRequest, createPOSTRequest, createGETRequest } from 'api';
+import {
+  createGetItemsRequest,
+  createPublishItemRequest,
+  createPOSTRequest,
+  createGETRequest,
+} from 'admin-library';
 
 export const postsUrl = `${API_URL}/posts`;
 

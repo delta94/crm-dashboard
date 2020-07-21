@@ -6,8 +6,11 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import Layout from 'components/Layout';
-import Loader from 'components/Loader';
+import { Layout, Loader } from 'admin-library';
+import GamesIcon from '@material-ui/icons/Gamepad';
+import PostsIcon from '@material-ui/icons/MenuBook';
+import { useTranslation } from 'react-i18next';
+import { STORE_NAME } from 'const';
 
 import './i18n';
 
@@ -19,10 +22,24 @@ const PostNew = React.lazy(() => import('./pages/post-new'));
 const PostEdit = React.lazy(() => import('./pages/post-edit'));
 
 function App() {
+  const { t } = useTranslation();
+  const navLinks = [
+    {
+      title: t('games.name'),
+      icon: <GamesIcon />,
+      href: '/games',
+    },
+    {
+      title: t('posts.name'),
+      icon: <PostsIcon />,
+      href: '/posts',
+    },
+  ];
+
   return (
     <Router>
       <Suspense fallback={<Loader />}>
-        <Layout>
+        <Layout navLinks={navLinks} storeName={STORE_NAME}>
           <Switch>
             <Route path="/games" exact>
               <Games />
