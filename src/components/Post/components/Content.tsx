@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import { Language } from 'types/posts';
 import { getLanguagesRequest } from 'api';
-import MarkdownEditor from 'components/MarkdownEditor';
+import { MarkdownEditor } from 'admin-library';
 
 const useStyles = makeStyles({
   select: {

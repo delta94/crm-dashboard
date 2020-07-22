@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Post from 'components/Post';
-import Loader from 'components/Loader';
+import { Loader } from 'admin-library';
 import { getPostByIdRequest } from 'api/posts';
 import { Post as PostType } from 'types/posts';
 
