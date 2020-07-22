@@ -3,7 +3,7 @@ FROM node:12.14.1-alpine as builder
 RUN apk update && apk add git
 WORKDIR /data
 COPY . ./
-RUN yarn install
+RUN yarn install --network-concurrency 1
 RUN yarn build
 
 FROM nginx:alpine
