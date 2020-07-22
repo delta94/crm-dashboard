@@ -161,24 +161,5 @@ export default {
         media: 'Media',
       },
     },
-    posts: {
-      post: 'Post',
-      name: 'Posts',
-      edit: 'Edit post',
-      create: 'Create new post',
-      fields: {
-        slug: {
-          label: 'Slug',
-        },
-        cover: {
-          label: 'Cover url',
-        },
-        content: {
-          label: 'Content',
-          title: 'Title',
-          summary: 'Summary',
-        },
-      },
-    },
   },
 };
