@@ -1,8 +1,7 @@
 import React from 'react';
 import { Game } from 'types/games';
 import { getGamesRequest } from 'api/games';
-import Loader from 'components/Loader';
-import { useItemsList } from 'admin-library';
+import { useItemsList, Loader } from 'admin-library';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {

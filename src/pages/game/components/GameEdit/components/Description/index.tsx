@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Game } from 'types/games';
 import { useFormik } from 'formik';
 import { TextField, Button, makeStyles, FormGroup, Typography } from '@material-ui/core';
-import MarkdownEditor from 'components/MarkdownEditor';
+import { MarkdownEditor } from 'admin-library';
 
 import Review from './components/Review';
 import SocialLinks from './components/SocialLinks';
