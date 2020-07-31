@@ -6,10 +6,10 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import { Layout, Loader } from 'admin-library';
-import GamesIcon from '@material-ui/icons/Gamepad';
-import { useTranslation } from 'react-i18next';
+import { Layout, Loader, Login } from 'admin-library';
 import { STORE_NAME } from 'const';
+import NavLinks from 'components/NavLinks';
+import UserMenu from 'components/UserMenu';
 
 import './i18n';
 
@@ -17,19 +17,14 @@ const Games = React.lazy(() => import('./pages/games'));
 const Game = React.lazy(() => import('./pages/game'));
 
 function App() {
-  const { t } = useTranslation();
-  const navLinks = [
-    {
-      title: t('games.name'),
-      icon: <GamesIcon />,
-      href: '/games',
-    },
-  ];
-
   return (
     <Router>
       <Suspense fallback={<Loader />}>
-        <Layout navLinks={navLinks} storeName={STORE_NAME}>
+        <Layout
+          navLinks={<NavLinks />}
+          storeName={STORE_NAME}
+          userMenu={<UserMenu />}
+        >
           <Switch>
             <Route path="/games" exact>
               <Games />
