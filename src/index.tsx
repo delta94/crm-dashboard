@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { I18nextProvider, I18nextProviderProps } from 'react-i18next';
+import { i18n } from 'admin-library';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { I18nextProvider, I18nextProviderProps } from 'react-i18next';
-import { i18n } from 'admin-library';
 
 ReactDOM.render(
   <I18nextProvider i18n={i18n as I18nextProviderProps['i18n']}>
