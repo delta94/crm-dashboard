@@ -17,6 +17,7 @@ export default <T>(resourceRequest: () => Promise<ApiResponse>) => {
 
   useEffect(() => {
     loadResources();
+    // eslint-disable-next-line
   }, []);
 
   return { resources, loading, loadResources };

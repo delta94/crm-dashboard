@@ -101,9 +101,7 @@ const General = (props: Props) => {
         }),
       };
 
-      console.log(gameData);
-
-      // onEdit(gameData);
+      onEdit(gameData);
     },
   });
 
