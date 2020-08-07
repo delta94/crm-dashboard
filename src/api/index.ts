@@ -6,7 +6,7 @@ const publishersUrl = `${API_URL}/publishers`;
 const tagsUrl = `${API_URL}/tags`;
 const genresUrl = `${API_URL}/genres`;
 const featuresUrl = `${API_URL}/features`;
-const languagesUrl = `${API_URL}/languages`;
+const languagesUrl = `${API_URL}/localization-languages`;
 
 export const getDevelopersRequest = createGETRequest(developersUrl);
 export const getPublishersRequest = createGETRequest(publishersUrl);

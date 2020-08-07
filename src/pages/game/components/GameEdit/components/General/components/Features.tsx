@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NameWithId } from 'types/games';
 import { getFeaturesRequest } from 'api';
 import FormSelect from 'components/FormSelect';
+import useResourses from 'hooks/useResourses';
 
 interface Props {
   value: number[];
@@ -11,18 +12,8 @@ interface Props {
 
 const Features = (props: Props) => {
   const { value, onChange } = props;
-  const [features, setFeatures] = useState<NameWithId[]>([]);
   const { t } = useTranslation();
-
-  const loadDevelopers = async () => {
-    const { json, error } = await getFeaturesRequest();
-
-    if (!error) setFeatures(json);
-  };
-
-  useEffect(() => {
-    loadDevelopers();
-  }, []);
+  const { resources: features } = useResourses<NameWithId>(getFeaturesRequest);
 
   return (
     <FormSelect
