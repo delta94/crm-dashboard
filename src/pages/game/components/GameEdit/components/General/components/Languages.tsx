@@ -16,8 +16,8 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-
-const languages = ['eng', 'rus', 'deu', 'esp'];
+import useResourses from 'hooks/useResourses';
+import { getLanguagesRequest } from 'api';
 
 const useStyles = makeStyles({
   select: {
@@ -28,6 +28,12 @@ const useStyles = makeStyles({
   },
 });
 
+interface Language {
+  code: string;
+  id: number;
+  language: string;
+}
+
 interface Props {
   value: any[];
   onChange: (e: React.ChangeEvent<any>) => void;
@@ -35,13 +41,14 @@ interface Props {
 
 const Languages = (props: Props) => {
   const { value, onChange } = props;
+  const { resources: languages } = useResourses<Language>(getLanguagesRequest);
   const [count, setCount] = useState(value.length);
   const { t } = useTranslation();
   const classes = useStyles();
 
   const handleAddLanguage = () => {
     value[count] = {
-      language: '',
+      language_id: '',
       interface: false,
       audio: false,
       subtitles: false,
@@ -85,15 +92,15 @@ const Languages = (props: Props) => {
             <TableRow key={i}>
               <TableCell className={classes.lang}>
                 <Select
-                  value={lang.language}
-                  name={`localization[${i}].language`}
+                  value={lang.language_id}
+                  name={`localization[${i}].language_id`}
                   variant="outlined"
                   onChange={onChange}
                   className={classes.select}
                 >
-                  {languages.map(lang => (
-                    <MenuItem key={lang} value={lang}>
-                      {t(`languages.${lang}`)}
+                  {languages.map(({ id, code }) => (
+                    <MenuItem key={id} value={id}>
+                      {t(`languages.${code}`)}
                     </MenuItem>
                   ))}
                 </Select>

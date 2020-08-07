@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import FormSelect from 'components/FormSelect';
 import { NameWithId } from 'types/games';
 import { getGenresRequest } from 'api';
+import useResourses from 'hooks/useResourses';
 
 interface Props {
   value: number[];
@@ -11,18 +12,8 @@ interface Props {
 
 const Genres = (props: Props) => {
   const { value, onChange } = props;
-  const [genres, setGenres] = useState<NameWithId[]>([]);
   const { t } = useTranslation();
-
-  const loadDevelopers = async () => {
-    const { json, error } = await getGenresRequest();
-
-    if (!error) setGenres(json);
-  };
-
-  useEffect(() => {
-    loadDevelopers();
-  }, []);
+  const { resources: genres } = useResourses<NameWithId>(getGenresRequest);
 
   return (
     <FormSelect
