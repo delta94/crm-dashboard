@@ -10,8 +10,8 @@ interface State {
 const UserStateContext = createContext<State | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { getUser, ...state } = useUser(getUserRequest);
+  
   return (
     <UserStateContext.Provider value={state}>
       {children}

@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { BLACK_600, GRAY_100, Micro10, UserMenu } from 'admin-library';
 import { logout } from 'auth';
+import { useUserState } from 'containers/User';
+import { LogoIcon } from 'assets/icons';
 
 import NavLinks from './NavLinks';
-import { LogoIcon } from 'assets/icons';
-import { useUserState } from 'containers/User';
 import Onboarding from './Onboarding';
 
 interface Props {

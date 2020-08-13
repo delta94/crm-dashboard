@@ -8,36 +8,19 @@ import {
 } from '@material-ui/core';
 import { WHITE, Caption14, GRAY_100 } from 'admin-library';
 
+import links from './links';
+
 const NavLinks = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
 
-  const navLinks = [
-    {
-      title: t('dashboard.name'),
-      href: '/dashboard',
-    },
-    {
-      title: t('games.name'),
-      href: '/games',
-    },
-    {
-      title: t('company_settings.name'),
-      href: '/company-settings',
-    },
-    {
-      title: t('support.name'),
-      href: '/support',
-    },
-  ];
-
   return (
     <Nav>
-      {navLinks.map(({ title, href }) => (
+      {links.map(({ title, href }) => (
         <StyledLink to={href} key={title}>
           <StyledListItem button>
             <Caption14 color={pathname === href ? GRAY_100 : WHITE}>
-              {title}
+              {t(title)}
             </Caption14>
           </StyledListItem>
         </StyledLink>
