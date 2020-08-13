@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   List,
   ListItem,
 } from '@material-ui/core';
-import { WHITE } from 'admin-library';
+import { WHITE, Caption14, GRAY_100 } from 'admin-library';
 
 const NavLinks = () => {
   const { t } = useTranslation();
+  const { pathname } = useLocation();
+
   const navLinks = [
     {
       title: t('dashboard.name'),
@@ -34,7 +36,9 @@ const NavLinks = () => {
       {navLinks.map(({ title, href }) => (
         <StyledLink to={href} key={title}>
           <StyledListItem button>
-            {title}
+            <Caption14 color={pathname === href ? GRAY_100 : WHITE}>
+              {title}
+            </Caption14>
           </StyledListItem>
         </StyledLink>
       ))}
@@ -58,6 +62,4 @@ const StyledLink = styled(Link)`
 
 const StyledListItem = styled(ListItem)`
   padding-left: 38px;
-  font-size: 14px;
-  line-height: 22px;
 `;

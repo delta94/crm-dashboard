@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import styled from 'styled-components';
 import { Layout as BasicLayout, Loader, Login } from 'admin-library';
 import { login } from 'auth';
 import { useUserState } from 'containers/User';
@@ -21,7 +22,9 @@ const Layout = (props: Props) => {
     <BasicLayout
       sidebar={<Sidebar />}
     >
-      {children}
+      <Content>
+        {children}
+      </Content>
     </BasicLayout>
   );
 };
@@ -29,3 +32,7 @@ const Layout = (props: Props) => {
 const areEqual = (prev: Props, next: Props) => prev === next;
 
 export default React.memo(Layout, areEqual);
+
+const Content = styled.div`
+  padding: 0 40px;
+`;
