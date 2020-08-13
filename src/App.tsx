@@ -19,8 +19,8 @@ function App() {
 
   return (
     <Router>
-      <Suspense fallback={<Loader />}>
-        <Layout>
+      <Layout>
+        <Suspense fallback={<Loader />}>
           <Switch>
             <Route path="/games" exact>
               <Games />
@@ -30,8 +30,8 @@ function App() {
             </Route>
             <Redirect to="/games" />
           </Switch>
-        </Layout>
-      </Suspense>
+        </Suspense>
+      </Layout>
     </Router>
   );
 }

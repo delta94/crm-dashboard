@@ -2176,9 +2176,9 @@ adjust-sourcemap-loader@2.0.0:
     object-path "0.11.4"
     regex-parser "2.2.10"
 
-"admin-library@https://github.com/qilin/admin-library#v0.2.0":
-  version "0.2.0"
-  resolved "https://github.com/qilin/admin-library#4eabda59b446ae13d54533607f4b9f56b63c4957"
+"admin-library@https://github.com/qilin/admin-library#v0.2.1":
+  version "0.2.1"
+  resolved "https://github.com/qilin/admin-library#3308d0fc4cf277c95983f7307b4ca8ac80841195"
   dependencies:
     react-mde "^10.1.0"
     showdown "^1.9.1"

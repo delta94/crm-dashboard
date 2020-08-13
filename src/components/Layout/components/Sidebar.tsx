@@ -32,10 +32,8 @@ const Sidebar = (props: Props) => {
       <Divider />
       <Onboarding />
       <Divider />
-      <Confidential>
-        <Micro10 color={GRAY_100}>
-          {t('layout.confidential_information')}
-        </Micro10>
+      <Confidential color={GRAY_100}>
+        {t('layout.confidential_information')}
       </Confidential>
     </Wrapper>
   );
@@ -67,6 +65,7 @@ const Divider = styled.div`
   background-color: ${BLACK_600};
 `;
 
-const Confidential = styled.div`
+const Confidential = styled(Micro10)`
   padding-top: 16px;
+  display: block;
 `;
