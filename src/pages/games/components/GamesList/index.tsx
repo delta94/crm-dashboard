@@ -27,6 +27,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import GameCreate from './components/GameCreate';
 import ListItem from './components/ListItem';
 import { useStyles } from './styles';
+import ReviewQualityGuidelines from '../ReviewQualityGuidelines';
+import GetPricingHelp from '../GetPricingHelp';
 
 const GamesPage = () => {
   const classes = useStyles();
@@ -90,37 +92,46 @@ const GamesPage = () => {
         </Grid>
         <Grid item xs={4} />
       </Grid>
-      <TableContainer>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell className={classes.cell} align="center">ID</TableCell>
-              <TableCell className={classes.cell} align="center">{t('name')}</TableCell>
-              <TableCell className={classes.cell} align="center">{t('slug')}</TableCell>
-              <TableCell className={classes.cell} align="center">{t('publish')}</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {currentItems.map(game => (
-              <ListItem
-                key={game.id}
-                game={game}
-                onClick={handleRowClick}
-                cellClassName={classes.cell}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25]}
-        component="div"
-        count={total}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={onChangePage}
-        onChangeRowsPerPage={onChangeRowsPerPage}
-      />
+      <Grid container spacing={4}>
+        <Grid item xs={8}>
+          <TableContainer>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classes.cell} align="center">ID</TableCell>
+                  <TableCell className={classes.cell} align="center">{t('name')}</TableCell>
+                  <TableCell className={classes.cell} align="center">{t('slug')}</TableCell>
+                  <TableCell className={classes.cell} align="center">{t('publish')}</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {currentItems.map(game => (
+                  <ListItem
+                    key={game.id}
+                    game={game}
+                    onClick={handleRowClick}
+                    cellClassName={classes.cell}
+                  />
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25]}
+            component="div"
+            count={total}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={onChangePage}
+            onChangeRowsPerPage={onChangeRowsPerPage}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <StyledReviewQualityGuidelines />
+          <GetPricingHelp />
+        </Grid>
+      </Grid>
+
       <GameCreate
         open={openModal}
         onClose={handleCloseModal}
@@ -170,4 +181,8 @@ const SearchInput = styled(OutlinedInput)`
   && .MuiOutlinedInput-notchedOutline {
     border-color: ${BLACK_600};
   }
+`;
+
+const StyledReviewQualityGuidelines = styled(ReviewQualityGuidelines)`
+  margin-bottom: 24px;
 `;

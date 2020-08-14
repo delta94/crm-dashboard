@@ -23,8 +23,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
 import { createOrUpdateGameRequest } from 'api/games';
 import { useHistory } from 'react-router-dom';
-
-import { gameTypes } from '../const';
+import { gameTypes } from 'const';
 
 interface Props {
   open: boolean;
