@@ -11,7 +11,6 @@ import Layout from 'components/Layout';
 import { HAS_SESSION, restoreSessionOnEnter } from 'auth';
 
 const Games = React.lazy(() => import('./pages/games'));
-const Game = React.lazy(() => import('./pages/game'));
 
 function App() {
   const hasSession = getCookie(HAS_SESSION);
@@ -22,11 +21,8 @@ function App() {
       <Layout>
         <Suspense fallback={<Loader />}>
           <Switch>
-            <Route path="/games" exact>
+            <Route path="/games">
               <Games />
-            </Route>
-            <Route path="/games/:id">
-              <Game />
             </Route>
             <Redirect to="/games" />
           </Switch>

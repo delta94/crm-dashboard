@@ -13,7 +13,7 @@ import {
   Select,
   MenuItem,
 } from '@material-ui/core';
-import { gameTypes } from 'pages/games/const';
+import { gameTypes } from 'const';
 
 import Developers from './components/Developers';
 import Publishers from './components/Publishers';
