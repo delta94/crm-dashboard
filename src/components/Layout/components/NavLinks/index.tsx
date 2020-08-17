@@ -44,5 +44,7 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledListItem = styled(ListItem)`
-  padding-left: 38px;
+  && {
+    padding-left: 38px;
+  }
 `;

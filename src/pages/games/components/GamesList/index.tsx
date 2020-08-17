@@ -2,26 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { Game } from 'types/games';
 import { getGamesRequest } from 'api/games';
-import { useItemsList, Loader, H1, Caption12, GRAY_100, BLACK_600, PurpleButton } from 'admin-library';
+import { useItemsList, Loader, H1, Caption12, GRAY_100, BLACK_600, PurpleButton, H2 } from 'admin-library';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
   TablePagination,
   Grid,
   Box,
-  ButtonBase,
   InputAdornment,
   FormControl,
   OutlinedInput,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import SearchIcon from '@material-ui/icons/Search';
 
 import GameCreate from './components/GameCreate';
@@ -29,6 +21,8 @@ import ListItem from './components/ListItem';
 import { useStyles } from './styles';
 import ReviewQualityGuidelines from '../ReviewQualityGuidelines';
 import GetPricingHelp from '../GetPricingHelp';
+import GamesTableHead from './components/GamesTableHead';
+import EmptyList from './components/EmptyList';
 
 const GamesPage = () => {
   const classes = useStyles();
@@ -45,6 +39,7 @@ const GamesPage = () => {
     onChangePage,
     rowsPerPage,
   } = useItemsList<Game>(getGamesRequest, 'games');
+  const isListEmpty = !total;
 
   if (loading) return <Loader />;
 
@@ -66,22 +61,17 @@ const GamesPage = () => {
             {t('games.description')}
           </Description>
           <Box display="flex" justifyContent="space-between">
-            <Box>
-              <FilterButton disabled>
-                <FilterListIcon />
-              </FilterButton>
-              <StyledFormControl>
-                <SearchInput
-                  placeholder="Game title"
-                  startAdornment={(
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  )}
-                  disabled
-                />
-              </StyledFormControl>
-            </Box>
+            <StyledFormControl>
+              <SearchInput
+                placeholder={t('games.game_title')}
+                startAdornment={(
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                )}
+                disabled
+              />
+            </StyledFormControl>
             <PurpleButton
               onClick={handleOpenModal}
               startIcon={<AddIcon />}
@@ -94,28 +84,23 @@ const GamesPage = () => {
       </Grid>
       <Grid container spacing={4}>
         <Grid item xs={8}>
-          <TableContainer>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell className={classes.cell} align="center">ID</TableCell>
-                  <TableCell className={classes.cell} align="center">{t('name')}</TableCell>
-                  <TableCell className={classes.cell} align="center">{t('slug')}</TableCell>
-                  <TableCell className={classes.cell} align="center">{t('publish')}</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {currentItems.map(game => (
-                  <ListItem
-                    key={game.id}
-                    game={game}
-                    onClick={handleRowClick}
-                    cellClassName={classes.cell}
-                  />
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <TableTitle>
+            {t('games.list_of_games')}
+          </TableTitle>
+          <StyledTable>
+            <GamesTableHead />
+            <tbody>
+              {!isListEmpty && currentItems.map(game => (
+                <ListItem
+                  key={game.id}
+                  game={game}
+                  onClick={handleRowClick}
+                  cellClassName={classes.cell}
+                />
+              ))}
+            </tbody>
+          </StyledTable>
+
           <TablePagination
             rowsPerPageOptions={[10, 25]}
             component="div"
@@ -125,6 +110,7 @@ const GamesPage = () => {
             onChangePage={onChangePage}
             onChangeRowsPerPage={onChangeRowsPerPage}
           />
+          {isListEmpty && <EmptyList />}
         </Grid>
         <Grid item xs={4}>
           <StyledReviewQualityGuidelines />
@@ -156,16 +142,6 @@ const Description = styled(Caption12)`
   margin-bottom: 24px;
 `;
 
-const FilterButton = styled(ButtonBase)`
-  && {
-    border: 1px solid ${BLACK_600};
-    border-radius: 3px;
-    width: 40px;
-    height: 40px;
-    margin-right: 8px;
-  }
-`;
-
 const StyledFormControl = styled(FormControl)`
   width: 280px;
 `;
@@ -185,4 +161,14 @@ const SearchInput = styled(OutlinedInput)`
 
 const StyledReviewQualityGuidelines = styled(ReviewQualityGuidelines)`
   margin-bottom: 24px;
+`;
+
+const TableTitle = styled(H2)`
+  margin: 32px 0 12px;
+`;
+
+const StyledTable = styled.table`
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
 `;
