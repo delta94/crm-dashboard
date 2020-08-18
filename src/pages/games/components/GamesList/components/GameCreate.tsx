@@ -1,11 +1,23 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { FormControl, Modal, OutlinedInput } from '@material-ui/core';
+import { Modal } from '@material-ui/core';
 import { createOrUpdateGameRequest } from 'api/games';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { BLACK_700, BLACK_800, GRAY_100, H2, Caption12, RED_500, PurpleButton, CloseIcon } from 'admin-library';
+import { checkUrlString } from 'helpers';
+import {
+  BLACK_700,
+  BLACK_800,
+  GRAY_100,
+  H2,
+  Caption12,
+  RED_500,
+  PurpleButton,
+  CloseIcon,
+  WHITE,
+  Micro10,
+} from 'admin-library';
 
 interface Props {
   open: boolean;
@@ -16,11 +28,15 @@ interface Props {
 const validate = (values: any) => {
   const errors: Record<string, string> = {};
   if (!values.title) {
-    errors.title = 'Required';
+    errors.title = 'errors.empty_field';
   }
 
   if (!values.slug) {
-    errors.slug = 'Required';
+    errors.slug = 'errors.empty_field';
+  }
+
+  if (!checkUrlString(values.slug)) {
+    errors.slug = 'errors.not_url';
   }
 
   return errors;
@@ -68,31 +84,34 @@ const GameCreate = (props: Props) => {
         <StyledCloseIcon onClick={handleCancell} />
         <Title>{t('games.create')}</Title>
         <Label color={GRAY_100}>{t('games.fields.title')}</Label>
-        <StyledFormControl fullWidth>
-          <Input
-            error={formik.touched.title && !!formik.errors.title}
-            name="title"
-            value={formik.values.title}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <ErrorText color={RED_500}>
-            {formik.touched.title ? formik.errors.title : ''}
-          </ErrorText>
-        </StyledFormControl>
+        <Input
+          error={formik.touched.title && !!formik.errors.title}
+          name="title"
+          value={formik.values.title}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        <ErrorText color={RED_500}>
+          {formik.touched.title && !!formik.errors.title
+            ? t(formik.errors.title as string)
+            : ''
+          }
+        </ErrorText>
         <Label color={GRAY_100}>{t('games.fields.url')}</Label>
-        <StyledFormControl fullWidth>
-          <Input
-            error={formik.touched.slug && !!formik.errors.slug}
-            name="slug"
-            value={formik.values.slug}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <ErrorText color={RED_500}>
-            {formik.touched.slug ? formik.errors.slug : ''}
-          </ErrorText>
-        </StyledFormControl>
+        <Input
+          error={formik.touched.slug && !!formik.errors.slug}
+          name="slug"
+          value={formik.values.slug}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          placeholder="https://"
+        />
+        <ErrorText color={RED_500}>
+          {formik.touched.slug && !!formik.errors.slug
+            ? t(formik.errors.slug as string)
+            : ''
+          }
+        </ErrorText>
         <CreateButton type="submit">
           {t('continue')}
         </CreateButton>
@@ -125,26 +144,34 @@ const Label = styled(Caption12)`
   margin-bottom: 4px;
 `;
 
-const StyledFormControl = styled(FormControl)`
+const ErrorText = styled(Micro10)`
+  display: block;
+  height: 18px;
+  padding-top: 4px;
   margin-bottom: 6px;
 `;
 
-const ErrorText = styled(Caption12)`
-  height: 18px;
-`;
+const Input = styled.input<{ error?: boolean }>`
+  background-color: ${BLACK_700};
+  color: ${WHITE};
+  height: 40px;
+  font-size: 14px;
+  line-height: 22px;
+  border-radius: 2px;
+  border: none;
+  padding: 0 12px;
+  outline: none;
+  width: 100%;
 
-const Input = styled(OutlinedInput)`
-  && {
-    background-color: ${BLACK_700};
+  ::placeholder {
     color: ${GRAY_100};
-    height: 40px;
-    font-size: 14px;
-    line-height: 22px;
   }
 
-  && .MuiOutlinedInput-notchedOutline {
-    border: none;
-  }
+  ${({ error }) => error && `
+    border-bottom: 1px solid ${RED_500};
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  `}
 `;
 
 const CreateButton = styled(PurpleButton)`

@@ -1,72 +1,84 @@
-import React, { useState, SyntheticEvent } from 'react';
-import { useTranslation } from 'react-i18next';
-import {
-  makeStyles,
-  Button,
-  TableRow,
-  TableCell,
-  CircularProgress,
-} from '@material-ui/core';
-import PublishIcon from '@material-ui/icons/Publish';
+import React from 'react';
 import { Game } from 'types/games';
-import { publishGameRequest } from 'api/games';
+import styled from 'styled-components';
+import { PURPLE_500, WHITE, GRAY_100, ORANGE_500, RED_500 } from 'admin-library';
+import emptyCover from 'assets/images/empty-cover.png';
+import { formateIsoDate } from 'helpers';
 
-const useStyles = makeStyles({
-  row: {
-    cursor: 'pointer',
-  },
-});
+import { Cell, FirstCell, Row } from '../styles';
+
+const getStatusColor = (status: string) => {
+  const lowerStatus = status.toLowerCase();
+
+  if (lowerStatus === 'released') return WHITE;
+
+  if (lowerStatus === 'rejected') return RED_500;
+
+  return ORANGE_500;
+};
 
 interface Props {
+  className?: string;
   game: Game;
   onClick: (id: string) => void;
-  cellClassName?: string;
 }
 
 const ListItem = (props: Props) => {
-  const { t } = useTranslation();
-  const { game, onClick, cellClassName } = props;
-  const { id, title, slug } = game;
-  const classes = useStyles();
-  const [loading, setLoading] = useState(false);
+  const { game, onClick, className } = props;
+  const { id, title, slug, revision } = game;
+  const { release_date, status, media: { covers } } = revision;
+  const gameImg = covers.catalog?.url;
 
   const handleClick = () => {
     onClick(id);
   };
 
-  const handlePublishGame = async (event: SyntheticEvent) => {
-    event.stopPropagation();
-    setLoading(true);
-
-    const { error } = await publishGameRequest(id);
-
-    setLoading(false);
-
-    if (error) {
-      alert(error.message);
-    }
-  };
-
   return (
-    <TableRow onClick={handleClick} className={classes.row}>
-      <TableCell align="center" className={cellClassName}>
-        {id}
-      </TableCell>
-      <TableCell align="center" className={cellClassName}>{title}</TableCell>
-      <TableCell align="center" className={cellClassName}>{slug}</TableCell>
-      <TableCell align="center" className={cellClassName}>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={handlePublishGame}
-          startIcon={!loading && <PublishIcon />}
-          disabled={loading}
-        >
-          {loading ? <CircularProgress size={20} color="primary" /> : t('publish')}
-        </Button>
-      </TableCell>
-    </TableRow>
+    <Wrapper onClick={handleClick} className={className}>
+      <StyledRow>
+        <FirstCell>
+          <Image alt={id} src={gameImg || emptyCover} />
+          {title}
+        </FirstCell>
+        <Cell>{title}</Cell>
+        <Cell>{slug}</Cell>
+        <StyledCell color={release_date ? WHITE : GRAY_100}>
+          {release_date ? formateIsoDate(release_date) : '–'}
+        </StyledCell>
+        <StyledCell color={getStatusColor(status)}>{status}</StyledCell>
+      </StyledRow>
+    </Wrapper>
   );
 };
 
 export default React.memo(ListItem);
+
+const StyledRow = styled(Row)``;
+
+const StyledCell = styled(Cell)``;
+
+const Wrapper = styled.div`
+  padding: 1px 8px;
+  margin: -1px -8px;
+  border-radius: 2px;
+  cursor: pointer;
+
+  :hover {
+    background-color: ${PURPLE_500};
+    
+    ${StyledRow} {
+      border-bottom-color: ${PURPLE_500};
+    }
+
+    ${StyledCell} {
+      color: white;
+    }
+  }
+`;
+
+const Image = styled.img`
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  margin-right: 12px;
+`;

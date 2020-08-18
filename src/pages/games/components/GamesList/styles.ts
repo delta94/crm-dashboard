@@ -1,21 +1,22 @@
-import { makeStyles } from '@material-ui/core';
+import { Caption12, textOverflowStyles, BLACK_600 } from 'admin-library';
+import styled from 'styled-components';
 
-export const useStyles = makeStyles({
-  table: {
-    minWidth: 400,
-  },
-  root: {
-    width: '100%',
-  },
-  toolbar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  cell: {
-    maxWidth: 50,
-    width: '25%',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-  },
-});
+export const Cell = styled(Caption12)`
+  ${textOverflowStyles}
+  display: inline-flex;
+  align-items: center;
+  flex-basis: 17%;
+  text-align: start;
+  text-transform: capitalize;
+`;
+
+export const FirstCell = styled(Cell)`
+  flex-basis: 32%;
+`;
+
+export const Row = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid ${BLACK_600};
+`;

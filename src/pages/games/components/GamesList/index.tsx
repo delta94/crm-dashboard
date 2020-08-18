@@ -18,14 +18,12 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import GameCreate from './components/GameCreate';
 import ListItem from './components/ListItem';
-import { useStyles } from './styles';
 import ReviewQualityGuidelines from '../ReviewQualityGuidelines';
 import GetPricingHelp from '../GetPricingHelp';
 import GamesTableHead from './components/GamesTableHead';
 import EmptyList from './components/EmptyList';
 
 const GamesPage = () => {
-  const classes = useStyles();
   const history = useHistory();
   const [openModal, setOpenModal] = React.useState(false);
   const { t } = useTranslation();
@@ -89,16 +87,13 @@ const GamesPage = () => {
           </TableTitle>
           <StyledTable>
             <GamesTableHead />
-            <tbody>
-              {!isListEmpty && currentItems.map(game => (
-                <ListItem
-                  key={game.id}
-                  game={game}
-                  onClick={handleRowClick}
-                  cellClassName={classes.cell}
-                />
-              ))}
-            </tbody>
+            {!isListEmpty && currentItems.map(game => (
+              <ListItem
+                key={game.id}
+                game={game}
+                onClick={handleRowClick}
+              />
+            ))}
           </StyledTable>
 
           <TablePagination
@@ -164,11 +159,7 @@ const StyledReviewQualityGuidelines = styled(ReviewQualityGuidelines)`
 `;
 
 const TableTitle = styled(H2)`
-  margin: 32px 0 12px;
+  margin: 32px 0 4px;
 `;
 
-const StyledTable = styled.table`
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-`;
+const StyledTable = styled.div``;
