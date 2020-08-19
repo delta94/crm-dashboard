@@ -1,20 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { createOrUpdateGameRequest } from 'api/games';
 import { Game } from 'types/games';
-import { makeStyles, Paper, Tabs, Tab, Typography } from '@material-ui/core';
 
 import General from './components/General';
 import Rating from './components/Rating';
 import Media from './components/Media';
 import Description from './components/Description';
-import { useHistory } from 'react-router-dom';
-import { createOrUpdateGameRequest } from 'api/games';
-
-const useStyles = makeStyles({
-  tab: {
-    padding: '24px 0',
-  },
-});
+import Tabs from './components/Tabs';
 
 interface Props {
   game: Game;
@@ -24,14 +19,8 @@ interface Props {
 const GameEdit = (props: Props) => {
   const { game, onUpdate } = props;
   const { id, title, slug, type } = game;
-  const classes = useStyles();
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = React.useState(0);
   const history = useHistory();
-
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setActiveTab(newValue);
-  };
 
   const handleEdit = async (data: any) => {
     const { error } = await createOrUpdateGameRequest({
@@ -53,36 +42,27 @@ const GameEdit = (props: Props) => {
 
   return (
     <div>
-      <Typography gutterBottom variant="h5" color="primary">
-        {t('games.edit')}
-      </Typography>
-      <Paper>
-        <Tabs
-          indicatorColor="primary"
-          textColor="primary"
-          value={activeTab}
-          onChange={handleTabChange}
-        >
-          <Tab label={t('games.tabs.general')} />
-          <Tab label={t('games.tabs.description')} />
-          <Tab label={t('games.tabs.rating')} />
-          <Tab label={t('games.tabs.media')} />
-        </Tabs>
-      </Paper>
-      <div className={classes.tab} hidden={activeTab !== 0}>
-        <General game={game} onEdit={handleEdit} />
-      </div>
-      <div className={classes.tab} hidden={activeTab !== 1}>
-        <Description game={game} onEdit={handleEdit} />
-      </div>
-      <div className={classes.tab} hidden={activeTab !== 2}>
-        <Rating game={game} onEdit={handleEdit} />
-      </div>
-      <div className={classes.tab} hidden={activeTab !== 3}>
-        <Media game={game} onEdit={handleEdit} />
-      </div>
+      <Tabs>
+        <Tab label={t('games.tabs.general')}>
+          <General game={game} onEdit={handleEdit} />
+        </Tab>
+        <Tab label={t('games.tabs.description')}>
+          <Description game={game} onEdit={handleEdit} />
+        </Tab>
+        <Tab label={t('games.tabs.rating')}>
+          <Rating game={game} onEdit={handleEdit} />
+        </Tab>
+        <Tab label={t('games.tabs.media')}>
+          <Media game={game} onEdit={handleEdit} />
+        </Tab>
+        <Tab label={t('games.tabs.price')} />
+        <Tab label={t('games.tabs.sales')} />
+        <Tab label={t('games.tabs.publish')} />
+      </Tabs>
     </div>
   );
 };
 
 export default React.memo(GameEdit);
+
+const Tab = styled.div<{ label: string }>``;
