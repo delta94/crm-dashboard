@@ -7,7 +7,7 @@ import {
   Button,
   Grid,
 } from '@material-ui/core';
-import { GRAY_100, Input, Caption12, RED_500, Switch, Checkbox } from 'admin-library';
+import { GRAY_100, Input, Caption12, RED_500 } from 'admin-library';
 
 import Languages from './components/Languages';
 import Genres from './components/Genres';
@@ -15,6 +15,7 @@ import Tags from './components/Tags';
 import SystemRequirements from './components/SystemRequirements';
 import { Title, Description } from '../../../../styles';
 import InputLabel from '../InputLabel';
+import Features from './components/Features';
 
 interface Props {
   game: Game;
@@ -32,7 +33,7 @@ const transformRequirements = (requirements: any) => {
 };
 
 const General = (props: Props) => {
-  const { game, onEdit } = props;
+  const { game } = props;
   const { revision, title, slug, type } = game;
   const {
     developers = [],
@@ -86,7 +87,8 @@ const General = (props: Props) => {
         }),
       };
 
-      onEdit(gameData);
+      // onEdit(gameData);
+      console.log(gameData);
     },
   });
 
@@ -129,27 +131,11 @@ const General = (props: Props) => {
         </Grid>
         <Grid item xs={6} />
       </Grid>
-      <Switch />
-      <Checkbox color={RED_500} />
-      <DisplayTime>
-        {t('game.fields.releaseDate.display_time')}
-      </DisplayTime>
-
-      <Genres
-        value={formik.values.genres}
-        onChange={formik.setFieldValue}
-      />
-
-      <Tags
-        value={formik.values.tags}
-        onChange={formik.setFieldValue}
-      />
-
-      <Languages
-        value={formik.values.localization}
-        onChange={formik.setFieldValue}
-      />
-
+      <DisplayTime>{t('game.fields.releaseDate.display_time')}</DisplayTime>
+      <Genres value={formik.values.genres} onChange={formik.setFieldValue} />
+      <Tags value={formik.values.tags} onChange={formik.setFieldValue} />
+      <Languages value={formik.values.localization} onChange={formik.setFieldValue} />
+      <Features value={formik.values.features} onChange={formik.setFieldValue} />
       <FormGroup>
         <SystemRequirements
           requirementsValue={formik.values.requirements}
