@@ -6,7 +6,7 @@ export interface NameWithId {
 export interface Localization {
   audio: boolean;
   interface: boolean;
-  language: string;
+  language_id: number;
   subtitles: boolean;
 }
 

@@ -1,31 +1,42 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FormSelect from 'components/FormSelect';
 import { NameWithId } from 'types/games';
 import { getGenresRequest } from 'api';
 import useResourses from 'hooks/useResourses';
+import { TagsSelector, GRAY_100 } from 'admin-library';
+import styled from 'styled-components';
+import { Title, Description } from 'pages/games/components/Game/styles';
 
 interface Props {
+  className?: string;
   value: number[];
-  onChange: (e: React.ChangeEvent<any>) => void;
+  onChange: (name: string, value: number[]) => void;
 }
 
 const Genres = (props: Props) => {
-  const { value, onChange } = props;
+  const { value, onChange, className } = props;
   const { t } = useTranslation();
   const { resources: genres } = useResourses<NameWithId>(getGenresRequest);
 
+  const handleChange = (newSelected: number[]) => {
+    onChange('genres', newSelected);
+  };
+
   return (
-    <FormSelect
-      value={value}
-      name="genres"
-      onChange={onChange}
-      title={t('games.fields.genres.label')}
-      label={t('games.fields.genres.label')}
-      description={t('games.fields.genres.description')}
-      options={genres}
-    />
+    <Wrapper className={className}>
+      <Title>{t('game.fields.genres.label')}</Title>
+      <Description color={GRAY_100}>{t('game.fields.genres.description')}</Description>
+      <TagsSelector
+        tags={genres}
+        onChange={handleChange}
+        selected={value}
+      />
+    </Wrapper>
   );
 };
 
 export default React.memo(Genres);
+
+const Wrapper = styled.div`
+  margin-top: 40px;
+`;

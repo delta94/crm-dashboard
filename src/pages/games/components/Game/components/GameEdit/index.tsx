@@ -43,21 +43,21 @@ const GameEdit = (props: Props) => {
   return (
     <div>
       <Tabs>
-        <Tab label={t('games.tabs.general')}>
+        <Tab label={t('game.tabs.general')}>
           <General game={game} onEdit={handleEdit} />
         </Tab>
-        <Tab label={t('games.tabs.description')}>
+        <Tab label={t('game.tabs.descriptions')}>
           <Description game={game} onEdit={handleEdit} />
         </Tab>
-        <Tab label={t('games.tabs.rating')}>
+        <Tab label={t('game.tabs.rating')}>
           <Rating game={game} onEdit={handleEdit} />
         </Tab>
-        <Tab label={t('games.tabs.media')}>
+        <Tab label={t('game.tabs.media')}>
           <Media game={game} onEdit={handleEdit} />
         </Tab>
-        <Tab label={t('games.tabs.price')} />
-        <Tab label={t('games.tabs.sales')} />
-        <Tab label={t('games.tabs.publish')} />
+        <Tab label={t('game.tabs.price')} />
+        <Tab label={t('game.tabs.sales')} />
+        <Tab label={t('game.tabs.publish')} />
       </Tabs>
     </div>
   );

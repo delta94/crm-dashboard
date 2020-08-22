@@ -1,39 +1,25 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Game, SystemRequirements as SystemRequirementsType } from 'types/games';
 import { useFormik } from 'formik';
 import {
-  TextField,
   Button,
-  makeStyles,
-  FormGroup,
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
+  Grid,
 } from '@material-ui/core';
-import { gameTypes } from 'const';
+import { GRAY_100, Input, Caption12, RED_500, Switch, Checkbox } from 'admin-library';
 
-import Developers from './components/Developers';
-import Publishers from './components/Publishers';
 import Languages from './components/Languages';
 import Genres from './components/Genres';
 import Tags from './components/Tags';
-import ReleaseDate from './components/ReleaseDate';
-import Features from './components/Features';
 import SystemRequirements from './components/SystemRequirements';
+import { Title, Description } from '../../../../styles';
+import InputLabel from '../InputLabel';
 
 interface Props {
   game: Game;
   onEdit: (data: any) => void;
 }
-
-const useStyles = makeStyles({
-  field: {
-    marginBottom: 16,
-  },
-});
 
 const transformRequirements = (requirements: any) => {
   const { disk_space, ram, diskSpaceUnit = 1, ramUnit = 1, ...rest } = requirements;
@@ -59,7 +45,6 @@ const General = (props: Props) => {
     system_requirements = [],
     platforms = [],
   } = revision;
-  const classes = useStyles();
   const { t } = useTranslation();
   const requirements = system_requirements
     ?.reduce((acc: Record<string, SystemRequirementsType>, item) => {
@@ -78,7 +63,7 @@ const General = (props: Props) => {
       localization: localization || [],
       genres: genres.map(({ id }) => id),
       tags: tags.map(({ id }) => id),
-      release_date,
+      release_date: release_date && release_date.slice(0, 10),
       features: features.map(({ id }) => id),
       requirements,
       platforms,
@@ -107,94 +92,65 @@ const General = (props: Props) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Typography className={classes.field} variant="h6">
-        {t('games.description')}
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        {`${t('games.fields.title')} *`}
-      </Typography>
-      <FormGroup className={classes.field}>
-        <TextField
-          name="title"
-          label={t('games.fields.title')}
-          variant="outlined"
-          value={formik.values.title}
-          onChange={formik.handleChange}
-        />
-      </FormGroup>
-      <Typography variant="h6" gutterBottom>
-        {`${t('games.fields.slug')} *`}
-      </Typography>
-      <FormGroup className={classes.field}>
-        <TextField
-          name="slug"
-          label={t('games.fields.slug')}
-          variant="outlined"
-          value={formik.values.slug}
-          onChange={formik.handleChange}
-        />
-      </FormGroup>
-      <Typography variant="h6" gutterBottom>
-        {`${t('games.fields.type')} *`}
-      </Typography>
-      <FormGroup className={classes.field}>
-        <FormControl variant="outlined">
-          <InputLabel>{t('games.fields.type')}</InputLabel>
-          <Select
-            value={formik.values.type}
-            onChange={formik.handleChange}
-            name="type"
-            label={t('games.fields.type')}
-          >
-            {gameTypes.map(type => (
-              <MenuItem value={type} key={type}>{type}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </FormGroup>
-      <FormGroup className={classes.field}>
-        <Developers
-          value={formik.values.developers}
-          onChange={formik.handleChange}
-        />
-      </FormGroup>
-      <FormGroup className={classes.field}>
-        <Publishers
-          value={formik.values.publishers}
-          onChange={formik.handleChange}
-        />
-      </FormGroup>
-      <FormGroup className={classes.field}>
-        <Languages
-          value={formik.values.localization}
-          onChange={formik.handleChange}
-        />
-      </FormGroup>
-      <FormGroup className={classes.field}>
-        <Genres
-          value={formik.values.genres}
-          onChange={formik.handleChange}
-        />
-      </FormGroup>
-      <FormGroup className={classes.field}>
-        <Tags
-          value={formik.values.tags}
-          onChange={formik.handleChange}
-        />
-      </FormGroup>
-      <FormGroup className={classes.field}>
-        <ReleaseDate
-          value={formik.values.release_date}
-          onChange={formik.handleChange}
-        />
-      </FormGroup>
-      <FormGroup className={classes.field}>
-        <Features
-          value={formik.values.features}
-          onChange={formik.handleChange}
-        />
-      </FormGroup>
-      <FormGroup className={classes.field}>
+      <Title>{t('game.general.title')}</Title>
+      <Description color={GRAY_100}>
+        {t('game.general.description_start')}
+        <Caption12 color={RED_500}>*</Caption12>
+        {t('game.general.description_end')}
+      </Description>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <FormGroup>
+            <InputLabel label={t('game.fields.title')} required />
+            <Input
+              name="title"
+              value={formik.values.title}
+              onChange={formik.handleChange}
+            />
+          </FormGroup>
+        </Grid>
+        <Grid item xs={6} />
+      </Grid>
+      <Title>{t('game.fields.releaseDate.label')}</Title>
+      <Description color={GRAY_100}>
+        {t('game.fields.releaseDate.description')}
+      </Description>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <FormGroup>
+            <InputLabel label={t('game.fields.releaseDate.label')} required />
+            <Input
+              name="release_date"
+              value={formik.values.release_date}
+              onChange={formik.handleChange}
+              type="date"
+            />
+          </FormGroup>
+        </Grid>
+        <Grid item xs={6} />
+      </Grid>
+      <Switch />
+      <Checkbox color={RED_500} />
+      <DisplayTime>
+        {t('game.fields.releaseDate.display_time')}
+      </DisplayTime>
+
+      <Genres
+        value={formik.values.genres}
+        onChange={formik.setFieldValue}
+      />
+
+      <Tags
+        value={formik.values.tags}
+        onChange={formik.setFieldValue}
+      />
+
+      <Languages
+        value={formik.values.localization}
+        onChange={formik.setFieldValue}
+      />
+
+      <FormGroup>
         <SystemRequirements
           requirementsValue={formik.values.requirements}
           platformsValue={formik.values.platforms}
@@ -214,3 +170,12 @@ const General = (props: Props) => {
 };
 
 export default React.memo(General);
+
+const FormGroup = styled.div`
+  margin-bottom: 20px;
+`;
+
+const DisplayTime = styled(Caption12)`
+  display: inline-block;
+  margin-left: 8px;
+`;
