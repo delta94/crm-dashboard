@@ -5,9 +5,8 @@ import { Game, SystemRequirements as SystemRequirementsType } from 'types/games'
 import { useFormik } from 'formik';
 import {
   Button,
-  Grid,
 } from '@material-ui/core';
-import { GRAY_100, Input, Caption12, RED_500 } from 'admin-library';
+import { GRAY_100, Input, Caption12, RED_500, Grid } from 'admin-library';
 
 import Languages from './components/Languages';
 import Genres from './components/Genres';
@@ -16,6 +15,8 @@ import SystemRequirements from './components/SystemRequirements';
 import { Title, Description } from '../../../../styles';
 import InputLabel from '../InputLabel';
 import Features from './components/Features';
+
+const { Row, Col } = Grid;
 
 interface Props {
   game: Game;
@@ -100,8 +101,8 @@ const General = (props: Props) => {
         <Caption12 color={RED_500}>*</Caption12>
         {t('game.general.description_end')}
       </Description>
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
+      <Row gap="24px">
+        <Col xs={6}>
           <FormGroup>
             <InputLabel label={t('game.fields.title')} required />
             <Input
@@ -110,15 +111,15 @@ const General = (props: Props) => {
               onChange={formik.handleChange}
             />
           </FormGroup>
-        </Grid>
-        <Grid item xs={6} />
-      </Grid>
+        </Col>
+        <Col xs={6} />
+      </Row>
       <Title>{t('game.fields.releaseDate.label')}</Title>
       <Description color={GRAY_100}>
         {t('game.fields.releaseDate.description')}
       </Description>
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
+      <Row gap="24px">
+        <Col xs={6}>
           <FormGroup>
             <InputLabel label={t('game.fields.releaseDate.label')} required />
             <Input
@@ -128,9 +129,9 @@ const General = (props: Props) => {
               type="date"
             />
           </FormGroup>
-        </Grid>
-        <Grid item xs={6} />
-      </Grid>
+        </Col>
+        <Col xs={6} />
+      </Row>
       <DisplayTime>{t('game.fields.releaseDate.display_time')}</DisplayTime>
       <Genres value={formik.values.genres} onChange={formik.setFieldValue} />
       <Tags value={formik.values.tags} onChange={formik.setFieldValue} />

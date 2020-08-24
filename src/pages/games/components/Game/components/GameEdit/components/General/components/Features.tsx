@@ -5,8 +5,9 @@ import { getFeaturesRequest } from 'api';
 import useResourses from 'hooks/useResourses';
 import styled from 'styled-components';
 import { Title, Description } from 'pages/games/components/Game/styles';
-import { GRAY_100, Checkbox, WHITE } from 'admin-library';
-import { Grid } from '@material-ui/core';
+import { GRAY_100, Checkbox, WHITE, Grid } from 'admin-library';
+
+const { Row, Col } = Grid;
 
 interface Props {
   className?: string;
@@ -33,9 +34,9 @@ const Features = (props: Props) => {
     <Wrapper className={className}>
       <Title>{t('game.fields.supported_features.label')}</Title>
       <Description color={GRAY_100}>{t('game.fields.supported_features.description')}</Description>
-      <Grid container spacing={3}>
+      <Row gap="24px">
         {features.map(({ id, name }) => (
-          <Grid key={id} item xs={6}>
+          <StyledCol xs={6} key={id}>
             <Feature>
               <StyledCheckbox
                 name={`${id}`}
@@ -44,9 +45,9 @@ const Features = (props: Props) => {
               />
               {name}
             </Feature>
-          </Grid>
+          </StyledCol>
         ))}
-      </Grid>
+      </Row>
     </Wrapper>
   );
 };
@@ -65,6 +66,14 @@ const Feature = styled.label`
   line-height: 20px;
   color: ${WHITE};
   cursor: pointer;
+`;
+
+const StyledCol = styled(Col)`
+  margin-bottom: 14px;
+
+  :last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const StyledCheckbox = styled(Checkbox)`

@@ -5,7 +5,7 @@ import { Modal } from '@material-ui/core';
 import { createOrUpdateGameRequest } from 'api/games';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { checkUrlString } from 'helpers';
+import { checkUrlString } from 'admin-library';
 import {
   Input,
   BLACK_800,
