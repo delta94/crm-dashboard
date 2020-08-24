@@ -16,12 +16,16 @@ export const snakeToCamelCase = (name: string) => name
   .map((word, index) => index === 0 ? word : capitalize(word))
   .join('');
 
-export const formateDate = (date: Date, locale = 'en-US') => date.toLocaleString(locale, DATE_OPTIONS);
+export const formateDate = (
+  date: Date,
+  locale = 'en-US',
+  dateOptions = DATE_OPTIONS,
+) => date.toLocaleString(locale, dateOptions);
 
-export const formateIsoDate = (isoDateString: string, locale?: string) => {
+export const formateIsoDate = (isoDateString: string, locale?: string, dateOptions = DATE_OPTIONS) => {
   const date = new Date(isoDateString.slice(0, 10));
 
-  return formateDate(date, locale);
+  return formateDate(date, locale, dateOptions);
 };
 
 export const checkUrlString = (urlString: string) => {

@@ -8,6 +8,12 @@ import { DEFAULT_REGION_CURRENCY_ID } from 'const';
 
 import { Cell, FirstCell, Row } from '../styles';
 
+const dateOptions = {
+  year: 'numeric',
+  month:  '2-digit',
+  day:  '2-digit',
+};
+
 const getStatusColor = (status: string) => {
   const lowerStatus = status.toLowerCase();
 
@@ -55,7 +61,7 @@ const ListItem = (props: Props) => {
         <Cell>{price}</Cell>
         <Cell>{discount}</Cell>
         <StyledCell color={release_date ? WHITE : GRAY_100}>
-          {release_date ? formateIsoDate(release_date) : '–'}
+          {release_date ? formateIsoDate(release_date, 'ru-RU', dateOptions) : '–'}
         </StyledCell>
         <StyledCell color={getStatusColor(status)}>{status}</StyledCell>
       </StyledRow>
