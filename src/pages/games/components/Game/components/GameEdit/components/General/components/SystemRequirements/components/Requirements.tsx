@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import {
   TextField,
   Typography,
-  Box,
   makeStyles,
   FormGroup,
   Select,
   MenuItem,
 } from '@material-ui/core';
+import styled from 'styled-components';
 
 const useStyles = makeStyles({
   select: {
@@ -39,7 +39,7 @@ const Requirements = (props: Props) => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
+    <Wrapper className={classes.root}>
       <Typography className={classes.field} variant="h6">
         {title}
       </Typography>
@@ -114,8 +114,10 @@ const Requirements = (props: Props) => {
           <MenuItem value={1024}>Gb</MenuItem>
         </Select>
       </div>
-    </Box>
+    </Wrapper>
   );
 };
 
 export default React.memo(Requirements);
+
+const Wrapper = styled.div``;

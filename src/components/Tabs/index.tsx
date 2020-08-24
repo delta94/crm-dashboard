@@ -1,6 +1,6 @@
 import React, { useState, ReactNode } from 'react';
 import styled from 'styled-components';
-import { PURPLE_500, GRAY_100, WHITE, BLACK_600, Caps10 } from 'admin-library';
+import { PURPLE_500, GRAY_100, WHITE, BLACK_600, Micro10 } from 'admin-library';
 
 interface Props {
   className?: string;
@@ -24,7 +24,7 @@ const Tabs = (props: Props) => {
         active={active === index}
         onClick={handleChangeTab(index)}
       >
-        <Caps10 color={active === index ? WHITE : GRAY_100}>{label}</Caps10>
+        <Micro10 color={active === index ? WHITE : GRAY_100}>{label}</Micro10>
       </Label>
     );
   });

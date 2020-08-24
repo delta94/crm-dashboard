@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { createOrUpdateGameRequest } from 'api/games';
 import { Game } from 'types/games';
+import Tabs from 'components/Tabs';
 
 import General from './components/General';
 import Rating from './components/Rating';
 import Media from './components/Media';
 import Description from './components/Description';
-import Tabs from './components/Tabs';
 
 interface Props {
   game: Game;
@@ -43,21 +43,21 @@ const GameEdit = (props: Props) => {
   return (
     <div>
       <Tabs>
-        <Tab label={t('game.tabs.general')}>
+        <Tab label={t('game.tabs.general').toUpperCase()}>
           <General game={game} onEdit={handleEdit} />
         </Tab>
-        <Tab label={t('game.tabs.descriptions')}>
+        <Tab label={t('game.tabs.descriptions').toUpperCase()}>
           <Description game={game} onEdit={handleEdit} />
         </Tab>
-        <Tab label={t('game.tabs.rating')}>
+        <Tab label={t('game.tabs.rating').toUpperCase()}>
           <Rating game={game} onEdit={handleEdit} />
         </Tab>
-        <Tab label={t('game.tabs.media')}>
+        <Tab label={t('game.tabs.media').toUpperCase()}>
           <Media game={game} onEdit={handleEdit} />
         </Tab>
-        <Tab label={t('game.tabs.price')} />
-        <Tab label={t('game.tabs.sales')} />
-        <Tab label={t('game.tabs.publish')} />
+        <Tab label={t('game.tabs.price').toUpperCase()} />
+        <Tab label={t('game.tabs.sales').toUpperCase()} />
+        <Tab label={t('game.tabs.publish').toUpperCase()} />
       </Tabs>
     </div>
   );

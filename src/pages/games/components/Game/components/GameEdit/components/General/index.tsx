@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import {
   Button,
 } from '@material-ui/core';
-import { GRAY_100, Input, Caption12, RED_500, Grid } from 'admin-library';
+import { Input, Caption12, RED_500, Grid } from 'admin-library';
 
 import Languages from './components/Languages';
 import Genres from './components/Genres';
@@ -96,7 +96,7 @@ const General = (props: Props) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Title>{t('game.general.title')}</Title>
-      <Description color={GRAY_100}>
+      <Description>
         {t('game.general.description_start')}
         <Caption12 color={RED_500}>*</Caption12>
         {t('game.general.description_end')}
@@ -115,7 +115,7 @@ const General = (props: Props) => {
         <Col xs={6} />
       </Row>
       <Title>{t('game.fields.releaseDate.label')}</Title>
-      <Description color={GRAY_100}>
+      <Description>
         {t('game.fields.releaseDate.description')}
       </Description>
       <Row gap="24px">
@@ -141,7 +141,8 @@ const General = (props: Props) => {
         <SystemRequirements
           requirementsValue={formik.values.requirements}
           platformsValue={formik.values.platforms}
-          onChange={formik.handleChange}
+          onRequirementsChange={formik.handleChange}
+          onPlatformsChange={formik.setFieldValue}
         />
       </FormGroup>
       <Button

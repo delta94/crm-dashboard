@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { NameWithId } from 'types/games';
 import { getGenresRequest } from 'api';
 import useResourses from 'hooks/useResourses';
-import { TagsSelector, GRAY_100 } from 'admin-library';
+import { TagsSelector } from 'admin-library';
 import styled from 'styled-components';
 import { Title, Description } from 'pages/games/components/Game/styles';
 
@@ -25,7 +25,7 @@ const Genres = (props: Props) => {
   return (
     <Wrapper className={className}>
       <Title>{t('game.fields.genres.label')}</Title>
-      <Description color={GRAY_100}>{t('game.fields.genres.description')}</Description>
+      <Description>{t('game.fields.genres.description')}</Description>
       <TagsSelector
         tags={genres}
         onChange={handleChange}

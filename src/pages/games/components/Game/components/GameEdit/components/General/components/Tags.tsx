@@ -5,7 +5,7 @@ import { getTagsRequest } from 'api';
 import useResourses from 'hooks/useResourses';
 import styled from 'styled-components';
 import { Title, Description } from 'pages/games/components/Game/styles';
-import { GRAY_100, TagsSelector } from 'admin-library';
+import { TagsSelector } from 'admin-library';
 
 interface Props {
   className?: string;
@@ -25,7 +25,7 @@ const Tags = (props: Props) => {
   return (
     <Wrapper className={className}>
       <Title>{t('game.fields.tags.label')}</Title>
-      <Description color={GRAY_100}>{t('game.fields.tags.description')}</Description>
+      <Description>{t('game.fields.tags.description')}</Description>
       <TagsSelector
         tags={tags}
         onChange={handleChange}

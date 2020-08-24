@@ -1,127 +1,120 @@
-import React, { useState, useEffect } from 'react';
+import React, { SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  Paper,
-  Tabs,
-  Tab,
-  makeStyles,
-  capitalize,
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Grid,
-} from '@material-ui/core';
+import styled from 'styled-components';
+import { Title, Description } from 'pages/games/components/Game/styles';
+import { Switch, Grid, capitalize } from 'admin-library';
+import Tabs from 'components/Tabs';
 
 import Requirements from './components/Requirements';
 
+const { Row, Col } = Grid;
 const allPlatforms = ['windows', 'macOS', 'linux'];
-
-const useStyles = makeStyles({
-  tab: {
-    padding: '24px 0',
-  },
-  select: {
-    minWidth: 160,
-    marginBottom: 16,
-  },
-});
 
 interface Props {
   platformsValue: string[];
   requirementsValue: any;
-  onChange: (e: React.ChangeEvent<any>) => void;
+  onRequirementsChange: (e: React.ChangeEvent<any>) => void;
+  onPlatformsChange: (name: string, value: string[]) => void;
 }
 
 const SystemRequirements = (props: Props) => {
-  const { platformsValue, requirementsValue, onChange } = props;
+  const { platformsValue, requirementsValue, onPlatformsChange, onRequirementsChange } = props;
   const { t } = useTranslation();
-  const classes = useStyles();
-  const [activeTab, setActiveTab] = useState(platformsValue[0]);
 
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    setActiveTab(newValue);
+  const handlePlatformsChange = (e: SyntheticEvent<HTMLInputElement>) => {
+    const { name, checked } = e.currentTarget;
+
+    const newPlatforms = checked
+      ? [...platformsValue, name]
+      : platformsValue.filter(platform => platform !== name);
+
+    onPlatformsChange('platforms', newPlatforms);
   };
 
-  useEffect(() => {
-    if (activeTab) return;
-
-    setActiveTab(platformsValue[0]);
-    // eslint-disable-next-line
-  }, [props]);
-
   return (
-    <Box>
-      <Typography gutterBottom variant="h6">
-        {t('games.fields.supportedPlatforms.label')}
-      </Typography>
-      <FormControl variant="outlined">
-        <InputLabel>{t('games.fields.supportedPlatforms.platform')}</InputLabel>
-        <Select
-          value={platformsValue}
-          onChange={onChange}
-          name="platforms"
-          className={classes.select}
-          label={t('games.fields.supportedPlatforms.platform')}
-          multiple
-        >
-          {allPlatforms.map(platform => (
-            <MenuItem key={platform} value={platform}>{capitalize(platform)}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <Typography gutterBottom variant="h6">
-        {t('games.fields.supportedPlatforms.requirements')}
-      </Typography>
-      <Paper>
-        <Tabs
-          indicatorColor="primary"
-          textColor="primary"
-          value={activeTab}
-          onChange={handleTabChange}
-        >
-          {platformsValue.map(platform => (
-            <Tab key={platform} label={platform} value={platform} />
-          ))}
-        </Tabs>
-      </Paper>
+    <Wrapper>
+      <Title>{t('game.fields.supported_platforms.label')}</Title>
+      <Description>{t('game.fields.supported_platforms.description')}</Description>
+      <Platforms>
+        {allPlatforms.map(platform => (
+          <Platform key={platform}>
+            <StyledSwitch
+              checked={platformsValue.includes(platform)}
+              onChange={handlePlatformsChange}
+              name={platform}
+            />
+            {platform}
+          </Platform>
+        ))}
+      </Platforms>
+      <Tabs>
+        {allPlatforms
+          .filter(platform => platformsValue.includes(platform))
+          .map(platform => {
+            if (!requirementsValue[platform]) {
+              requirementsValue[platform] = {
+                minimal: {},
+                recommended: {},
+              };
+            }
 
-      {
-        platformsValue.map(platform => {
-          if (!requirementsValue[platform]) {
-            requirementsValue[platform] = {
-              minimal: {},
-              recommended: {},
-            };
-          }
-          return (
-            <div key={platform} className={classes.tab} hidden={activeTab !== platform}>
-              <Grid container>
-                <Grid item xs={12} md={6}>
-                  <Requirements
-                    nameSpace={`requirements.${platform}.minimal`}
-                    value={requirementsValue[platform].minimal}
-                    onChange={onChange}
-                    title={t('games.fields.supportedPlatforms.minimal')}
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <Requirements
-                    nameSpace={`requirements.${platform}.recommended`}
-                    value={requirementsValue[platform].recommended}
-                    onChange={onChange}
-                    title={t('games.fields.supportedPlatforms.recommended')}
-                  />
-                </Grid>
-              </Grid>
-            </div>
-          );
-        })
-      }
-    </Box >
+            return (
+              <Tab key={platform} label={capitalize(platform)}>
+                <Row>
+                  <Col xs={6}>
+                    <Requirements
+                      nameSpace={`requirements.${platform}.minimal`}
+                      value={requirementsValue[platform].minimal}
+                      onChange={onRequirementsChange}
+                      title={t('games.fields.supportedPlatforms.minimal')}
+                    />
+                  </Col>
+                  <Col xs={6}>
+                    <Requirements
+                      nameSpace={`requirements.${platform}.recommended`}
+                      value={requirementsValue[platform].recommended}
+                      onChange={onRequirementsChange}
+                      title={t('games.fields.supportedPlatforms.recommended')}
+                    />
+                  </Col>
+                </Row>
+              </Tab>
+            );
+          })
+        }
+      </Tabs>
+    </Wrapper >
   );
 };
 
 export default React.memo(SystemRequirements);
+
+const Wrapper = styled.div`
+  margin-top: 40px;
+`;
+
+const StyledSwitch = styled(Switch)``;
+
+const Platform = styled.label`
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+
+  ${StyledSwitch} {
+    margin-right: 8px;
+  }
+
+  :last-child {
+    margin-right: 0;
+  }
+`;
+
+const Platforms = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+`;
+
+const Tab = styled.div<{ label: string }>`
+
+`;

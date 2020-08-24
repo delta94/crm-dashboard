@@ -5,7 +5,7 @@ import { getFeaturesRequest } from 'api';
 import useResourses from 'hooks/useResourses';
 import styled from 'styled-components';
 import { Title, Description } from 'pages/games/components/Game/styles';
-import { GRAY_100, Checkbox, WHITE, Grid } from 'admin-library';
+import { Checkbox, WHITE, Grid } from 'admin-library';
 
 const { Row, Col } = Grid;
 
@@ -33,7 +33,7 @@ const Features = (props: Props) => {
   return (
     <Wrapper className={className}>
       <Title>{t('game.fields.supported_features.label')}</Title>
-      <Description color={GRAY_100}>{t('game.fields.supported_features.description')}</Description>
+      <Description>{t('game.fields.supported_features.description')}</Description>
       <Row gap="24px">
         {features.map(({ id, name }) => (
           <StyledCol xs={6} key={id}>
