@@ -5,14 +5,7 @@ import { getGamesRequest } from 'api/games';
 import { useItemsList, Loader, H1, Caption12, GRAY_100, BLACK_600, PurpleButton, H2 } from 'admin-library';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {
-  TablePagination,
-  Grid,
-  Box,
-  InputAdornment,
-  FormControl,
-  OutlinedInput,
-} from '@material-ui/core';
+import { Grid, Box, InputAdornment, FormControl, OutlinedInput } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -22,6 +15,7 @@ import ReviewQualityGuidelines from '../ReviewQualityGuidelines';
 import GetPricingHelp from '../GetPricingHelp';
 import GamesTableHead from './components/GamesTableHead';
 import EmptyList from './components/EmptyList';
+import Pagination from './components/Pagination';
 
 const GamesPage = () => {
   const history = useHistory();
@@ -33,10 +27,9 @@ const GamesPage = () => {
     page,
     total,
     onItemCreate,
-    onChangeRowsPerPage,
     onChangePage,
     rowsPerPage,
-  } = useItemsList<Game>(getGamesRequest, 'games');
+  } = useItemsList<Game>({ request: getGamesRequest, itemName: 'games', rowsPerPage: 14 });
   const isListEmpty = !total;
 
   if (loading) return <Loader />;
@@ -52,12 +45,8 @@ const GamesPage = () => {
     <Wrapper>
       <Grid container spacing={4}>
         <Grid item xs={8}>
-          <Title>
-            {t('games.name')}
-          </Title>
-          <Description color={GRAY_100}>
-            {t('games.description')}
-          </Description>
+          <Title>{t('games.name')}</Title>
+          <Description color={GRAY_100}>{t('games.description')}</Description>
           <Box display="flex" justifyContent="space-between">
             <StyledFormControl>
               <SearchInput
@@ -82,9 +71,7 @@ const GamesPage = () => {
       </Grid>
       <Grid container spacing={4}>
         <Grid item xs={8}>
-          <TableTitle>
-            {t('games.list_of_games')}
-          </TableTitle>
+          <TableTitle>{t('games.list_of_games')}</TableTitle>
           <StyledTable>
             <GamesTableHead />
             {!isListEmpty && currentItems.map(game => (
@@ -95,15 +82,11 @@ const GamesPage = () => {
               />
             ))}
           </StyledTable>
-
-          <TablePagination
-            rowsPerPageOptions={[10, 25]}
-            component="div"
-            count={total}
+          <StyledPagination
+            total={total}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={onChangePage}
-            onChangeRowsPerPage={onChangeRowsPerPage}
           />
           {isListEmpty && <EmptyList />}
         </Grid>
@@ -112,7 +95,6 @@ const GamesPage = () => {
           <GetPricingHelp />
         </Grid>
       </Grid>
-
       <GameCreate
         open={openModal}
         onClose={handleCloseModal}
@@ -163,3 +145,8 @@ const TableTitle = styled(H2)`
 `;
 
 const StyledTable = styled.div``;
+
+const StyledPagination = styled(Pagination)`
+  justify-content: flex-end;
+  margin-top: 20px;
+`;

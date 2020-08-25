@@ -1,9 +1,10 @@
 import React from 'react';
-import { Game } from 'types/games';
+import { Game, Price } from 'types/games';
 import styled from 'styled-components';
 import { PURPLE_500, WHITE, GRAY_100, ORANGE_500, RED_500 } from 'admin-library';
 import emptyCover from 'assets/images/empty-cover.png';
 import { formateIsoDate } from 'helpers';
+import { DEFAULT_REGION_CURRENCY_ID } from 'const';
 
 import { Cell, FirstCell, Row } from '../styles';
 
@@ -17,6 +18,16 @@ const getStatusColor = (status: string) => {
   return ORANGE_500;
 };
 
+const getPriceAndDiscount = (prices?: Price[]) => {
+  const currentPrice = prices?.find(({ region_currency_id }) => region_currency_id === DEFAULT_REGION_CURRENCY_ID);
+
+  if (!currentPrice) return ['-', '-'];
+
+  const { final_amount, discount, grapheme } = currentPrice;
+
+  return [`${grapheme}${final_amount}`, `${discount}%`];
+};
+
 interface Props {
   className?: string;
   game: Game;
@@ -25,9 +36,10 @@ interface Props {
 
 const ListItem = (props: Props) => {
   const { game, onClick, className } = props;
-  const { id, title, slug, revision } = game;
-  const { release_date, status, media: { covers } } = revision;
+  const { id, title, revision } = game;
+  const { release_date, status, prices, media: { covers } } = revision;
   const gameImg = covers.catalog?.url;
+  const [price, discount] = getPriceAndDiscount(prices);
 
   const handleClick = () => {
     onClick(id);
@@ -40,8 +52,8 @@ const ListItem = (props: Props) => {
           <Image alt={id} src={gameImg || emptyCover} />
           {title}
         </FirstCell>
-        <Cell>{title}</Cell>
-        <Cell>{slug}</Cell>
+        <Cell>{price}</Cell>
+        <Cell>{discount}</Cell>
         <StyledCell color={release_date ? WHITE : GRAY_100}>
           {release_date ? formateIsoDate(release_date) : '–'}
         </StyledCell>

@@ -80,6 +80,14 @@ export interface Feature {
   icon: string;
 }
 
+export interface Price {
+  base_amount: number;
+  discount: number;
+  final_amount: number;
+  grapheme: string;
+  region_currency_id: number;
+}
+
 export interface Revision {
   description: string;
   id: number;
@@ -95,6 +103,7 @@ export interface Revision {
   summary: string;
   system_requirements?: SystemRequirements[];
   trailer: string;
+  prices?: Price[];
   developers?: NameWithId[];
   publishers?: NameWithId[];
   genres?: NameWithId[];
