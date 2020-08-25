@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Title, Description } from 'pages/games/components/Game/styles';
-import { Switch, Grid, capitalize } from 'admin-library';
+import { Switch, Grid, capitalize, BLACK_500 } from 'admin-library';
 import Tabs from 'components/Tabs';
 
 import Requirements from './components/Requirements';
@@ -13,12 +13,11 @@ const allPlatforms = ['windows', 'macOS', 'linux'];
 interface Props {
   platformsValue: string[];
   requirementsValue: any;
-  onRequirementsChange: (e: React.ChangeEvent<any>) => void;
-  onPlatformsChange: (name: string, value: string[]) => void;
+  onChange: (name: string, value: any) => void;
 }
 
 const SystemRequirements = (props: Props) => {
-  const { platformsValue, requirementsValue, onPlatformsChange, onRequirementsChange } = props;
+  const { platformsValue, requirementsValue, onChange } = props;
   const { t } = useTranslation();
 
   const handlePlatformsChange = (e: SyntheticEvent<HTMLInputElement>) => {
@@ -28,7 +27,7 @@ const SystemRequirements = (props: Props) => {
       ? [...platformsValue, name]
       : platformsValue.filter(platform => platform !== name);
 
-    onPlatformsChange('platforms', newPlatforms);
+      onChange('platforms', newPlatforms);
   };
 
   return (
@@ -60,21 +59,21 @@ const SystemRequirements = (props: Props) => {
 
             return (
               <Tab key={platform} label={capitalize(platform)}>
-                <Row>
-                  <Col xs={6}>
-                    <Requirements
-                      nameSpace={`requirements.${platform}.minimal`}
-                      value={requirementsValue[platform].minimal}
-                      onChange={onRequirementsChange}
-                      title={t('games.fields.supportedPlatforms.minimal')}
-                    />
-                  </Col>
+                <Row gap="24px">
                   <Col xs={6}>
                     <Requirements
                       nameSpace={`requirements.${platform}.recommended`}
                       value={requirementsValue[platform].recommended}
-                      onChange={onRequirementsChange}
-                      title={t('games.fields.supportedPlatforms.recommended')}
+                      onChange={onChange}
+                      type="recommended"
+                    />
+                  </Col>
+                  <Col xs={6}>
+                    <Requirements
+                      nameSpace={`requirements.${platform}.minimal`}
+                      value={requirementsValue[platform].minimal}
+                      onChange={onChange}
+                      type="minimal"
                     />
                   </Col>
                 </Row>
@@ -91,6 +90,7 @@ export default React.memo(SystemRequirements);
 
 const Wrapper = styled.div`
   margin-top: 40px;
+  padding-bottom: 24px;
 `;
 
 const StyledSwitch = styled(Switch)``;
@@ -116,5 +116,6 @@ const Platforms = styled.div`
 `;
 
 const Tab = styled.div<{ label: string }>`
-
+  border-bottom: 1px solid ${BLACK_500};
+  padding: 24px 0;
 `;

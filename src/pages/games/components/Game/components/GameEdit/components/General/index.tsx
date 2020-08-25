@@ -7,13 +7,13 @@ import {
   Button,
 } from '@material-ui/core';
 import { Input, Caption12, RED_500, Grid } from 'admin-library';
+import InputLabel from 'components/InputLabel';
 
 import Languages from './components/Languages';
 import Genres from './components/Genres';
 import Tags from './components/Tags';
 import SystemRequirements from './components/SystemRequirements';
-import { Title, Description } from '../../../../styles';
-import InputLabel from '../InputLabel';
+import { Title, Description, FormGroup } from '../../../../styles';
 import Features from './components/Features';
 
 const { Row, Col } = Grid;
@@ -24,12 +24,11 @@ interface Props {
 }
 
 const transformRequirements = (requirements: any) => {
-  const { disk_space, ram, diskSpaceUnit = 1, ramUnit = 1, ...rest } = requirements;
+  const { disk_space, diskSpaceUnit = 1, directX: _directX, ...rest } = requirements;
 
   return {
     ...rest,
     ...(disk_space && { disk_space: disk_space * diskSpaceUnit }),
-    ...(ram && { ram: ram * ramUnit }),
   };
 };
 
@@ -141,8 +140,7 @@ const General = (props: Props) => {
         <SystemRequirements
           requirementsValue={formik.values.requirements}
           platformsValue={formik.values.platforms}
-          onRequirementsChange={formik.handleChange}
-          onPlatformsChange={formik.setFieldValue}
+          onChange={formik.setFieldValue}
         />
       </FormGroup>
       <Button
@@ -158,10 +156,6 @@ const General = (props: Props) => {
 };
 
 export default React.memo(General);
-
-const FormGroup = styled.div`
-  margin-bottom: 20px;
-`;
 
 const DisplayTime = styled(Caption12)`
   display: inline-block;

@@ -5,11 +5,18 @@ import {
   WHITE,
   BLACK_600,
   DeleteIcon,
+  RED_500,
 } from 'admin-library';
 
 export const StyledDeleteIcon = styled(DeleteIcon)`
   display: none;
   cursor: pointer;
+
+  :hover {
+    path {
+      fill: ${RED_500};
+    }
+  }
 `;
 
 export const Row = styled.div`
