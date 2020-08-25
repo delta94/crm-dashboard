@@ -7,3 +7,7 @@ export const DATE_OPTIONS = {
   month: 'short',
   day: 'numeric',
 };
+
+export const gameTypes = ['desktop', 'web'];
+
+export const DEFAULT_REGION_CURRENCY_ID = 43;

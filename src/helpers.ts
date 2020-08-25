@@ -23,3 +23,7 @@ export const formateIsoDate = (isoDateString: string, locale?: string) => {
 
   return formateDate(date, locale);
 };
+
+export const checkUrlString = (urlString: string) => {
+  return /(http[s]?:\/\/)?[^\s(["<,>]*\.[^\s[",><]*/i.test(urlString);
+};
