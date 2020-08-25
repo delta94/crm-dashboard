@@ -27,6 +27,7 @@ interface Props {
 
 const validate = (values: any) => {
   const errors: Record<string, string> = {};
+
   if (!values.title) {
     errors.title = 'errors.empty_field';
   }
@@ -54,7 +55,6 @@ const GameCreate = (props: Props) => {
     },
     onSubmit: async (values: any, { resetForm }) => {
       const { open, ...rest } = values;
-
       const { error, json } = await createOrUpdateGameRequest({ ...rest });
 
       if (error) {
