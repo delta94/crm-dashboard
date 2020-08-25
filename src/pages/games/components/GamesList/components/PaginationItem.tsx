@@ -35,7 +35,7 @@ const Wrapper = styled(Caption12)<{ selected: boolean }>`
   height: 32px;
   border-radius: 16px;
   background-color: ${({ selected }) => selected ? BLACK_500 : 'transparent'};
-  cursor: pointer;
+  ${({ selected }) => !selected && 'cursor: pointer'};
 
   :hover {
     background-color: ${({ selected }) => selected ? BLACK_500 : PURPLE_500};
