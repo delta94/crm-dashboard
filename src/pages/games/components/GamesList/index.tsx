@@ -2,12 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import { Game } from 'types/games';
 import { getGamesRequest } from 'api/games';
-import { useItemsList, Loader, H1, Caption12, GRAY_100, BLACK_600, PurpleButton, H2 } from 'admin-library';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Grid, Box, InputAdornment, FormControl, OutlinedInput } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
+import {
+  useItemsList,
+  Loader,
+  H1,
+  Caption12,
+  GRAY_100,
+  PurpleButton,
+  H2,
+  PlusIcon,
+  Input,
+  Grid,
+} from 'admin-library';
 
 import GameCreate from './components/GameCreate';
 import ListItem from './components/ListItem';
@@ -16,6 +24,8 @@ import GetPricingHelp from '../GetPricingHelp';
 import GamesTableHead from './components/GamesTableHead';
 import EmptyList from './components/EmptyList';
 import Pagination from './components/Pagination';
+
+const { Row, Col } = Grid;
 
 const GamesPage = () => {
   const history = useHistory();
@@ -43,34 +53,26 @@ const GamesPage = () => {
 
   return (
     <Wrapper>
-      <Grid container spacing={4}>
-        <Grid item xs={8}>
+      <Row gap="32px">
+        <Col xs={8}>
           <Title>{t('games.name')}</Title>
           <Description color={GRAY_100}>{t('games.description')}</Description>
-          <Box display="flex" justifyContent="space-between">
-            <StyledFormControl>
-              <SearchInput
-                placeholder={t('games.game_title')}
-                startAdornment={(
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                )}
-                disabled
-              />
-            </StyledFormControl>
-            <PurpleButton
-              onClick={handleOpenModal}
-              startIcon={<AddIcon />}
-            >
+          <Line>
+            <SearchInput
+              placeholder={t('games.game_title')}
+              type="search"
+              disabled
+            />
+            <PurpleButton onClick={handleOpenModal}>
+              <AddIcon />
               {t('games.add_game')}
             </PurpleButton>
-          </Box>
-        </Grid>
-        <Grid item xs={4} />
-      </Grid>
-      <Grid container spacing={4}>
-        <Grid item xs={8}>
+          </Line>
+        </Col>
+        <Col xs={4} />
+      </Row>
+      <Row gap="32px">
+        <Col xs={8}>
           <TableTitle>{t('games.list_of_games')}</TableTitle>
           <StyledTable>
             <GamesTableHead />
@@ -89,12 +91,12 @@ const GamesPage = () => {
             onChangePage={onChangePage}
           />
           {isListEmpty && <EmptyList />}
-        </Grid>
-        <Grid item xs={4}>
+        </Col>
+        <Col xs={4}>
           <StyledReviewQualityGuidelines />
           <GetPricingHelp />
-        </Grid>
-      </Grid>
+        </Col>
+      </Row>
       <GameCreate
         open={openModal}
         onClose={handleCloseModal}
@@ -119,21 +121,8 @@ const Description = styled(Caption12)`
   margin-bottom: 24px;
 `;
 
-const StyledFormControl = styled(FormControl)`
+const SearchInput = styled(Input)`
   width: 280px;
-`;
-
-const SearchInput = styled(OutlinedInput)`
-  && {
-    color: ${GRAY_100};
-    height: 40px;
-    font-size: 14px;
-    line-height: 22px;
-  }
-
-  && .MuiOutlinedInput-notchedOutline {
-    border-color: ${BLACK_600};
-  }
 `;
 
 const StyledReviewQualityGuidelines = styled(ReviewQualityGuidelines)`
@@ -149,4 +138,14 @@ const StyledTable = styled.div``;
 const StyledPagination = styled(Pagination)`
   justify-content: flex-end;
   margin-top: 20px;
+`;
+
+const AddIcon = styled(PlusIcon)`
+  margin-right: 10px;
+  flex-shrink: 0;
+`;
+
+const Line = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

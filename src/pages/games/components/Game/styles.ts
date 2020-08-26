@@ -9,7 +9,3 @@ export const Description = styled(Caption12).attrs({ color: GRAY_100 })`
   display: block;
   margin: 0 0 20px;
 `;
-
-export const FormGroup = styled.div`
-  margin-bottom: 20px;
-`;

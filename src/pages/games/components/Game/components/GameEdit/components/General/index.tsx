@@ -3,18 +3,17 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Game, SystemRequirements as SystemRequirementsType } from 'types/games';
 import { useFormik } from 'formik';
-import {
-  Button,
-} from '@material-ui/core';
-import { Input, Caption12, RED_500, Grid } from 'admin-library';
+import { Input, Caption12, RED_500, Grid, PurpleButton, Switch } from 'admin-library';
 import InputLabel from 'components/InputLabel';
 
 import Languages from './components/Languages';
 import Genres from './components/Genres';
 import Tags from './components/Tags';
 import SystemRequirements from './components/SystemRequirements';
-import { Title, Description, FormGroup } from '../../../../styles';
+import { Title, Description } from '../../../../styles';
 import Features from './components/Features';
+import validate from './validate';
+import InputError from 'components/InputError';
 
 const { Row, Col } = Grid;
 
@@ -34,7 +33,7 @@ const transformRequirements = (requirements: any) => {
 
 const General = (props: Props) => {
   const { game } = props;
-  const { revision, title, slug, type } = game;
+  const { revision, title, type } = game;
   const {
     developers = [],
     publishers = [],
@@ -54,21 +53,23 @@ const General = (props: Props) => {
       return acc;
     }, {});
 
+  const initialValues = {
+    title,
+    type,
+    developers: developers.map(({ name }) => name).join(', '),
+    publishers: publishers.map(({ name }) => name).join(', '),
+    localization: localization || [],
+    genres: genres.map(({ id }) => id),
+    tags: tags.map(({ id }) => id),
+    release_date: release_date && release_date.slice(0, 10),
+    features: features.map(({ id }) => id),
+    requirements,
+    platforms,
+  };
+
   const formik = useFormik({
-    initialValues: {
-      title,
-      slug,
-      type,
-      developers: developers.map(({ id }) => id),
-      publishers: publishers.map(({ id }) => id),
-      localization: localization || [],
-      genres: genres.map(({ id }) => id),
-      tags: tags.map(({ id }) => id),
-      release_date: release_date && release_date.slice(0, 10),
-      features: features.map(({ id }) => id),
-      requirements,
-      platforms,
-    },
+    initialValues,
+    initialErrors: validate(initialValues),
     onSubmit: (values: any) => {
       const { release_date, requirements: requirementsMap, ...rest } = values;
       const releaseDateISO = release_date ? new Date(release_date.slice(0, 10)).toISOString() : release_date;
@@ -90,10 +91,11 @@ const General = (props: Props) => {
       // onEdit(gameData);
       console.log(gameData);
     },
+    validate,
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <Wrapper onSubmit={formik.handleSubmit}>
       <Title>{t('game.general.title')}</Title>
       <Description>
         {t('game.general.description_start')}
@@ -108,7 +110,36 @@ const General = (props: Props) => {
               name="title"
               value={formik.values.title}
               onChange={formik.handleChange}
+              error={!!formik.errors.title && formik.touched.title}
+              onBlur={formik.handleBlur}
             />
+            <InputError error={formik.touched.title && formik.errors.title} />
+          </FormGroup>
+        </Col>
+        <Col xs={6}>
+          <FormGroup>
+            <InputLabel label={t('game.fields.developers.label')} required />
+            <Input
+              name="developers"
+              value={formik.values.developers}
+              onChange={formik.handleChange}
+              error={!!formik.errors.developers && formik.touched.developers}
+              onBlur={formik.handleBlur}
+            />
+            <InputError error={formik.touched.developers && formik.errors.developers} />
+          </FormGroup>
+        </Col>
+        <Col xs={6}>
+          <FormGroup>
+            <InputLabel label={t('game.fields.publishers.label')} required />
+            <Input
+              name="publishers"
+              value={formik.values.publishers}
+              onChange={formik.handleChange}
+              error={!!formik.errors.publishers && formik.touched.publishers}
+              onBlur={formik.handleBlur}
+            />
+            <InputError error={formik.touched.publishers && formik.errors.publishers} />
           </FormGroup>
         </Col>
         <Col xs={6} />
@@ -126,38 +157,43 @@ const General = (props: Props) => {
               value={formik.values.release_date}
               onChange={formik.handleChange}
               type="date"
+              error={!!formik.errors.release_date && formik.touched.release_date}
+              onBlur={formik.handleBlur}
             />
+            <InputError error={formik.touched.release_date && formik.errors.release_date} />
           </FormGroup>
         </Col>
         <Col xs={6} />
       </Row>
+      <Switch />
       <DisplayTime>{t('game.fields.releaseDate.display_time')}</DisplayTime>
       <Genres value={formik.values.genres} onChange={formik.setFieldValue} />
       <Tags value={formik.values.tags} onChange={formik.setFieldValue} />
       <Languages value={formik.values.localization} onChange={formik.setFieldValue} />
       <Features value={formik.values.features} onChange={formik.setFieldValue} />
-      <FormGroup>
-        <SystemRequirements
-          requirementsValue={formik.values.requirements}
-          platformsValue={formik.values.platforms}
-          onChange={formik.setFieldValue}
-        />
-      </FormGroup>
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        size="large"
-      >
+      <SystemRequirements formik={formik} />
+      <SaveButton type="submit" disabled={!formik.isValid}>
         {t('save')}
-      </Button>
-    </form>
+      </SaveButton>
+    </Wrapper>
   );
 };
 
 export default React.memo(General);
 
+const Wrapper = styled.form`
+  padding: 40px 0;
+`;
+
 const DisplayTime = styled(Caption12)`
   display: inline-block;
   margin-left: 8px;
+`;
+
+const SaveButton = styled(PurpleButton)`
+  margin-top: 16px;
+`;
+
+const FormGroup = styled.div`
+  min-height: 82px;
 `;

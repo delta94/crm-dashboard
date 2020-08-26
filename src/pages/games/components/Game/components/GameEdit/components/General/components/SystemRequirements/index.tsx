@@ -2,32 +2,30 @@ import React, { SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Title, Description } from 'pages/games/components/Game/styles';
-import { Switch, Grid, capitalize, BLACK_500 } from 'admin-library';
+import { Switch, Grid, capitalize, BLACK_500, PURPLE_400 } from 'admin-library';
 import Tabs from 'components/Tabs';
 
 import Requirements from './components/Requirements';
+import { gamePlatforms } from 'const';
 
 const { Row, Col } = Grid;
-const allPlatforms = ['windows', 'macOS', 'linux'];
 
 interface Props {
-  platformsValue: string[];
-  requirementsValue: any;
-  onChange: (name: string, value: any) => void;
+  formik: any;
 }
 
 const SystemRequirements = (props: Props) => {
-  const { platformsValue, requirementsValue, onChange } = props;
+  const { formik } = props;
   const { t } = useTranslation();
 
   const handlePlatformsChange = (e: SyntheticEvent<HTMLInputElement>) => {
     const { name, checked } = e.currentTarget;
 
     const newPlatforms = checked
-      ? [...platformsValue, name]
-      : platformsValue.filter(platform => platform !== name);
+      ? [...formik.values.platforms, name]
+      : formik.values.platforms.filter((platform: string) => platform !== name);
 
-      onChange('platforms', newPlatforms);
+      formik.setFieldValue('platforms', newPlatforms);
   };
 
   return (
@@ -35,10 +33,10 @@ const SystemRequirements = (props: Props) => {
       <Title>{t('game.fields.supported_platforms.label')}</Title>
       <Description>{t('game.fields.supported_platforms.description')}</Description>
       <Platforms>
-        {allPlatforms.map(platform => (
+        {gamePlatforms.map(platform => (
           <Platform key={platform}>
             <StyledSwitch
-              checked={platformsValue.includes(platform)}
+              checked={formik.values.platforms.includes(platform)}
               onChange={handlePlatformsChange}
               name={platform}
             />
@@ -47,11 +45,11 @@ const SystemRequirements = (props: Props) => {
         ))}
       </Platforms>
       <Tabs>
-        {allPlatforms
-          .filter(platform => platformsValue.includes(platform))
+        {gamePlatforms
+          .filter(platform => formik.values.platforms.includes(platform))
           .map(platform => {
-            if (!requirementsValue[platform]) {
-              requirementsValue[platform] = {
+            if (!formik.values.requirements[platform]) {
+              formik.values.requirements[platform] = {
                 minimal: {},
                 recommended: {},
               };
@@ -62,17 +60,15 @@ const SystemRequirements = (props: Props) => {
                 <Row gap="24px">
                   <Col xs={6}>
                     <Requirements
-                      nameSpace={`requirements.${platform}.recommended`}
-                      value={requirementsValue[platform].recommended}
-                      onChange={onChange}
+                      platform={platform}
+                      formik={formik}
                       type="recommended"
                     />
                   </Col>
                   <Col xs={6}>
                     <Requirements
-                      nameSpace={`requirements.${platform}.minimal`}
-                      value={requirementsValue[platform].minimal}
-                      onChange={onChange}
+                      platform={platform}
+                      formik={formik}
                       type="minimal"
                     />
                   </Col>
@@ -99,6 +95,12 @@ const Platform = styled.label`
   display: flex;
   align-items: center;
   margin-right: 24px;
+  cursor: pointer;
+  text-transform: capitalize;
+
+  :hover {
+    color: ${PURPLE_400};
+  }
 
   ${StyledSwitch} {
     margin-right: 8px;

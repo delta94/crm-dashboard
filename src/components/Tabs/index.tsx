@@ -24,7 +24,7 @@ const Tabs = (props: Props) => {
         active={active === index}
         onClick={handleChangeTab(index)}
       >
-        <Micro10 color={active === index ? WHITE : GRAY_100}>{label}</Micro10>
+        <LabelText color={active === index ? WHITE : GRAY_100}>{label}</LabelText>
       </Label>
     );
   });
@@ -60,10 +60,18 @@ const TabLabels = styled.ul`
   border-bottom: 1px solid ${BLACK_600};
 `;
 
+const LabelText = styled(Micro10)``;
+
 const Label = styled.li<{ active: boolean }>`
   margin: 0 20px -1px 0;
   padding-bottom: 8px;
   border-bottom: 3px solid ${({ active }) => active ? PURPLE_500 : 'transparent'};
   transition: all 150ms ease-in-out;
   cursor: pointer;
+
+  :hover {
+    ${LabelText} {
+      ${({ active }) => !active && `color: ${PURPLE_500}`};
+    }
+  }
 `;

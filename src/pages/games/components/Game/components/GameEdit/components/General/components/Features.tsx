@@ -5,7 +5,7 @@ import { getFeaturesRequest } from 'api';
 import useResourses from 'hooks/useResourses';
 import styled from 'styled-components';
 import { Title, Description } from 'pages/games/components/Game/styles';
-import { Checkbox, WHITE, Grid } from 'admin-library';
+import { Checkbox, WHITE, Grid, PURPLE_400 } from 'admin-library';
 
 const { Row, Col } = Grid;
 
@@ -60,12 +60,16 @@ const Wrapper = styled.div`
 
 const Feature = styled.label`
   text-transform: capitalize;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   font-size: 14px;
   line-height: 20px;
   color: ${WHITE};
   cursor: pointer;
+
+  :hover {
+    color: ${PURPLE_400};
+  }
 `;
 
 const StyledCol = styled(Col)`
