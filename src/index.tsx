@@ -6,13 +6,16 @@ import * as serviceWorker from './serviceWorker';
 import { I18nextProvider, I18nextProviderProps } from 'react-i18next';
 import { i18n } from 'admin-library';
 import { UserProvider } from 'containers/User';
+import { SettingsProvider } from 'containers/Settings';
 import { StylesProvider } from '@material-ui/core';
 
 ReactDOM.render(
   <I18nextProvider i18n={i18n as I18nextProviderProps['i18n']}>
     <StylesProvider injectFirst>
       <UserProvider>
-        <App />
+        <SettingsProvider>
+          <App />
+        </SettingsProvider>
       </UserProvider>
     </StylesProvider>
   </I18nextProvider>,

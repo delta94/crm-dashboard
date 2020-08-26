@@ -17,7 +17,9 @@ import {
   CloseIcon,
   WHITE,
   Micro10,
+  Loader,
 } from 'admin-library';
+import { useSettingsState } from 'containers/Settings';
 
 interface Props {
   open: boolean;
@@ -47,11 +49,12 @@ const GameCreate = (props: Props) => {
   const { open, onClose, onCreate } = props;
   const { t } = useTranslation();
   const history = useHistory();
+  const { settings, loading } = useSettingsState();
 
   const formik = useFormik({
     initialValues: {
       title: '',
-      slug: '',
+      slug: `${settings.store_root_url}/`,
     },
     onSubmit: async (values: any, { resetForm }) => {
       const { open, ...rest } = values;
@@ -73,6 +76,12 @@ const GameCreate = (props: Props) => {
     validate,
   });
 
+  if (loading) {
+    return (
+      <Wrapper><Loader /></Wrapper>
+    );
+  }
+
   const handleCancell = () => {
     formik.resetForm();
     onClose();
@@ -80,49 +89,51 @@ const GameCreate = (props: Props) => {
 
   return (
     <Modal open={open} onClose={handleCancell}>
-      <Form onSubmit={formik.handleSubmit}>
-        <StyledCloseIcon onClick={handleCancell} />
-        <Title>{t('games.create')}</Title>
-        <Label color={GRAY_100}>{t('games.fields.title')}</Label>
-        <Input
-          error={formik.touched.title && !!formik.errors.title}
-          name="title"
-          value={formik.values.title}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        <ErrorText color={RED_500}>
-          {formik.touched.title && !!formik.errors.title
-            ? t(formik.errors.title as string)
-            : ''
-          }
-        </ErrorText>
-        <Label color={GRAY_100}>{t('games.fields.url')}</Label>
-        <Input
-          error={formik.touched.slug && !!formik.errors.slug}
-          name="slug"
-          value={formik.values.slug}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          placeholder="https://"
-        />
-        <ErrorText color={RED_500}>
-          {formik.touched.slug && !!formik.errors.slug
-            ? t(formik.errors.slug as string)
-            : ''
-          }
-        </ErrorText>
-        <CreateButton type="submit">
-          {t('continue')}
-        </CreateButton>
-      </Form>
+      <Wrapper>
+        <form onSubmit={formik.handleSubmit}>
+          <StyledCloseIcon onClick={handleCancell} />
+          <Title>{t('games.create')}</Title>
+          <Label color={GRAY_100}>{t('game.fields.title')}</Label>
+          <Input
+            error={formik.touched.title && !!formik.errors.title}
+            name="title"
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <ErrorText color={RED_500}>
+            {formik.touched.title && !!formik.errors.title
+              ? t(formik.errors.title as string)
+              : ''
+            }
+          </ErrorText>
+          <Label color={GRAY_100}>{t('games.fields.url')}</Label>
+          <Input
+            error={formik.touched.slug && !!formik.errors.slug}
+            name="slug"
+            value={formik.values.slug}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            placeholder="https://"
+          />
+          <ErrorText color={RED_500}>
+            {formik.touched.slug && !!formik.errors.slug
+              ? t(formik.errors.slug as string)
+              : ''
+            }
+          </ErrorText>
+          <CreateButton type="submit">
+            {t('continue')}
+          </CreateButton>
+        </form>
+      </Wrapper>
     </Modal>
   );
 };
 
 export default React.memo(GameCreate);
 
-const Form = styled.form`
+const Wrapper = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
