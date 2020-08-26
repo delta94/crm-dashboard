@@ -31,9 +31,13 @@ const Requirements = (props: Props) => {
   const { formik, platform, type, className } = props;
   const nameSpace = `requirements.${platform}.${type}`;
   const values = formik.values.requirements[platform][type];
-  const errors = (formik.errors.requirements && formik.errors.requirements[platform][type]) || {};
-  const toucheds = (formik.touched.requirements && formik.touched.requirements[platform][type]) || {};
   const { t } = useTranslation();
+  const errors = (
+    formik.errors.requirements && formik.errors.requirements[platform] && formik.errors.requirements[platform][type]
+  ) || {};
+  const toucheds = (
+    formik.touched.requirements && formik.touched.requirements[platform] && formik.touched.requirements[platform][type]
+  ) || {};
 
   if (!values.diskSpaceUnit) {
     values.diskSpaceUnit = dimensionOptions[0];

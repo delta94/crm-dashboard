@@ -25,7 +25,17 @@ const SystemRequirements = (props: Props) => {
       ? [...formik.values.platforms, name]
       : formik.values.platforms.filter((platform: string) => platform !== name);
 
-      formik.setFieldValue('platforms', newPlatforms);
+    if (!checked) {
+      formik.values.requirements[name] = undefined;
+      formik.errors.requirements[name] = undefined;
+    } else {
+      formik.values.requirements[name] = {
+        minimal: {},
+        recommended: {},
+      };
+    }
+
+    formik.setFieldValue('platforms', newPlatforms);
   };
 
   return (
@@ -47,15 +57,7 @@ const SystemRequirements = (props: Props) => {
       <Tabs>
         {gamePlatforms
           .filter(platform => formik.values.platforms.includes(platform))
-          .map(platform => {
-            if (!formik.values.requirements[platform]) {
-              formik.values.requirements[platform] = {
-                minimal: {},
-                recommended: {},
-              };
-            }
-
-            return (
+          .map(platform => (
               <Tab key={platform} label={capitalize(platform)}>
                 <Row gap="24px">
                   <Col xs={6}>
@@ -74,8 +76,7 @@ const SystemRequirements = (props: Props) => {
                   </Col>
                 </Row>
               </Tab>
-            );
-          })
+            ))
         }
       </Tabs>
     </Wrapper >

@@ -173,7 +173,7 @@ const General = (props: Props) => {
       <Features value={formik.values.features} onChange={formik.setFieldValue} />
       <SystemRequirements formik={formik} />
       <SaveButton type="submit" disabled={!formik.isValid}>
-        {t('save')}
+        {t('save_changes')}
       </SaveButton>
     </Wrapper>
   );
