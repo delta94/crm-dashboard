@@ -111,6 +111,7 @@ export interface Revision {
   release_date?: string;
   features?: NameWithId[];
   controllers?: string;
+  release_date_count_down?: boolean;
 }
 
 export interface Game {

@@ -45,6 +45,7 @@ const General = (props: Props) => {
     features = [],
     system_requirements = [],
     platforms = [],
+    release_date_count_down,
   } = revision;
   const { t } = useTranslation();
   const requirements = system_requirements
@@ -66,6 +67,7 @@ const General = (props: Props) => {
     features: features.map(({ id }) => id),
     requirements,
     platforms,
+    release_date_count_down,
   };
 
   const formik = useFormik({
@@ -167,7 +169,11 @@ const General = (props: Props) => {
         </Col>
         <Col xs={6} />
       </Row>
-      <Switch />
+      <Switch 
+        name="release_date_count_down"
+        checked={formik.values.release_date_count_down}
+        onChange={formik.handleChange}
+      />
       <DisplayTime>{t('game.fields.releaseDate.display_time')}</DisplayTime>
       <Genres value={formik.values.genres} onChange={formik.setFieldValue} />
       <Tags value={formik.values.tags} onChange={formik.setFieldValue} />
