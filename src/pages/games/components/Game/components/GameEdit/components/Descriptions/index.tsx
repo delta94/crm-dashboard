@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Game } from 'types/games';
 import { useFormik } from 'formik';
-import { TextField, Button, makeStyles, FormGroup, Typography } from '@material-ui/core';
-import { MarkdownEditor } from 'admin-library';
+import { TextField, makeStyles, FormGroup, Typography } from '@material-ui/core';
+import { PurpleButton } from 'admin-library';
 
 import Review from './components/Review';
 import SocialLinks from './components/SocialLinks';
+import styled from 'styled-components';
+// import MarkdownEditor from 'components/MarkdownEditor';
+import Editor from 'components/Editor';
 
 interface Props {
   game: Game;
@@ -26,7 +29,7 @@ const validate = ({ social_links = [] }: { social_links?: any[] }) => {
 };
 
 const Descriptions = (props: Props) => {
-  const { game, onEdit } = props;
+  const { game } = props;
   const { revision } = game;
   const {
     summary = '',
@@ -50,16 +53,15 @@ const Descriptions = (props: Props) => {
         description,
       };
 
-      onEdit(gameData);
+      // onEdit(gameData);
+      console.log(gameData);
     },
     validate,
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <Typography className={classes.field} variant="h6">
-        {t('games.fields.summary.label')}
-      </Typography>
+    <Wrapper onSubmit={formik.handleSubmit}>
+      
       <FormGroup className={classes.field}>
         <TextField
           name="summary"
@@ -75,7 +77,7 @@ const Descriptions = (props: Props) => {
         {t('games.fields.description.label')}
       </Typography>
       <FormGroup className={classes.field}>
-        <MarkdownEditor
+        <Editor
           value={description}
           onChange={setDescription}
         />
@@ -92,16 +94,19 @@ const Descriptions = (props: Props) => {
           onChange={formik.handleChange}
         />
       </FormGroup>
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        size="large"
-      >
-        {t('save')}
-      </Button>
-    </form>
+      <SaveButton type="submit" disabled={!formik.isValid}>
+        {t('save_changes')}
+      </SaveButton>
+    </Wrapper>
   );
 };
 
 export default React.memo(Descriptions);
+
+const Wrapper = styled.form`
+  padding: 40px 0;
+`;
+
+const SaveButton = styled(PurpleButton)`
+  margin-top: 16px;
+`;
