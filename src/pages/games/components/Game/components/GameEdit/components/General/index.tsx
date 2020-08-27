@@ -5,6 +5,7 @@ import { Game, SystemRequirements as SystemRequirementsType } from 'types/games'
 import { useFormik } from 'formik';
 import { Input, Caption12, RED_500, Grid, PurpleButton, Switch } from 'admin-library';
 import InputLabel from 'components/InputLabel';
+import InputError from 'components/InputError';
 
 import Languages from './components/Languages';
 import Genres from './components/Genres';
@@ -13,7 +14,6 @@ import SystemRequirements from './components/SystemRequirements';
 import { Title, Description } from '../../../../styles';
 import Features from './components/Features';
 import validate from './validate';
-import InputError from 'components/InputError';
 
 const { Row, Col } = Grid;
 
@@ -23,20 +23,21 @@ interface Props {
 }
 
 const transformRequirements = (requirements: any) => {
-  const { disk_space, diskSpaceUnit = 1, directX: _directX, ...rest } = requirements;
+  const { ram, storage, diskSpaceUnit = 1, directX: _directX, ...rest } = requirements;
 
   return {
     ...rest,
-    ...(disk_space && { disk_space: disk_space * diskSpaceUnit }),
+    ...(storage && { disk_space: storage * diskSpaceUnit }),
+    ram: +ram,
   };
 };
 
 const General = (props: Props) => {
-  const { game } = props;
+  const { game, onEdit } = props;
   const { revision, title, type } = game;
   const {
-    developers = [],
-    publishers = [],
+    developers,
+    publishers,
     localization = [],
     genres = [],
     tags = [],
@@ -56,8 +57,8 @@ const General = (props: Props) => {
   const initialValues = {
     title,
     type,
-    developers: developers.map(({ name }) => name).join(', '),
-    publishers: publishers.map(({ name }) => name).join(', '),
+    developers,
+    publishers,
     localization: localization || [],
     genres: genres.map(({ id }) => id),
     tags: tags.map(({ id }) => id),
@@ -72,7 +73,9 @@ const General = (props: Props) => {
     initialErrors: validate(initialValues),
     onSubmit: (values: any) => {
       const { release_date, requirements: requirementsMap, ...rest } = values;
-      const releaseDateISO = release_date ? new Date(release_date.slice(0, 10)).toISOString() : release_date;
+      const releaseDateISO = release_date 
+        ? new Date(release_date.slice(0, 10)).toISOString() 
+        : release_date;
 
       const gameData = {
         ...rest,
@@ -88,8 +91,7 @@ const General = (props: Props) => {
         }),
       };
 
-      // onEdit(gameData);
-      console.log(gameData);
+      onEdit(gameData);
     },
     validate,
   });

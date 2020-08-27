@@ -104,8 +104,8 @@ export interface Revision {
   system_requirements?: SystemRequirements[];
   trailer: string;
   prices?: Price[];
-  developers?: NameWithId[];
-  publishers?: NameWithId[];
+  developers?: string;
+  publishers?: string;
   genres?: NameWithId[];
   tags?: NameWithId[];
   release_date?: string;

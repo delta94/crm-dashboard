@@ -12,6 +12,8 @@ export default (values: any) => {
     }
   });
 
+  let requirementsValid = true;
+
   gamePlatforms.forEach(platform => {
     if (!values.requirements[platform]) return;
 
@@ -24,15 +26,20 @@ export default (values: any) => {
 
     requirementsFields.forEach(field => {
       if (!values.requirements[platform]?.minimal[field]) {
-
         errors.requirements[platform].minimal[field] = 'errors.empty_field';
+        requirementsValid = false;
       }
 
       if (!values.requirements[platform]?.recommended[field]) {
         errors.requirements[platform].recommended[field] = 'errors.empty_field';
+        requirementsValid = false;
       }
     });
   });
+
+  if (requirementsValid) {
+    delete errors.requirements;
+  }
 
   return errors;
 };

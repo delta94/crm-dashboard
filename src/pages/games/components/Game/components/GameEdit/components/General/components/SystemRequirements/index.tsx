@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { Title, Description } from 'pages/games/components/Game/styles';
 import { Switch, Grid, capitalize, BLACK_500, PURPLE_400 } from 'admin-library';
 import Tabs from 'components/Tabs';
+import { gamePlatforms } from 'const';
 
 import Requirements from './components/Requirements';
-import { gamePlatforms } from 'const';
 
 const { Row, Col } = Grid;
 
@@ -26,8 +26,8 @@ const SystemRequirements = (props: Props) => {
       : formik.values.platforms.filter((platform: string) => platform !== name);
 
     if (!checked) {
-      formik.values.requirements[name] = undefined;
-      formik.errors.requirements[name] = undefined;
+      delete formik.values.requirements[name];
+      delete formik.errors.requirements[name];
     } else {
       formik.values.requirements[name] = {
         minimal: {},

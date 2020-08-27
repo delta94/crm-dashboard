@@ -130,7 +130,7 @@ const Requirements = (props: Props) => {
         </Col>
       </Row>
       <FormGroup>
-        <InputLabel label={getLabel('other')} required />
+        <InputLabel label={getLabel('other')} />
         <Input
           name={`${nameSpace}.other`}
           value={values.other}
