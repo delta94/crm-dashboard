@@ -43,8 +43,6 @@ const Tabs = (props: Props) => {
 
 export default React.memo(Tabs);
 
-export const Tab = styled.div<{ label: string }>``;
-
 const Wrapper = styled.div`
   width: 100%;
 `;
