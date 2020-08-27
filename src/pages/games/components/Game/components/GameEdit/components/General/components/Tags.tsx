@@ -1,31 +1,42 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FormSelect from 'components/FormSelect';
 import { NameWithId } from 'types/games';
 import { getTagsRequest } from 'api';
 import useResourses from 'hooks/useResourses';
+import styled from 'styled-components';
+import { Title, Description } from 'pages/games/components/Game/styles';
+import { TagsSelector } from 'admin-library';
 
 interface Props {
+  className?: string;
   value: number[];
-  onChange: (e: React.ChangeEvent<any>) => void;
+  onChange: (name: string, value: number[]) => void;
 }
 
 const Tags = (props: Props) => {
-  const { value, onChange } = props;
+  const { value, onChange, className } = props;
   const { t } = useTranslation();
   const { resources: tags } = useResourses<NameWithId>(getTagsRequest);
 
+  const handleChange = (newSelected: number[]) => {
+    onChange('tags', newSelected);
+  };
+
   return (
-    <FormSelect
-      value={value}
-      name="tags"
-      onChange={onChange}
-      title={t('games.fields.tags.label')}
-      label={t('games.fields.tags.label')}
-      description={t('games.fields.tags.description')}
-      options={tags}
-    />
+    <Wrapper className={className}>
+      <Title>{t('game.fields.tags.label')}</Title>
+      <Description>{t('game.fields.tags.description')}</Description>
+      <TagsSelector
+        tags={tags}
+        onChange={handleChange}
+        selected={value}
+      />
+    </Wrapper>
   );
 };
 
 export default React.memo(Tags);
+
+const Wrapper = styled.div`
+  margin-top: 40px;
+`;

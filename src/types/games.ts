@@ -6,7 +6,7 @@ export interface NameWithId {
 export interface Localization {
   audio: boolean;
   interface: boolean;
-  language: string;
+  language_id: number;
   subtitles: boolean;
 }
 
@@ -104,13 +104,14 @@ export interface Revision {
   system_requirements?: SystemRequirements[];
   trailer: string;
   prices?: Price[];
-  developers?: NameWithId[];
-  publishers?: NameWithId[];
+  developers?: string;
+  publishers?: string;
   genres?: NameWithId[];
   tags?: NameWithId[];
   release_date?: string;
   features?: NameWithId[];
   controllers?: string;
+  release_date_count_down?: boolean;
 }
 
 export interface Game {

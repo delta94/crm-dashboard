@@ -1,20 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Game } from 'types/games';
-import { makeStyles, Paper, Tabs, Tab, Typography } from '@material-ui/core';
-
-import General from './components/General';
-import Rating from './components/Rating';
-import Media from './components/Media';
-import Description from './components/Description';
+import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { createOrUpdateGameRequest } from 'api/games';
+import { Game } from 'types/games';
+import Tabs from 'components/Tabs';
+import { Grid } from 'admin-library';
 
-const useStyles = makeStyles({
-  tab: {
-    padding: '24px 0',
-  },
-});
+import ReviewQualityGuidelines from '../../../ReviewQualityGuidelines';
+import GetPricingHelp from '../../../GetPricingHelp';
+import General from './components/General';
+import tabs from './tabs';
+
+const { Row, Col } = Grid;
 
 interface Props {
   game: Game;
@@ -24,14 +22,8 @@ interface Props {
 const GameEdit = (props: Props) => {
   const { game, onUpdate } = props;
   const { id, title, slug, type } = game;
-  const classes = useStyles();
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = React.useState(0);
   const history = useHistory();
-
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setActiveTab(newValue);
-  };
 
   const handleEdit = async (data: any) => {
     const { error } = await createOrUpdateGameRequest({
@@ -52,37 +44,35 @@ const GameEdit = (props: Props) => {
   };
 
   return (
-    <div>
-      <Typography gutterBottom variant="h5" color="primary">
-        {t('games.edit')}
-      </Typography>
-      <Paper>
-        <Tabs
-          indicatorColor="primary"
-          textColor="primary"
-          value={activeTab}
-          onChange={handleTabChange}
-        >
-          <Tab label={t('games.tabs.general')} />
-          <Tab label={t('games.tabs.description')} />
-          <Tab label={t('games.tabs.rating')} />
-          <Tab label={t('games.tabs.media')} />
-        </Tabs>
-      </Paper>
-      <div className={classes.tab} hidden={activeTab !== 0}>
-        <General game={game} onEdit={handleEdit} />
-      </div>
-      <div className={classes.tab} hidden={activeTab !== 1}>
-        <Description game={game} onEdit={handleEdit} />
-      </div>
-      <div className={classes.tab} hidden={activeTab !== 2}>
-        <Rating game={game} onEdit={handleEdit} />
-      </div>
-      <div className={classes.tab} hidden={activeTab !== 3}>
-        <Media game={game} onEdit={handleEdit} />
-      </div>
-    </div>
+    <Wrapper>
+      <Tabs>
+        {tabs.map(({ Component, label }) => (
+          <Tab key={label} label={t(label).toUpperCase()}>
+          <Col xs={8}>
+            <Component game={game} onEdit={handleEdit} />
+          </Col>
+          <Col xs={4}>
+            {Component === General && <StyledReviewQualityGuidelines />}
+            <GetPricingHelp />
+          </Col>
+        </Tab>
+        ))}
+        <Tab label={t('game.tabs.price').toUpperCase()} />
+        <Tab label={t('game.tabs.sales').toUpperCase()} />
+        <Tab label={t('game.tabs.publish').toUpperCase()} />
+      </Tabs>
+    </Wrapper>
   );
 };
 
 export default React.memo(GameEdit);
+
+const Tab = styled(Row).attrs({ gap: '48px' })<{ label: string }>`
+  padding: 24px 0;
+`;
+
+const Wrapper = styled.div``;
+
+const StyledReviewQualityGuidelines = styled(ReviewQualityGuidelines)`
+  margin-bottom: 24px;
+`;

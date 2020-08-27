@@ -5,9 +5,9 @@ import { Modal } from '@material-ui/core';
 import { createOrUpdateGameRequest } from 'api/games';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { checkUrlString } from 'helpers';
+import { checkUrlString } from 'admin-library';
 import {
-  BLACK_700,
+  Input,
   BLACK_800,
   GRAY_100,
   H2,
@@ -15,7 +15,6 @@ import {
   RED_500,
   PurpleButton,
   CloseIcon,
-  WHITE,
   Micro10,
   Loader,
 } from 'admin-library';
@@ -160,29 +159,6 @@ const ErrorText = styled(Micro10)`
   height: 18px;
   padding-top: 4px;
   margin-bottom: 6px;
-`;
-
-const Input = styled.input<{ error?: boolean }>`
-  background-color: ${BLACK_700};
-  color: ${WHITE};
-  height: 40px;
-  font-size: 14px;
-  line-height: 22px;
-  border-radius: 2px;
-  border: none;
-  padding: 0 12px;
-  outline: none;
-  width: 100%;
-
-  ::placeholder {
-    color: ${GRAY_100};
-  }
-
-  ${({ error }) => error && `
-    border-bottom: 1px solid ${RED_500};
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  `}
 `;
 
 const CreateButton = styled(PurpleButton)`
