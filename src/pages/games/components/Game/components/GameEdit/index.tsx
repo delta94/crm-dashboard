@@ -5,11 +5,14 @@ import { useHistory } from 'react-router-dom';
 import { createOrUpdateGameRequest } from 'api/games';
 import { Game } from 'types/games';
 import Tabs from 'components/Tabs';
+import { Grid } from 'admin-library';
 
+import ReviewQualityGuidelines from '../../../ReviewQualityGuidelines';
+import GetPricingHelp from '../../../GetPricingHelp';
 import General from './components/General';
-import Rating from './components/Rating';
-import Media from './components/Media';
-import Description from './components/Description';
+import tabs from './tabs';
+
+const { Row, Col } = Grid;
 
 interface Props {
   game: Game;
@@ -41,28 +44,35 @@ const GameEdit = (props: Props) => {
   };
 
   return (
-    <div>
+    <Wrapper>
       <Tabs>
-        <Tab label={t('game.tabs.general').toUpperCase()}>
-          <General game={game} onEdit={handleEdit} />
+        {tabs.map(({ Component, label }) => (
+          <Tab key={label} label={t(label).toUpperCase()}>
+          <Col xs={8}>
+            <Component game={game} onEdit={handleEdit} />
+          </Col>
+          <Col xs={4}>
+            {Component === General && <StyledReviewQualityGuidelines />}
+            <GetPricingHelp />
+          </Col>
         </Tab>
-        <Tab label={t('game.tabs.descriptions').toUpperCase()}>
-          <Description game={game} onEdit={handleEdit} />
-        </Tab>
-        <Tab label={t('game.tabs.rating').toUpperCase()}>
-          <Rating game={game} onEdit={handleEdit} />
-        </Tab>
-        <Tab label={t('game.tabs.media').toUpperCase()}>
-          <Media game={game} onEdit={handleEdit} />
-        </Tab>
+        ))}
         <Tab label={t('game.tabs.price').toUpperCase()} />
         <Tab label={t('game.tabs.sales').toUpperCase()} />
         <Tab label={t('game.tabs.publish').toUpperCase()} />
       </Tabs>
-    </div>
+    </Wrapper>
   );
 };
 
 export default React.memo(GameEdit);
 
-const Tab = styled.div<{ label: string }>``;
+const Tab = styled(Row).attrs({ gap: '48px' })<{ label: string }>`
+  padding: 24px 0;
+`;
+
+const Wrapper = styled.div``;
+
+const StyledReviewQualityGuidelines = styled(ReviewQualityGuidelines)`
+  margin-bottom: 24px;
+`;

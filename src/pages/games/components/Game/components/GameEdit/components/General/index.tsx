@@ -183,9 +183,7 @@ const General = (props: Props) => {
 
 export default React.memo(General);
 
-const Wrapper = styled.form`
-  padding: 40px 0;
-`;
+const Wrapper = styled.form``;
 
 const DisplayTime = styled(Caption12)`
   display: inline-block;
