@@ -25,7 +25,7 @@ const validate = ({ social_links = [] }: { social_links?: any[] }) => {
   return isValid ? {} : { social_links: 'Required' };
 };
 
-const Description = (props: Props) => {
+const Descriptions = (props: Props) => {
   const { game, onEdit } = props;
   const { revision } = game;
   const {
@@ -104,4 +104,4 @@ const Description = (props: Props) => {
   );
 };
 
-export default React.memo(Description);
+export default React.memo(Descriptions);
