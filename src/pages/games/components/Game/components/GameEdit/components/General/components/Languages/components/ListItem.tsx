@@ -1,8 +1,9 @@
 import React, { SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Localization } from 'types/games';
-import { Row, Cell, StyledDeleteIcon } from '../styles';
 import { Checkbox } from 'admin-library';
+
+import { Row, Cell, StyledDeleteIcon } from '../styles';
 
 interface Props {
   lang: Localization;
