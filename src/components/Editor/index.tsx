@@ -31,13 +31,13 @@ const Editor = (props: Props) => {
   );
 };
 
-const areEqual = (prev: Props, next: Props) => prev === next;
+const areEqual = (prev: Props, next: Props) => prev.value === next.value;
 
 export default React.memo(Editor, areEqual);
 
 const Wrapper = styled.div`
   .ql-editor {
-    min-height: 300px;
+    height: 260px;
   }
 
   & .ql-container.ql-snow {

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Game } from 'types/games';
+import { Game, L10n } from 'types/games';
 import { useFormik } from 'formik';
 import { TextField, makeStyles, FormGroup, Typography } from '@material-ui/core';
 import { PurpleButton } from 'admin-library';
@@ -8,8 +8,8 @@ import { PurpleButton } from 'admin-library';
 import Review from './components/Review';
 import SocialLinks from './components/SocialLinks';
 import styled from 'styled-components';
-// import MarkdownEditor from 'components/MarkdownEditor';
-import Editor from 'components/Editor';
+import LanguagesTabs from 'components/LanguagesTabs';
+import DescriptionEditor from './components/DescriptionEditor';
 
 interface Props {
   game: Game;
@@ -32,25 +32,24 @@ const Descriptions = (props: Props) => {
   const { game } = props;
   const { revision } = game;
   const {
-    summary = '',
-    description: initDescription = '',
+    l10n = [],
     review = [],
     social_links = [],
   } = revision;
-  const [description, setDescription] = useState(initDescription);
   const classes = useStyles();
   const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
-      summary,
+      l10n: l10n.reduce((acc, item) => ({ ...acc, [String(item.language_id)]: item }), {} as Record<string, L10n>),
       review,
       social_links,
     },
     onSubmit: (values: any) => {
+      const { l10n, ...rest } = values;
       const gameData = {
-        ...values,
-        description,
+        ...rest,
+        l10n: Object.values(l10n),
       };
 
       // onEdit(gameData);
@@ -61,13 +60,18 @@ const Descriptions = (props: Props) => {
 
   return (
     <Wrapper onSubmit={formik.handleSubmit}>
-      
+      <LanguagesTabs 
+        value={formik.values.l10n}
+        onChange={formik.setFieldValue}
+        name="l10n"
+        Component={DescriptionEditor}
+      />
       <FormGroup className={classes.field}>
         <TextField
           name="summary"
           label={t('games.fields.summary.label')}
           variant="outlined"
-          value={formik.values.summary}
+          value={formik.values}
           onChange={formik.handleChange}
           multiline
           rows={3}
@@ -76,12 +80,12 @@ const Descriptions = (props: Props) => {
       <Typography className={classes.field} variant="h6">
         {t('games.fields.description.label')}
       </Typography>
-      <FormGroup className={classes.field}>
+      {/* <FormGroup className={classes.field}>
         <Editor
           value={description}
           onChange={setDescription}
         />
-      </FormGroup>
+      </FormGroup> */}
       <FormGroup className={classes.field}>
         <Review
           value={formik.values.review}

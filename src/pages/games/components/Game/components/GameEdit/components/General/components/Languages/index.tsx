@@ -1,13 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import useResourses from 'hooks/useResourses';
-import { getLanguagesRequest } from 'api';
 import styled from 'styled-components';
 import { Title } from 'pages/games/components/Game/styles';
-import { GRAY_100, Caption12, Dropdown, TagList } from 'admin-library';
+import { GRAY_100, Caption12, Dropdown, TagList, Loader } from 'admin-library';
 
 import { Row, Cell } from './styles';
 import ListItem from './components/ListItem';
+import { useLanguagesState } from 'containers/Languages';
 
 interface Language {
   code: string;
@@ -23,10 +22,12 @@ interface Props {
 
 const Languages = (props: Props) => {
   const { value, onChange, className } = props;
-  const { resources: languages } = useResourses<Language>(getLanguagesRequest);
+  const { languages, loading } = useLanguagesState();
   const { t } = useTranslation();
   const languageTags = languages.map(({ id }) => ({ id, name: t(`languages.${id}`) }));
   const selectedLanguages = value.map(({ language_id }) => language_id);
+
+  if (loading) return <Loader />;
 
   const handleChangeLanguages = (ids: number[]) => {
     const newValue = ids.map(id => {

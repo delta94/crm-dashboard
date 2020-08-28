@@ -8,13 +8,16 @@ import { i18n } from 'admin-library';
 import { UserProvider } from 'containers/User';
 import { SettingsProvider } from 'containers/Settings';
 import { StylesProvider } from '@material-ui/core';
+import { LanguagesProvider } from 'containers/Languages';
 
 ReactDOM.render(
   <I18nextProvider i18n={i18n as I18nextProviderProps['i18n']}>
     <StylesProvider injectFirst>
       <UserProvider>
         <SettingsProvider>
-          <App />
+          <LanguagesProvider>
+            <App />
+          </LanguagesProvider>
         </SettingsProvider>
       </UserProvider>
     </StylesProvider>
