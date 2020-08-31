@@ -1,5 +1,5 @@
 import React, { useState, ReactNode } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { PURPLE_500, GRAY_100, WHITE, BLACK_600, Micro10 } from 'admin-library';
 
 interface Props {

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { H2, Caption12, GRAY_100 } from 'admin-library';
 
 export const Title = styled(H2)`

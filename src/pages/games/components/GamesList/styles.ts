@@ -1,5 +1,5 @@
 import { Caption12, textOverflowStyles, BLACK_600 } from 'admin-library';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export const Cell = styled(Caption12)`
   ${textOverflowStyles}

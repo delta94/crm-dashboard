@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Game } from 'types/games';
 import { getGamesRequest } from 'api/games';
 import { useHistory } from 'react-router-dom';

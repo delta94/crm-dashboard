@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { L10n } from 'types/games';
 import { inputStyles } from 'admin-library';
 

@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SocialLink } from 'types/games';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Title, Description, InputWrapper } from 'pages/games/components/Game/styles';
 import InputLabel from 'components/InputLabel';
 import { Input, PurpleOutlinedButton } from 'admin-library';

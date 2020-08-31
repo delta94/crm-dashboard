@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import ReactQuill from 'react-quill';
 import { BLACK_600 } from 'admin-library';
 import 'react-quill/dist/quill.snow.css';

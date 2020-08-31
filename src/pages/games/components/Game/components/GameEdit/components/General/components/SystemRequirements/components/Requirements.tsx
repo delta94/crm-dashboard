@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Input, Select, Grid, BLACK_500 } from 'admin-library';
 import InputLabel from 'components/InputLabel';
 import InputError from 'components/InputError';

@@ -6,7 +6,7 @@ import { PurpleButton, Caption12, RED_500 } from 'admin-library';
 
 import Review from './components/Review';
 import ExternalLinks from './components/ExternalLinks';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import LanguagesTabs from 'components/LanguagesTabs';
 import DescriptionEditor from './components/DescriptionEditor';
 import TaglineEditor from './components/TaglineEditor';

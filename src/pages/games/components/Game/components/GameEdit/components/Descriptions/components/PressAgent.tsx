@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { Review } from 'types/games';
 import { Grid, Input, inputStyles, BLACK_500, DeleteIcon, RED_500 } from 'admin-library';

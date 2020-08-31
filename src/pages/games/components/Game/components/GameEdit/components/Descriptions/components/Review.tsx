@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Title, Description } from 'pages/games/components/Game/styles';
 import { Review as ReviewType } from 'types/games';
 import PressAgent from './PressAgent';

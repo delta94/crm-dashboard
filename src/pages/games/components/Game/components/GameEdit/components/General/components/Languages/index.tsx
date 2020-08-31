@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Title } from 'pages/games/components/Game/styles';
 import { GRAY_100, Caption12, Dropdown, TagList, Loader } from 'admin-library';
 

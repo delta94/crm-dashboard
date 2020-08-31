@@ -4,7 +4,7 @@ import { NameWithId } from 'types/games';
 import { getGenresRequest } from 'api';
 import useResourses from 'hooks/useResourses';
 import { TagsSelector } from 'admin-library';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Title, Description } from 'pages/games/components/Game/styles';
 
 interface Props {

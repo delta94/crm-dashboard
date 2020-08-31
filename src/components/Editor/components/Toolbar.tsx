@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { PURPLE_500, BLACK_600, GRAY_100, BLACK_700 } from 'admin-library';
 
 interface Props {

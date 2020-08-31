@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { InputWrapper } from 'pages/games/components/Game/styles';
 import InputLabel from 'components/InputLabel';

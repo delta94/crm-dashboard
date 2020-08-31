@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 import { createOrUpdateGameRequest } from 'api/games';
 import { Game } from 'types/games';
