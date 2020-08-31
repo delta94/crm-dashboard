@@ -2,7 +2,18 @@ import React, { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useLanguagesState } from 'containers/Languages';
-import { Loader, TagList, Chip, PURPLE_500, BLACK_800, PlusIcon, GRAY_100, Caption12, BLACK_500 } from 'admin-library';
+import {
+  Loader,
+  TagList,
+  Chip,
+  PURPLE_500,
+  BLACK_800,
+  PlusIcon,
+  GRAY_100,
+  Caption12,
+  BLACK_500,
+  WHITE,
+} from 'admin-library';
 
 const DEFAULT_LANG_ID = 2;
 
@@ -86,7 +97,7 @@ function LanguagesTabs<M extends { language_id: number }>(props: Props<M>): JSX.
         ...value,
         [String(DEFAULT_LANG_ID)]: { language_id: DEFAULT_LANG_ID },
       });
-      
+
       handleChangeLanguages([DEFAULT_LANG_ID]);
     }
     // eslint-disable-next-line
@@ -141,7 +152,7 @@ const Wrapper = styled.div`
   padding-bottom: 40px;
 `;
 
-const English = styled(Caption12)<{ active: boolean }>`
+const English = styled(Caption12) <{ active: boolean }>`
   display: inline-flex;
   align-items: center;
   background-color: ${({ active }) => active ? PURPLE_500 : GRAY_100};
@@ -182,6 +193,19 @@ const ChangeLanguage = styled.div<{ open: boolean }>`
       fill: ${({ open }) => open ? PURPLE_500 : GRAY_100};
     }
   }
+
+  ${({ open }) => !open && `
+    :hover {
+      border: 1px solid ${PURPLE_500};
+      background-color: ${PURPLE_500};
+
+      ${AddIcon} {
+        path {
+          fill: ${WHITE};
+        }
+      }
+    }
+  `}
 `;
 
 const Menu = styled.div<{ open: boolean }>`
