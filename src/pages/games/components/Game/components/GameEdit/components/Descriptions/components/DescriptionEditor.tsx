@@ -10,7 +10,7 @@ interface Props {
   name: string;
 }
 
-const LangEditor = (props: Props) => {
+const DescriptionEditor = (props: Props) => {
   const { className, value, onChange, name } = props;
 
   const handleChange = (newValue: string) => {
@@ -26,6 +26,6 @@ const LangEditor = (props: Props) => {
 
 const areEqual = (prev: Props, next: Props) => prev === next;
 
-export default React.memo(LangEditor, areEqual);
+export default React.memo(DescriptionEditor, areEqual);
 
 const Wrapper = styled.div``;

@@ -3,13 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { Game, L10n } from 'types/games';
 import { useFormik } from 'formik';
 import { TextField, makeStyles, FormGroup, Typography } from '@material-ui/core';
-import { PurpleButton } from 'admin-library';
+import { PurpleButton, Caption12, RED_500 } from 'admin-library';
 
 import Review from './components/Review';
 import SocialLinks from './components/SocialLinks';
 import styled from 'styled-components';
 import LanguagesTabs from 'components/LanguagesTabs';
 import DescriptionEditor from './components/DescriptionEditor';
+import TaglineEditor from './components/TaglineEditor';
+import { Title, Description } from 'pages/games/components/Game/styles';
+import InputLabel from 'components/InputLabel';
 
 interface Props {
   game: Game;
@@ -41,15 +44,25 @@ const Descriptions = (props: Props) => {
 
   const formik = useFormik({
     initialValues: {
-      l10n: l10n.reduce((acc, item) => ({ ...acc, [String(item.language_id)]: item }), {} as Record<string, L10n>),
+      descriptions: l10n
+        .reduce((acc, item) => ({ ...acc, [String(item.language_id)]: item }), {} as Record<string, L10n>),
+        summaries: l10n
+        .reduce((acc, item) => ({ ...acc, [String(item.language_id)]: item }), {} as Record<string, L10n>),
       review,
       social_links,
     },
     onSubmit: (values: any) => {
-      const { l10n, ...rest } = values;
+      const { descriptions, summaries, ...rest } = values;
+      const newL10nMap = { ...descriptions };
+
+      Object.values(summaries as Record<string, L10n>).forEach(({ language_id, summary }) => {
+        newL10nMap[language_id] = newL10nMap[language_id] || { language_id };
+        newL10nMap[language_id].summary = summary;
+      });
+
       const gameData = {
         ...rest,
-        l10n: Object.values(l10n),
+        l10n: Object.values(newL10nMap),
       };
 
       // onEdit(gameData);
@@ -60,10 +73,27 @@ const Descriptions = (props: Props) => {
 
   return (
     <Wrapper onSubmit={formik.handleSubmit}>
+      <Title>{t('game.fields.tagline.label')}</Title>
+      <Description>{t('game.fields.tagline.description')}</Description>
+      <InputLabel label={t('game.fields.tagline.label')} required />
       <LanguagesTabs 
-        value={formik.values.l10n}
+        value={formik.values.summaries}
         onChange={formik.setFieldValue}
-        name="l10n"
+        name="summaries"
+        Component={TaglineEditor}
+      />
+      <Title>{t('game.fields.description.label')}</Title>
+      <Description>
+        {t('game.fields.description.description_start')}
+        <Caption12 color={RED_500}>
+          {t('game.fields.description.description_end')}
+        </Caption12>
+      </Description>
+      <InputLabel label={t('game.fields.description.label')} required />
+      <LanguagesTabs 
+        value={formik.values.descriptions}
+        onChange={formik.setFieldValue}
+        name="descriptions"
         Component={DescriptionEditor}
       />
       <FormGroup className={classes.field}>

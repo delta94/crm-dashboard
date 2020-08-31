@@ -138,7 +138,7 @@ function LanguagesTabs<M extends { language_id: number }>(props: Props<M>): JSX.
 export default React.memo(LanguagesTabs);
 
 const Wrapper = styled.div`
-  
+  padding-bottom: 40px;
 `;
 
 const English = styled(Caption12)<{ active: boolean }>`
