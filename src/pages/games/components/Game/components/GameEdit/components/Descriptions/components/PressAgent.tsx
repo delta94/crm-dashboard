@@ -7,6 +7,8 @@ import InputLabel from 'components/InputLabel';
 
 const { Row, Col } = Grid;
 const scoreRegexp = /^\d+\/?\d*$/i;
+const scorePlaceholder = '8/10';
+const linkPlaceholder = 'https://';
 
 interface Props {
   className?: string;
@@ -64,7 +66,7 @@ const PressAgent = (props: Props) => {
                   name={`${name}.score`}
                   value={value.score}
                   onChange={handleChangeScore}
-                  placeholder="8/10"
+                  placeholder={scorePlaceholder}
                 />
               </FormGroup>
             </Col>
@@ -75,7 +77,7 @@ const PressAgent = (props: Props) => {
                   name={`${name}.link`}
                   value={value.link}
                   onChange={handleChange}
-                  placeholder="https://"
+                  placeholder={linkPlaceholder}
                 />
               </FormGroup>
             </Col>

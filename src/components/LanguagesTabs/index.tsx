@@ -8,7 +8,6 @@ import {
   Chip,
   PURPLE_500,
   BLACK_800,
-  PlusIcon,
   GRAY_100,
   Caption12,
   BLACK_500,
@@ -131,7 +130,7 @@ function LanguagesTabs<M extends { language_id: number }>(props: Props<M>): JSX.
           tabIndex={1}
         >
           <ChangeLanguage open={open}>
-            <AddIcon />
+            +
           </ChangeLanguage>
           <Menu open={open}>
             <TagList
@@ -152,7 +151,7 @@ const Wrapper = styled.div`
   padding-bottom: 40px;
 `;
 
-const English = styled(Caption12) <{ active: boolean }>`
+const English = styled(Caption12)<{ active: boolean }>`
   display: inline-flex;
   align-items: center;
   background-color: ${({ active }) => active ? PURPLE_500 : GRAY_100};
@@ -176,8 +175,6 @@ const AddLanguage = styled.div`
   margin-bottom: 4px;
 `;
 
-const AddIcon = styled(PlusIcon)``;
-
 const ChangeLanguage = styled.div<{ open: boolean }>`
   display: flex;
   align-items: center;
@@ -185,25 +182,15 @@ const ChangeLanguage = styled.div<{ open: boolean }>`
   width: 32px;
   height: 24px;
   border: 1px solid ${({ open }) => open ? PURPLE_500 : BLACK_500};
+  color: ${({ open }) => open ? PURPLE_500 : GRAY_100};
   border-radius: 2px;
   cursor: pointer;
-
-  ${AddIcon} {
-    path {
-      fill: ${({ open }) => open ? PURPLE_500 : GRAY_100};
-    }
-  }
 
   ${({ open }) => !open && `
     :hover {
       border: 1px solid ${PURPLE_500};
       background-color: ${PURPLE_500};
-
-      ${AddIcon} {
-        path {
-          fill: ${WHITE};
-        }
-      }
+      color: ${WHITE};
     }
   `}
 `;

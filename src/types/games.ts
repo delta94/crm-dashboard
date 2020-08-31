@@ -52,7 +52,7 @@ export interface Review {
   link: string;
   press_name: string;
   quote: string;
-  score: number | string;
+  score: string;
 }
 
 export interface SocialLink {

@@ -66,4 +66,6 @@ const Review = (props: Props) => {
 
 export default React.memo(Review);
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin-bottom: 40px;
+`;
