@@ -1,109 +1,69 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField, Typography, Box, Button, makeStyles } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-
-const useStyles = makeStyles({
-  field: {
-    flexGrow: 1,
-  },
-});
+import styled from 'styled-components';
+import { Title, Description } from 'pages/games/components/Game/styles';
+import { Review as ReviewType } from 'types/games';
+import PressAgent from './PressAgent';
+import { PurpleOutlinedButton } from 'admin-library';
 
 interface Props {
-  value: any[];
-  onChange: (e: React.ChangeEvent<any>) => void;
+  value: ReviewType[];
+  onChange: (name: string, value: any) => void;
 }
 
 const Review = (props: Props) => {
   const { value, onChange } = props;
-  const [count, setCount] = useState(value.length);
   const { t } = useTranslation();
-  const classes = useStyles();
 
   const handleAddReview = () => {
-    value[count] = {
-      press_name: '',
-      link: '',
-      score: '',
-      quote: '',
-    };
+    const newValue = [
+      {
+        press_name: '',
+        link: '',
+        score: '',
+        quote: '',
+      },
+      ...value];
 
-    setCount(count + 1);
+    onChange('review', newValue);
   };
 
-  const handleDeleteReview = (index: number) => () => {
-    value.splice(index, 1);
+  const handleDeleteReview = (index: number) => {
+    const newValue = value.filter((_, i) => i !== index);
 
-    setCount(count - 1);
+    onChange('review', newValue);
   };
+
+  useEffect(() => {
+    if (!value.length) {
+      handleAddReview();
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
-    <Box>
-      <Typography gutterBottom variant="h6">
-        {t('games.fields.review.label')}
-      </Typography>
-      <Typography gutterBottom variant="body1">
-        {t('games.fields.review.description')}
-      </Typography>
-      {Array(count).fill(0).map((_, i) => (
-        <Box key={i} display="flex">
-          <TextField
-            variant="outlined"
-            label={t('games.fields.review.pressName')}
-            name={`review[${i}.press_name]`}
-            className={classes.field}
-            value={value[i].press_name}
-            onChange={onChange}
-          />
-          <TextField
-            variant="outlined"
-            label={t('games.fields.review.link')}
-            name={`review[${i}.link]`}
-            className={classes.field}
-            value={value[i].link}
-            onChange={onChange}
-          />
-          <TextField
-            variant="outlined"
-            type="number"
-            label={t('games.fields.review.score')}
-            name={`review[${i}.score]`}
-            className={classes.field}
-            value={value[i].score}
-            onChange={onChange}
-          />
-          <TextField
-            variant="outlined"
-            label={t('games.fields.review.quote')}
-            name={`review[${i}.quote]`}
-            className={classes.field}
-            value={value[i].quote}
-            onChange={onChange}
-          />
-          <Button
-            onClick={handleDeleteReview(i)}
-            startIcon={<DeleteIcon />}
-            variant="outlined"
-            color="primary"
-            size="large"
-          >
-            {t('delete')}
-          </Button>
-        </Box>
+    <Wrapper>
+      <Title>{t('game.fields.review.label')}</Title>
+      <Description>{t('game.fields.review.description')}</Description>
+      {value.map((review, index) => (
+        <PressAgent 
+          key={index} 
+          index={index} 
+          value={review} 
+          onChange={onChange}
+          onDelete={index !== value.length - 1 ? handleDeleteReview : undefined}
+          name={`review[${index}]`}
+        />
       ))}
-      <Button
-        variant="contained"
-        color="primary"
-        size="large"
+      <PurpleOutlinedButton
         onClick={handleAddReview}
-        startIcon={<AddIcon />}
       >
-        {t('create')}
-      </Button>
-    </Box>
-
+        {`+ ${t('game.fields.review.add_press_agent')}`}
+      </PurpleOutlinedButton>
+    </Wrapper>
   );
 };
 
 export default React.memo(Review);
+
+const Wrapper = styled.div``;

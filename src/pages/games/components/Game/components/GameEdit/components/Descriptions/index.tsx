@@ -119,7 +119,7 @@ const Descriptions = (props: Props) => {
       <FormGroup className={classes.field}>
         <Review
           value={formik.values.review}
-          onChange={formik.handleChange}
+          onChange={formik.setFieldValue}
         />
       </FormGroup>
       <FormGroup className={classes.field}>
