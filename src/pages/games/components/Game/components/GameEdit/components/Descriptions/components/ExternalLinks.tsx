@@ -54,6 +54,7 @@ const ExternalLinks = (props: Props) => {
     if ('site' in value) return;
 
     onChange('socialLinksMap', { ...value, site: { type: 'site', url: '' } });
+    // eslint-disable-next-line
   }, []);
 
   return (

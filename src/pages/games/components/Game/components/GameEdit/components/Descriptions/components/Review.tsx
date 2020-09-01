@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 import { Title, Description } from 'pages/games/components/Game/styles';
 import { Review as ReviewType } from 'types/games';
-import PressAgent from './PressAgent';
 import { PurpleOutlinedButton } from 'admin-library';
 import { MAX_REVIEW_COUNT } from 'const';
+
+import PressAgent from './PressAgent';
 
 interface Props {
   value: ReviewType[];
