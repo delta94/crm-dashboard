@@ -41,8 +41,8 @@ const Descriptions = (props: Props) => {
 
   const formik = useFormik<typeof initialValues>({
     initialValues,
-    onSubmit: (values: any) => {
-      const { descriptions, summaries, socialLinksMap, ...rest } = values;
+    onSubmit: values => {
+      const { descriptions, summaries, socialLinksMap, review } = values;
       const newL10nMap = { ...descriptions };
 
       Object.values(summaries as Record<string, L10n>).forEach(({ language_id, summary }) => {
@@ -51,7 +51,9 @@ const Descriptions = (props: Props) => {
       });
 
       const gameData = {
-        ...rest,
+        review: review.filter(({ press_name, quote, score, link }) => (
+          press_name || quote || score || link
+        )),
         social_links: Object.values(socialLinksMap),
         l10n: Object.values(newL10nMap),
       };
