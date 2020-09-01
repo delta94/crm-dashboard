@@ -10,3 +10,5 @@ export const gamePlatforms = ['windows', 'macOS', 'linux'];
 
 export const TAGLINE_MAX_LENGTH = 300;
 export const DESCRIPTION_MAX_LENGTH = 10000;
+
+export const MAX_REVIEW_COUNT = 3;

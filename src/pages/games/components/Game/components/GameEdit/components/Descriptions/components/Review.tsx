@@ -5,6 +5,7 @@ import { Title, Description } from 'pages/games/components/Game/styles';
 import { Review as ReviewType } from 'types/games';
 import PressAgent from './PressAgent';
 import { PurpleOutlinedButton } from 'admin-library';
+import { MAX_REVIEW_COUNT } from 'const';
 
 interface Props {
   value: ReviewType[];
@@ -44,7 +45,7 @@ const Review = (props: Props) => {
   return (
     <Wrapper>
       <Title>{t('game.fields.review.label')}</Title>
-      <Description>{t('game.fields.review.description')}</Description>
+      <Description>{t('game.fields.review.description', { limit: MAX_REVIEW_COUNT })}</Description>
       {value.map((review, index) => (
         <PressAgent 
           key={index} 
@@ -57,6 +58,7 @@ const Review = (props: Props) => {
       ))}
       <PurpleOutlinedButton
         onClick={handleAddReview}
+        disabled={value.length >= MAX_REVIEW_COUNT}
       >
         {`+ ${t('game.fields.review.add_press_agent')}`}
       </PurpleOutlinedButton>
