@@ -36,7 +36,7 @@ const ExternalLink = (props: Props) => {
           onChange={onChange}
           placeholder={getPlaceholder(type)}
         />
-        <DeleteButton onClick={handleDelete}>
+        <DeleteButton type="button" onClick={handleDelete}>
           <DeleteIcon />
         </DeleteButton>
       </Line>

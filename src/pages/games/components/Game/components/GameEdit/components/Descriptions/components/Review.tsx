@@ -59,6 +59,7 @@ const Review = (props: Props) => {
       <PurpleOutlinedButton
         onClick={handleAddReview}
         disabled={value.length >= MAX_REVIEW_COUNT}
+        type="button"
       >
         {`+ ${t('game.fields.review.add_press_agent')}`}
       </PurpleOutlinedButton>

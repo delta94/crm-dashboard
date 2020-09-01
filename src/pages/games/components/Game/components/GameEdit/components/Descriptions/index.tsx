@@ -13,6 +13,7 @@ import TaglineEditor from './components/TaglineEditor';
 import { Title, Description } from 'pages/games/components/Game/styles';
 import InputLabel from 'components/InputLabel';
 import { TAGLINE_MAX_LENGTH, DESCRIPTION_MAX_LENGTH } from 'const';
+import validate from './validate';
 
 interface Props {
   game: Game;
@@ -58,6 +59,7 @@ const Descriptions = (props: Props) => {
       // onEdit(gameData);
       console.log(gameData);
     },
+    validate,
   });
 
   return (
@@ -69,8 +71,21 @@ const Descriptions = (props: Props) => {
         value={formik.values.summaries}
         onChange={formik.setFieldValue}
         name="summaries"
-        Component={TaglineEditor}
-      />
+      >
+        {Object.keys(formik.values.summaries).map(key => (
+          <TaglineEditor
+            key={key}
+            language_id={key}
+            value={formik.values.summaries[key]}
+            onChange={formik.setFieldValue}
+            name={`summaries[${key}]`}
+            error={
+              formik.errors?.summaries && formik.errors?.summaries[key]
+              ? t(formik.errors?.summaries[key] as string) : ''
+            }
+          />
+        ))}
+      </LanguagesTabs>
       <Title>{t('game.fields.description.label')}</Title>
       <Description>
         {t('game.fields.description.description_start', { limit: DESCRIPTION_MAX_LENGTH })}
@@ -83,8 +98,21 @@ const Descriptions = (props: Props) => {
         value={formik.values.descriptions}
         onChange={formik.setFieldValue}
         name="descriptions"
-        Component={DescriptionEditor}
-      />
+      >
+        {Object.keys(formik.values.summaries).map(key => (
+          <DescriptionEditor
+            key={key}
+            language_id={key}
+            value={formik.values.descriptions[key]}
+            onChange={formik.setFieldValue}
+            name={`descriptions[${key}]`}
+            error={
+              formik.errors?.descriptions && formik.errors?.descriptions[key]
+              ? t(formik.errors.descriptions[key] as string) : ''
+            }
+          />
+        ))}
+      </LanguagesTabs>
       <Review
         value={formik.values.review}
         onChange={formik.setFieldValue}
@@ -92,6 +120,10 @@ const Descriptions = (props: Props) => {
       <ExternalLinks
         value={formik.values.socialLinksMap}
         onChange={formik.setFieldValue}
+        error={
+          formik.errors.socialLinksMap?.site
+          ? t(formik.errors.socialLinksMap.site as string) : ''
+        }
       />
       <SaveButton type="submit" disabled={!formik.isValid}>
         {t('save_changes')}

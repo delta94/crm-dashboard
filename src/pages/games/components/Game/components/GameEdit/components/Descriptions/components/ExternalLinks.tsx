@@ -1,10 +1,10 @@
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SocialLink } from 'types/games';
 import styled from 'styled-components/macro';
-import { Title, Description, InputWrapper } from 'pages/games/components/Game/styles';
+import { Title, Description, InputWrapper, InputError } from 'pages/games/components/Game/styles';
 import InputLabel from 'components/InputLabel';
-import { Input, PurpleOutlinedButton } from 'admin-library';
+import { Input, PurpleOutlinedButton, RED_500 } from 'admin-library';
 
 import ExternalLink from './ExternalLink';
 
@@ -13,15 +13,23 @@ const gameSitePlacehholder = 'eg. https://yoursite.com';
 interface Props {
   value: Record<string, SocialLink>;
   onChange: (name: string, value: any) => void;
+  error?: string;
 }
 
 const socials = ['facebook', 'twitter', 'youtube', 'twitch', 'discord', 'vkontakte', 'reddit'];
 
 const ExternalLinks = (props: Props) => {
-  const { value, onChange } = props;
+  const { value, onChange, error } = props;
   const { t } = useTranslation();
   const socialLinks = Object.keys(value).filter(type => type !== 'site');
   const missingLinks = socials.filter(link => !(link in value));
+  const [touched, setTouched] = useState(false);
+
+  const handleBlur = () => {
+    if (!touched) {
+      setTouched(true);
+    }
+  };
 
   const handleAddLink = (e: SyntheticEvent<HTMLButtonElement>) => {
     const type = e.currentTarget.dataset.type || '';
@@ -53,7 +61,10 @@ const ExternalLinks = (props: Props) => {
           value={value.site?.url}
           onChange={handleChange}
           placeholder={gameSitePlacehholder}
+          error={touched && !!error}
+          onBlur={handleBlur}
         />
+        <InputError color={RED_500}>{touched ? error : ''}</InputError>
       </InputWrapper>
       {socialLinks.map(linkType => (
         <ExternalLink

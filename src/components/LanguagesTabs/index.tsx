@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, Children, ReactNode } from 'react';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { useLanguagesState } from 'containers/Languages';
@@ -16,23 +16,16 @@ import {
 
 const DEFAULT_LANG_ID = 2;
 
-interface ComponentProps<T> {
-  className?: string;
-  value: T;
-  onChange: (name: string, value: any) => void;
-  name: string;
-}
-
 interface Props<T> {
   className?: string;
   value: Record<string, T>;
-  Component: React.ComponentType<ComponentProps<T>>;
   onChange: (name: string, value: any) => void;
+  children: ReactNode;
   name: string;
 }
 
 function LanguagesTabs<M extends { language_id: number }>(props: Props<M>): JSX.Element | null {
-  const { className, value, Component, onChange, name } = props;
+  const { className, value, onChange, name, children } = props;
   const [active, setActive] = useState(DEFAULT_LANG_ID);
   const [open, setOpen] = useState(false);
   const { loading, languages } = useLanguagesState();
@@ -108,9 +101,7 @@ function LanguagesTabs<M extends { language_id: number }>(props: Props<M>): JSX.
 
   return (
     <Wrapper className={className}>
-      {Object.keys(value).map(id => Number(id) === active ? (
-        <Component value={value[active]} onChange={onChange} name={`${name}[${active}]`} />
-      ) : null)}
+      {Children.map(children, (child: any) => child?.props?.language_id === String(active) ? child : null)}
       <Languages>
         <English active={active === DEFAULT_LANG_ID} onClick={handleSetEnglish}>
           {t(`languages.${DEFAULT_LANG_ID}`).slice(0, 2).toUpperCase()}
