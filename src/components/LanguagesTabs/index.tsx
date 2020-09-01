@@ -63,6 +63,7 @@ function LanguagesTabs<M extends { language_id: number }>(props: Props<M>): JSX.
 
       return acc;
     }, { [String(DEFAULT_LANG_ID)]: value[String(DEFAULT_LANG_ID)] } as Record<string, any>);
+
     onChange(name, newValue);
   };
 

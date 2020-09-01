@@ -1,19 +1,18 @@
 import React from 'react';
+import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { Game, L10n, SocialLink } from 'types/games';
 import { useFormik } from 'formik';
 import { PurpleButton, Caption12, RED_500 } from 'admin-library';
+import { TAGLINE_MAX_LENGTH, DESCRIPTION_MAX_LENGTH } from 'const';
+import LanguagesTabs from 'components/LanguagesTabs';
+import { Title, Description } from 'pages/games/components/Game/styles';
+import InputLabel from 'components/InputLabel';
 
 import Review from './components/Review';
 import ExternalLinks from './components/ExternalLinks';
-import styled from 'styled-components/macro';
-import LanguagesTabs from 'components/LanguagesTabs';
 import DescriptionEditor from './components/DescriptionEditor';
 import TaglineEditor from './components/TaglineEditor';
-import { Title, Description } from 'pages/games/components/Game/styles';
-import InputLabel from 'components/InputLabel';
-import { TAGLINE_MAX_LENGTH, DESCRIPTION_MAX_LENGTH } from 'const';
-import validate from './validate';
 
 interface Props {
   game: Game;
@@ -21,7 +20,7 @@ interface Props {
 }
 
 const Descriptions = (props: Props) => {
-  const { game } = props;
+  const { game, onEdit } = props;
   const { revision } = game;
   const {
     l10n = [],
@@ -43,7 +42,7 @@ const Descriptions = (props: Props) => {
   const formik = useFormik<typeof initialValues>({
     initialValues,
     onSubmit: (values: any) => {
-      const { descriptions, summaries, ...rest } = values;
+      const { descriptions, summaries, socialLinksMap, ...rest } = values;
       const newL10nMap = { ...descriptions };
 
       Object.values(summaries as Record<string, L10n>).forEach(({ language_id, summary }) => {
@@ -53,13 +52,12 @@ const Descriptions = (props: Props) => {
 
       const gameData = {
         ...rest,
+        social_links: Object.values(socialLinksMap),
         l10n: Object.values(newL10nMap),
       };
 
-      // onEdit(gameData);
-      console.log(gameData);
+      onEdit(gameData);
     },
-    validate,
   });
 
   return (
@@ -79,10 +77,6 @@ const Descriptions = (props: Props) => {
             value={formik.values.summaries[key]}
             onChange={formik.setFieldValue}
             name={`summaries[${key}]`}
-            error={
-              formik.errors?.summaries && formik.errors?.summaries[key]
-              ? t(formik.errors?.summaries[key] as string) : ''
-            }
           />
         ))}
       </LanguagesTabs>
@@ -99,17 +93,13 @@ const Descriptions = (props: Props) => {
         onChange={formik.setFieldValue}
         name="descriptions"
       >
-        {Object.keys(formik.values.summaries).map(key => (
+        {Object.keys(formik.values.descriptions).map(key => (
           <DescriptionEditor
             key={key}
             language_id={key}
             value={formik.values.descriptions[key]}
             onChange={formik.setFieldValue}
             name={`descriptions[${key}]`}
-            error={
-              formik.errors?.descriptions && formik.errors?.descriptions[key]
-              ? t(formik.errors.descriptions[key] as string) : ''
-            }
           />
         ))}
       </LanguagesTabs>
@@ -120,12 +110,8 @@ const Descriptions = (props: Props) => {
       <ExternalLinks
         value={formik.values.socialLinksMap}
         onChange={formik.setFieldValue}
-        error={
-          formik.errors.socialLinksMap?.site
-          ? t(formik.errors.socialLinksMap.site as string) : ''
-        }
       />
-      <SaveButton type="submit" disabled={!formik.isValid}>
+      <SaveButton type="submit">
         {t('save_changes')}
       </SaveButton>
     </Wrapper>

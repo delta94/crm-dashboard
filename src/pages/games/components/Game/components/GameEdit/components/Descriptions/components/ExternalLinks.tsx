@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SocialLink } from 'types/games';
 import styled from 'styled-components/macro';
@@ -49,6 +49,12 @@ const ExternalLinks = (props: Props) => {
 
     onChange(name, value);
   };
+
+  useEffect(() => {
+    if ('site' in value) return;
+
+    onChange('socialLinksMap', { ...value, site: { type: 'site', url: '' } });
+  }, []);
 
   return (
     <Wrapper>
