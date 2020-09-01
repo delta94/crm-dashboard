@@ -2,6 +2,7 @@ import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components/macro';
 import { L10n } from 'types/games';
 import { inputStyles } from 'admin-library';
+import { TAGLINE_MAX_LENGTH } from 'const';
 
 interface Props {
   className?: string;
@@ -15,6 +16,9 @@ const TaglineEditor = (props: Props) => {
 
   const handleChange = (e: SyntheticEvent<HTMLTextAreaElement>) => {
     const { value: newValue } = e.currentTarget;
+
+    if (newValue.length > TAGLINE_MAX_LENGTH) return;
+    
     onChange(`${name}.summary`, newValue);
   };
 

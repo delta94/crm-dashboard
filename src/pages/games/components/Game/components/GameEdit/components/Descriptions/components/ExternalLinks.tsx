@@ -15,7 +15,7 @@ interface Props {
   onChange: (name: string, value: any) => void;
 }
 
-const socials = ['facebook', 'twitter', 'youTube', 'twitch', 'discord', 'vkontakte', 'reddit'];
+const socials = ['facebook', 'twitter', 'youtube', 'twitch', 'discord', 'vkontakte', 'reddit'];
 
 const ExternalLinks = (props: Props) => {
   const { value, onChange } = props;
@@ -66,13 +66,13 @@ const ExternalLinks = (props: Props) => {
         />
       ))}
       {missingLinks.length && (
-        <div>
+        <Links>
           {missingLinks.map(type => (
             <AddLink type="button" key={type} data-type={type} onClick={handleAddLink}>
               {`+ ${t(`game.fields.external_links.${type}`)}`}
             </AddLink>
           ))}
-        </div>
+        </Links>
       )}
     </Wrapper>
   );
@@ -83,9 +83,16 @@ export default React.memo(ExternalLinks);
 const Wrapper = styled.div``;
 
 const AddLink = styled(PurpleOutlinedButton)`
-  margin-right: 4px;
+  margin: 0 4px 4px 0;
 
   :last-child {
     margin-right: 0;
   }
+`;
+
+const Links = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: flex-start;
 `;

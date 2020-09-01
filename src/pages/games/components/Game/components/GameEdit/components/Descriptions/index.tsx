@@ -12,6 +12,7 @@ import DescriptionEditor from './components/DescriptionEditor';
 import TaglineEditor from './components/TaglineEditor';
 import { Title, Description } from 'pages/games/components/Game/styles';
 import InputLabel from 'components/InputLabel';
+import { TAGLINE_MAX_LENGTH, DESCRIPTION_MAX_LENGTH } from 'const';
 
 interface Props {
   game: Game;
@@ -62,7 +63,7 @@ const Descriptions = (props: Props) => {
   return (
     <Wrapper onSubmit={formik.handleSubmit}>
       <Title>{t('game.fields.tagline.label')}</Title>
-      <Description>{t('game.fields.tagline.description')}</Description>
+      <Description>{t('game.fields.tagline.description', { limit: TAGLINE_MAX_LENGTH })}</Description>
       <InputLabel label={t('game.fields.tagline.label')} required />
       <LanguagesTabs
         value={formik.values.summaries}
@@ -72,7 +73,7 @@ const Descriptions = (props: Props) => {
       />
       <Title>{t('game.fields.description.label')}</Title>
       <Description>
-        {t('game.fields.description.description_start')}
+        {t('game.fields.description.description_start', { limit: DESCRIPTION_MAX_LENGTH })}
         <Caption12 color={RED_500}>
           {t('game.fields.description.description_end')}
         </Caption12>
