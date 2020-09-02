@@ -111,13 +111,13 @@ const Requirements = (props: Props) => {
           <FormGroup>
             <StyledInputLabel label={getLabel('storage')} required />
             <Input
-              name={`${nameSpace}.storage`}
-              value={values.storage}
+              name={`${nameSpace}.disk_space`}
+              value={values.disk_space}
               onChange={formik.handleChange}
-              error={!!errors.storage && toucheds.storage}
+              error={!!errors.storage && toucheds.disk_space}
               onBlur={formik.handleBlur}
             />
-            <InputError error={toucheds.storage && errors.storage} />
+            <InputError error={toucheds.disk_space && errors.disk_space} />
           </FormGroup>
         </Col>
         <Col xs={3}>

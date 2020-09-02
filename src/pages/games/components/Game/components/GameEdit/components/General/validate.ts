@@ -1,7 +1,7 @@
 import { gamePlatforms } from 'const';
 
 const fields = ['title', 'developers', 'publishers', 'release_date'];
-const requirementsFields = ['os', 'gpu', 'cpu', 'ram', 'storage'];
+const requirementsFields = ['os', 'gpu', 'cpu', 'ram', 'disk_space'];
 
 export default (values: any) => {
   const errors: Record<string, any> = {};

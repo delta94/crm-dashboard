@@ -23,11 +23,11 @@ interface Props {
 }
 
 const transformRequirements = (requirements: any) => {
-  const { ram, storage, diskSpaceUnit = 1, directX: _directX, ...rest } = requirements;
+  const { ram, disk_space, diskSpaceUnit = 1, directX: _directX, ...rest } = requirements;
 
   return {
     ...rest,
-    ...(storage && { disk_space: storage * diskSpaceUnit }),
+    ...(disk_space && { disk_space: disk_space * diskSpaceUnit.value }),
     ram: +ram,
   };
 };
