@@ -6,7 +6,7 @@ import emptyCover from 'assets/images/empty-cover.png';
 import { DEFAULT_REGION_CURRENCY_ID } from 'const';
 import { formateIsoDate } from 'admin-library';
 
-import { Cell, FirstCell, Row } from '../styles';
+import { Cell, Row, CellText } from '../styles';
 
 const dateOptions = {
   year: 'numeric',
@@ -54,16 +54,24 @@ const ListItem = (props: Props) => {
   return (
     <Wrapper onClick={handleClick} className={className}>
       <StyledRow>
-        <FirstCell>
+        <Cell>
           <Image alt={id} src={gameImg || emptyCover} />
-          {title}
-        </FirstCell>
-        <Cell>{price}</Cell>
-        <Cell>{discount}</Cell>
+          <CellText>{title}</CellText>
+        </Cell>
+        <Cell>
+          <CellText>{price}</CellText>
+        </Cell>
+        <Cell>
+          <CellText>{discount}</CellText>
+        </Cell>
         <StyledCell color={release_date ? WHITE : GRAY_100}>
-          {release_date ? formateIsoDate(release_date, 'ru-RU', dateOptions) : '–'}
+          <CellText>
+            {release_date ? formateIsoDate(release_date, 'ru-RU', dateOptions) : '–'}
+          </CellText>
         </StyledCell>
-        <StyledCell color={getStatusColor(status)}>{status}</StyledCell>
+        <StyledCell color={getStatusColor(status)}>
+          <CellText>{status}</CellText>
+        </StyledCell>
       </StyledRow>
     </Wrapper>
   );
