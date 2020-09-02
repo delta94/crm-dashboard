@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 import { Input, Select, Grid, BLACK_500 } from 'admin-library';
 import InputLabel from 'components/InputLabel';
-import InputError from 'components/InputError';
 
 const { Row, Col } = Grid;
 
@@ -33,13 +32,7 @@ const Requirements = (props: Props) => {
   const nameSpace = `requirements.${platform}.${type}`;
   const values = formik.values.requirements[platform][type];
   const { t } = useTranslation();
-  const errors = (
-    formik.errors.requirements && formik.errors.requirements[platform] && formik.errors.requirements[platform][type]
-  ) || {};
-  const toucheds = (
-    formik.touched.requirements && formik.touched.requirements[platform] && formik.touched.requirements[platform][type]
-  ) || {};
-
+  
   if (!values.diskSpaceUnit) {
     values.diskSpaceUnit = dimensionOptions[0];
   }
@@ -55,10 +48,7 @@ const Requirements = (props: Props) => {
           name={`${nameSpace}.os`}
           value={values.os}
           onChange={formik.handleChange}
-          error={!!errors.os && toucheds.os}
-          onBlur={formik.handleBlur}
         />
-        <InputError error={toucheds.os && errors.os} />
       </FormGroup>
       <Row gap="8px">
         <Col xs={9}>
@@ -68,10 +58,7 @@ const Requirements = (props: Props) => {
               name={`${nameSpace}.gpu`}
               value={values.gpu}
               onChange={formik.handleChange}
-              error={!!errors.gpu && toucheds.gpu}
-              onBlur={formik.handleBlur}
             />
-            <InputError error={toucheds.gpu && errors.gpu} />
           </FormGroup>
         </Col>
         <Col xs={3}>
@@ -90,10 +77,7 @@ const Requirements = (props: Props) => {
           name={`${nameSpace}.cpu`}
           value={values.cpu}
           onChange={formik.handleChange}
-          error={!!errors.cpu && toucheds.cpu}
-          onBlur={formik.handleBlur}
         />
-        <InputError error={toucheds.cpu && errors.cpu} />
       </FormGroup>
       <FormGroup>
         <StyledInputLabel label={getLabel('ram')} required />
@@ -101,10 +85,7 @@ const Requirements = (props: Props) => {
           name={`${nameSpace}.ram`}
           value={values.ram}
           onChange={formik.handleChange}
-          error={!!errors.ram && toucheds.ram}
-          onBlur={formik.handleBlur}
         />
-        <InputError error={toucheds.ram && errors.ram} />
       </FormGroup>
       <Row gap="8px">
         <Col xs={9}>
@@ -114,10 +95,7 @@ const Requirements = (props: Props) => {
               name={`${nameSpace}.disk_space`}
               value={values.disk_space}
               onChange={formik.handleChange}
-              error={!!errors.storage && toucheds.disk_space}
-              onBlur={formik.handleBlur}
             />
-            <InputError error={toucheds.disk_space && errors.disk_space} />
           </FormGroup>
         </Col>
         <Col xs={3}>

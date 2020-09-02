@@ -5,7 +5,6 @@ import { Game, SystemRequirements as SystemRequirementsType } from 'types/games'
 import { useFormik } from 'formik';
 import { Input, Caption12, RED_500, Grid, PurpleButton, Switch } from 'admin-library';
 import InputLabel from 'components/InputLabel';
-import InputError from 'components/InputError';
 
 import Languages from './components/Languages';
 import Genres from './components/Genres';
@@ -13,7 +12,6 @@ import Tags from './components/Tags';
 import SystemRequirements from './components/SystemRequirements';
 import { Title, Description } from '../../../../styles';
 import Features from './components/Features';
-import validate from './validate';
 
 const { Row, Col } = Grid;
 
@@ -72,7 +70,6 @@ const General = (props: Props) => {
 
   const formik = useFormik({
     initialValues,
-    initialErrors: validate(initialValues),
     onSubmit: (values: any) => {
       const { release_date, requirements: requirementsMap, ...rest } = values;
       const releaseDateISO = release_date 
@@ -95,7 +92,6 @@ const General = (props: Props) => {
 
       onEdit(gameData);
     },
-    validate,
   });
 
   const handleReleaseDateBlur = (e: SyntheticEvent<HTMLInputElement>) => {
@@ -126,10 +122,7 @@ const General = (props: Props) => {
               name="title"
               value={formik.values.title}
               onChange={formik.handleChange}
-              error={!!formik.errors.title && formik.touched.title}
-              onBlur={formik.handleBlur}
             />
-            <InputError error={formik.touched.title && formik.errors.title} />
           </FormGroup>
         </Col>
         <Col xs={6}>
@@ -139,10 +132,7 @@ const General = (props: Props) => {
               name="developers"
               value={formik.values.developers}
               onChange={formik.handleChange}
-              error={!!formik.errors.developers && formik.touched.developers}
-              onBlur={formik.handleBlur}
             />
-            <InputError error={formik.touched.developers && formik.errors.developers} />
           </FormGroup>
         </Col>
         <Col xs={6}>
@@ -152,10 +142,7 @@ const General = (props: Props) => {
               name="publishers"
               value={formik.values.publishers}
               onChange={formik.handleChange}
-              error={!!formik.errors.publishers && formik.touched.publishers}
-              onBlur={formik.handleBlur}
             />
-            <InputError error={formik.touched.publishers && formik.errors.publishers} />
           </FormGroup>
         </Col>
         <Col xs={6} />
@@ -173,10 +160,8 @@ const General = (props: Props) => {
               value={formik.values.release_date}
               onChange={formik.handleChange}
               type="date"
-              error={!!formik.errors.release_date && formik.touched.release_date}
               onBlur={handleReleaseDateBlur}
-            />
-            <InputError error={formik.touched.release_date && formik.errors.release_date} />
+              />
           </FormGroup>
         </Col>
         <Col xs={6} />
@@ -192,7 +177,7 @@ const General = (props: Props) => {
       <Languages value={formik.values.localization} onChange={formik.setFieldValue} />
       <Features value={formik.values.features} onChange={formik.setFieldValue} />
       <SystemRequirements formik={formik} />
-      <SaveButton type="submit" disabled={!formik.isValid}>
+      <SaveButton type="submit">
         {t('save_changes')}
       </SaveButton>
     </Wrapper>
