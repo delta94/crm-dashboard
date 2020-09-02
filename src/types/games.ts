@@ -52,7 +52,7 @@ export interface Review {
   link: string;
   press_name: string;
   quote: string;
-  score: number;
+  score: string;
 }
 
 export interface SocialLink {
@@ -88,8 +88,14 @@ export interface Price {
   region_currency_id: number;
 }
 
+export interface L10n {
+  description?: string;
+  language_id: number;
+  summary?: string;
+}
+
 export interface Revision {
-  description: string;
+  l10n: L10n[];
   id: number;
   license: string;
   localization?: Localization[];

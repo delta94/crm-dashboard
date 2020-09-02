@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Caption12, GRAY_100, RED_500 } from 'admin-library';
 
 interface Props {
@@ -18,6 +18,8 @@ const InputLabel = (props: Props) => {
   );
 };
 
-export default React.memo(InputLabel);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(InputLabel, areEqual);
 
 const Wrapper = styled(Caption12)``;

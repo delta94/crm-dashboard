@@ -43,7 +43,7 @@ export const useSettingsState = () => {
   const context = useContext(SettingsStateContext);
 
   if (context === undefined) {
-    throw new Error('useUserState must be used within a UserProvider');
+    throw new Error('useSettingsState must be used within a SettingsProvider');
   }
 
   return context;

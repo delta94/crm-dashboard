@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { Game, SystemRequirements as SystemRequirementsType } from 'types/games';
 import { useFormik } from 'formik';

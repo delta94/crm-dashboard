@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { NameWithId } from 'types/games';
 import { getTagsRequest } from 'api';
 import useResourses from 'hooks/useResourses';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Title, Description } from 'pages/games/components/Game/styles';
 import { TagsSelector } from 'admin-library';
 

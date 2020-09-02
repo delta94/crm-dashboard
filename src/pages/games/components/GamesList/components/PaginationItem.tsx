@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Caption12, BLACK_500, PURPLE_500 } from 'admin-library';
 
 interface Props {

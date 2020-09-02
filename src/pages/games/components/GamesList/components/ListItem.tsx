@@ -1,6 +1,6 @@
 import React from 'react';
 import { Game, Price } from 'types/games';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { PURPLE_500, WHITE, GRAY_100, ORANGE_500, RED_500 } from 'admin-library';
 import emptyCover from 'assets/images/empty-cover.png';
 import { DEFAULT_REGION_CURRENCY_ID } from 'const';

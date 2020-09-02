@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { Caption12, Micro10, GRAY_100, PurpleOutlinedButton } from 'admin-library';
 

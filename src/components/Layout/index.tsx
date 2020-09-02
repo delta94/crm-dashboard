@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Layout as BasicLayout, Loader, Login, BLACK_900 } from 'admin-library';
 import { login } from 'auth';
 import { useUserState } from 'containers/User';

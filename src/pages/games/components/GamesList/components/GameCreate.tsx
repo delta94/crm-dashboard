@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { Modal } from '@material-ui/core';
 import { createOrUpdateGameRequest } from 'api/games';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { checkUrlString } from 'admin-library';
 import {
   Input,
