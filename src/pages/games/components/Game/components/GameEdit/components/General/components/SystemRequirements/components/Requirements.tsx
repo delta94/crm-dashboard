@@ -49,7 +49,7 @@ const Requirements = (props: Props) => {
   return (
     <Wrapper className={className}>
       <FormGroup>
-        <InputLabel label={getLabel('os')} required />
+        <StyledInputLabel label={getLabel('os')} required />
         <Input
           name={`${nameSpace}.os`}
           value={values.os}
@@ -62,7 +62,7 @@ const Requirements = (props: Props) => {
       <Row gap="8px">
         <Col xs={9}>
           <FormGroup>
-            <InputLabel label={getLabel('gpu')} required />
+            <StyledInputLabel label={getLabel('gpu')} required />
             <Input
               name={`${nameSpace}.gpu`}
               value={values.gpu}
@@ -74,7 +74,7 @@ const Requirements = (props: Props) => {
           </FormGroup>
         </Col>
         <Col xs={3}>
-          <InputLabel label={t('game.fields.supported_platforms.directX')} />
+          <StyledInputLabel label={t('game.fields.supported_platforms.directX')} />
           <StyledSelect
             name={`${nameSpace}.directX`}
             value={values.directX}
@@ -84,7 +84,7 @@ const Requirements = (props: Props) => {
         </Col>
       </Row>
       <FormGroup>
-        <InputLabel label={getLabel('cpu')} required />
+        <StyledInputLabel label={getLabel('cpu')} required />
         <Input
           name={`${nameSpace}.cpu`}
           value={values.cpu}
@@ -95,7 +95,7 @@ const Requirements = (props: Props) => {
         <InputError error={toucheds.cpu && errors.cpu} />
       </FormGroup>
       <FormGroup>
-        <InputLabel label={getLabel('ram')} required />
+        <StyledInputLabel label={getLabel('ram')} required />
         <Input
           name={`${nameSpace}.ram`}
           value={values.ram}
@@ -108,7 +108,7 @@ const Requirements = (props: Props) => {
       <Row gap="8px">
         <Col xs={9}>
           <FormGroup>
-            <InputLabel label={getLabel('storage')} required />
+            <StyledInputLabel label={getLabel('storage')} required />
             <Input
               name={`${nameSpace}.storage`}
               value={values.storage}
@@ -120,7 +120,7 @@ const Requirements = (props: Props) => {
           </FormGroup>
         </Col>
         <Col xs={3}>
-          <InputLabel label={t('game.fields.supported_platforms.dimension')} />
+          <StyledInputLabel label={t('game.fields.supported_platforms.dimension')} />
           <StyledSelect
             name={`${nameSpace}.diskSpaceUnit`}
             value={values.diskSpaceUnit}
@@ -130,7 +130,7 @@ const Requirements = (props: Props) => {
         </Col>
       </Row>
       <FormGroup>
-        <InputLabel label={getLabel('other')} />
+        <StyledInputLabel label={getLabel('other')} />
         <Input
           name={`${nameSpace}.other`}
           value={values.other}
@@ -157,4 +157,9 @@ const StyledSelect = styled(Select)`
 
 export const FormGroup = styled.div`
   min-height: 82px;
+`;
+
+const StyledInputLabel = styled(InputLabel)`
+  display: block;
+  height: 18px;
 `;
