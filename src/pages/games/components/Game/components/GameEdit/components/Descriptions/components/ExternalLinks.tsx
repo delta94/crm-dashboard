@@ -83,7 +83,7 @@ const ExternalLinks = (props: Props) => {
           onChange={handleChange}
         />
       ))}
-      {missingLinks.length && (
+      {missingLinks.length > 0 && (
         <Links>
           {missingLinks.map(type => (
             <AddLink type="button" key={type} data-type={type} onClick={handleAddLink}>
@@ -96,7 +96,9 @@ const ExternalLinks = (props: Props) => {
   );
 };
 
-export default React.memo(ExternalLinks);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(ExternalLinks, areEqual);
 
 const Wrapper = styled.div``;
 

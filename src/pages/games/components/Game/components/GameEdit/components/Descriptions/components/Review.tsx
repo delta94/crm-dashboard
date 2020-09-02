@@ -68,7 +68,9 @@ const Review = (props: Props) => {
   );
 };
 
-export default React.memo(Review);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(Review, areEqual);
 
 const Wrapper = styled.div`
   margin-bottom: 40px;

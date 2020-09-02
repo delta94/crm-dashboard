@@ -86,7 +86,9 @@ const Languages = (props: Props) => {
   );
 };
 
-export default React.memo(Languages);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(Languages, areEqual);
 
 const Wrapper = styled.div`
   margin-top: 40px;

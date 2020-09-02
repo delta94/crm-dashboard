@@ -17,7 +17,10 @@ export default (values: any) => {
   gamePlatforms.forEach(platform => {
     if (!values.requirements[platform]) return;
 
-    errors.requirements = errors.requirements || {
+    errors.requirements = errors.requirements || {};
+    
+    errors.requirements={
+      ...errors.requirements,
       [platform]: {
         minimal: {},
         recommended: {},

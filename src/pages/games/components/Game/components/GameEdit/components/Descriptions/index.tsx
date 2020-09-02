@@ -120,7 +120,9 @@ const Descriptions = (props: Props) => {
   );
 };
 
-export default React.memo(Descriptions);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(Descriptions, areEqual);
 
 const Wrapper = styled.form`
   padding: 40px 0;

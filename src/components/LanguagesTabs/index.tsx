@@ -137,7 +137,9 @@ function LanguagesTabs<M extends { language_id: number }>(props: Props<M>): JSX.
   );
 }
 
-export default React.memo(LanguagesTabs);
+const areEqual = (prev: Props<any>, next: Props<any>) => prev === next;
+
+export default React.memo(LanguagesTabs, areEqual);
 
 const Wrapper = styled.div`
   padding-bottom: 40px;

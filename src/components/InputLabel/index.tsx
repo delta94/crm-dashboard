@@ -18,6 +18,8 @@ const InputLabel = (props: Props) => {
   );
 };
 
-export default React.memo(InputLabel);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(InputLabel, areEqual);
 
 const Wrapper = styled(Caption12)``;
