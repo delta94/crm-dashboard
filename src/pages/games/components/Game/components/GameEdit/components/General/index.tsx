@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { Game, SystemRequirements as SystemRequirementsType } from 'types/games';
@@ -98,6 +98,18 @@ const General = (props: Props) => {
     validate,
   });
 
+  const handleReleaseDateBlur = (e: SyntheticEvent<HTMLInputElement>) => {
+    formik.handleChange(e);
+    
+    const newDateTime = new Date(e.currentTarget.value).getTime();
+    
+    if (newDateTime < Date.now()) {
+      const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
+      const tomorrowDateString = tomorrow.toISOString().slice(0, 10);
+      formik.setFieldValue('release_date', tomorrowDateString);
+    }
+  };
+
   return (
     <Wrapper onSubmit={formik.handleSubmit}>
       <Title>{t('game.general.title')}</Title>
@@ -162,7 +174,7 @@ const General = (props: Props) => {
               onChange={formik.handleChange}
               type="date"
               error={!!formik.errors.release_date && formik.touched.release_date}
-              onBlur={formik.handleBlur}
+              onBlur={handleReleaseDateBlur}
             />
             <InputError error={formik.touched.release_date && formik.errors.release_date} />
           </FormGroup>
