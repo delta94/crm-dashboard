@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Modal } from '@material-ui/core';
 import { createOrUpdateGameRequest } from 'api/games';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { checkUrlString } from 'admin-library';
 import {
   Input,
   BLACK_800,
@@ -37,10 +36,6 @@ const validate = (values: any) => {
     errors.slug = 'errors.empty_field';
   }
 
-  if (!checkUrlString(values.slug)) {
-    errors.slug = 'errors.not_url';
-  }
-
   return errors;
 };
 
@@ -53,11 +48,14 @@ const GameCreate = (props: Props) => {
   const formik = useFormik({
     initialValues: {
       title: '',
-      slug: `${settings.store_root_url}/`,
+      slug: '',
     },
-    onSubmit: async (values: any, { resetForm }) => {
-      const { open, ...rest } = values;
-      const { error, json } = await createOrUpdateGameRequest({ ...rest });
+    onSubmit: async (values, { resetForm }) => {
+      const { title, slug } = values;
+      const { error, json } = await createOrUpdateGameRequest({ 
+        title,
+        slug: `${settings.store_root_url}/${slug}`,
+      });
 
       if (error) {
         alert(error.message);
@@ -86,6 +84,14 @@ const GameCreate = (props: Props) => {
     onClose();
   };
 
+  const handleTitleBlur = (e: SyntheticEvent) => {
+    const slugFromTitle = formik.values.title.replace(/\s+/g, '-').toLowerCase();
+
+    formik.setFieldValue('slug', slugFromTitle);
+
+    formik.handleBlur(e);
+  };
+
   return (
     <Modal open={open} onClose={handleCancell}>
       <Wrapper>
@@ -98,7 +104,7 @@ const GameCreate = (props: Props) => {
             name="title"
             value={formik.values.title}
             onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            onBlur={handleTitleBlur}
           />
           <ErrorText color={RED_500}>
             {formik.touched.title && !!formik.errors.title
@@ -113,7 +119,6 @@ const GameCreate = (props: Props) => {
             value={formik.values.slug}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="https://"
           />
           <ErrorText color={RED_500}>
             {formik.touched.slug && !!formik.errors.slug
