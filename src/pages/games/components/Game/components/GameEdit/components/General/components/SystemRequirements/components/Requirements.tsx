@@ -8,6 +8,7 @@ import InputError from 'components/InputError';
 const { Row, Col } = Grid;
 
 const directXOptions = [
+  { title: '', value: undefined },
   { title: '8', value: 8 },
   { title: '9', value: 9 },
   { title: '10', value: 10 },
