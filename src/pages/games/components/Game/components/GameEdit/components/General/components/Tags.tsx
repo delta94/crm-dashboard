@@ -30,6 +30,8 @@ const Tags = (props: Props) => {
         tags={tags}
         onChange={handleChange}
         selected={value}
+        limit={10}
+        name="tags"
       />
     </Wrapper>
   );
