@@ -27,7 +27,6 @@ const SystemRequirements = (props: Props) => {
 
     if (!checked) {
       delete formik.values.requirements[name];
-      delete formik.errors.requirements[name];
     } else {
       formik.values.requirements[name] = {
         minimal: {},
