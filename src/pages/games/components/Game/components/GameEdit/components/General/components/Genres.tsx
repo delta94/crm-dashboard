@@ -39,7 +39,9 @@ const Genres = (props: Props) => {
   );
 };
 
-export default React.memo(Genres);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(Genres, areEqual);
 
 const Wrapper = styled.div`
   margin-top: 40px;

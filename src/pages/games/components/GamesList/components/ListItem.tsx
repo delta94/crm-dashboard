@@ -77,7 +77,9 @@ const ListItem = (props: Props) => {
   );
 };
 
-export default React.memo(ListItem);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(ListItem, areEqual);
 
 const StyledRow = styled(Row)``;
 

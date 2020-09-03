@@ -39,7 +39,9 @@ const Tags = (props: Props) => {
   );
 };
 
-export default React.memo(Tags);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(Tags, areEqual);
 
 const Wrapper = styled.div`
   margin-top: 40px;

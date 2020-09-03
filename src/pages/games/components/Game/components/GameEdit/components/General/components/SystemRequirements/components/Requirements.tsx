@@ -120,7 +120,9 @@ const Requirements = (props: Props) => {
   );
 };
 
-export default React.memo(Requirements);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(Requirements, areEqual);
 
 const Wrapper = styled.div``;
 

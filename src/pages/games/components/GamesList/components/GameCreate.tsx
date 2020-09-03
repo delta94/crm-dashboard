@@ -135,7 +135,9 @@ const GameCreate = (props: Props) => {
   );
 };
 
-export default React.memo(GameCreate);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(GameCreate, areEqual);
 
 const Wrapper = styled.div`
   position: absolute;

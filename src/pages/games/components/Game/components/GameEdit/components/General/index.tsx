@@ -98,9 +98,10 @@ const General = (props: Props) => {
     formik.handleChange(e);
     
     const newDateTime = new Date(e.currentTarget.value).getTime();
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
     
     if (newDateTime < Date.now()) {
-      const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
+      const tomorrow = new Date(Date.now() + millisecondsPerDay);
       const tomorrowDateString = tomorrow.toISOString().slice(0, 10);
       formik.setFieldValue('release_date', tomorrowDateString);
     }
@@ -184,7 +185,9 @@ const General = (props: Props) => {
   );
 };
 
-export default React.memo(General);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(General, areEqual);
 
 const Wrapper = styled.form``;
 
