@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 import { Input, Select, Grid, BLACK_500 } from 'admin-library';
 import InputLabel from 'components/InputLabel';
-import InputError from 'components/InputError';
 
 const { Row, Col } = Grid;
 
 const directXOptions = [
+  { title: '', value: undefined },
   { title: '8', value: 8 },
   { title: '9', value: 9 },
   { title: '10', value: 10 },
@@ -32,13 +32,7 @@ const Requirements = (props: Props) => {
   const nameSpace = `requirements.${platform}.${type}`;
   const values = formik.values.requirements[platform][type];
   const { t } = useTranslation();
-  const errors = (
-    formik.errors.requirements && formik.errors.requirements[platform] && formik.errors.requirements[platform][type]
-  ) || {};
-  const toucheds = (
-    formik.touched.requirements && formik.touched.requirements[platform] && formik.touched.requirements[platform][type]
-  ) || {};
-
+  
   if (!values.diskSpaceUnit) {
     values.diskSpaceUnit = dimensionOptions[0];
   }
@@ -49,32 +43,26 @@ const Requirements = (props: Props) => {
   return (
     <Wrapper className={className}>
       <FormGroup>
-        <InputLabel label={getLabel('os')} required />
+        <StyledInputLabel label={getLabel('os')} required />
         <Input
           name={`${nameSpace}.os`}
           value={values.os}
           onChange={formik.handleChange}
-          error={!!errors.os && toucheds.os}
-          onBlur={formik.handleBlur}
         />
-        <InputError error={toucheds.os && errors.os} />
       </FormGroup>
       <Row gap="8px">
         <Col xs={9}>
           <FormGroup>
-            <InputLabel label={getLabel('gpu')} required />
+            <StyledInputLabel label={getLabel('gpu')} required />
             <Input
               name={`${nameSpace}.gpu`}
               value={values.gpu}
               onChange={formik.handleChange}
-              error={!!errors.gpu && toucheds.gpu}
-              onBlur={formik.handleBlur}
             />
-            <InputError error={toucheds.gpu && errors.gpu} />
           </FormGroup>
         </Col>
         <Col xs={3}>
-          <InputLabel label={t('game.fields.supported_platforms.directX')} />
+          <StyledInputLabel label={t('game.fields.supported_platforms.directX')} />
           <StyledSelect
             name={`${nameSpace}.directX`}
             value={values.directX}
@@ -84,43 +72,34 @@ const Requirements = (props: Props) => {
         </Col>
       </Row>
       <FormGroup>
-        <InputLabel label={getLabel('cpu')} required />
+        <StyledInputLabel label={getLabel('cpu')} required />
         <Input
           name={`${nameSpace}.cpu`}
           value={values.cpu}
           onChange={formik.handleChange}
-          error={!!errors.cpu && toucheds.cpu}
-          onBlur={formik.handleBlur}
         />
-        <InputError error={toucheds.cpu && errors.cpu} />
       </FormGroup>
       <FormGroup>
-        <InputLabel label={getLabel('ram')} required />
+        <StyledInputLabel label={getLabel('ram')} required />
         <Input
           name={`${nameSpace}.ram`}
           value={values.ram}
           onChange={formik.handleChange}
-          error={!!errors.ram && toucheds.ram}
-          onBlur={formik.handleBlur}
         />
-        <InputError error={toucheds.ram && errors.ram} />
       </FormGroup>
       <Row gap="8px">
         <Col xs={9}>
           <FormGroup>
-            <InputLabel label={getLabel('storage')} required />
+            <StyledInputLabel label={getLabel('storage')} required />
             <Input
-              name={`${nameSpace}.storage`}
-              value={values.storage}
+              name={`${nameSpace}.disk_space`}
+              value={values.disk_space}
               onChange={formik.handleChange}
-              error={!!errors.storage && toucheds.storage}
-              onBlur={formik.handleBlur}
             />
-            <InputError error={toucheds.storage && errors.storage} />
           </FormGroup>
         </Col>
         <Col xs={3}>
-          <InputLabel label={t('game.fields.supported_platforms.dimension')} />
+          <StyledInputLabel label={t('game.fields.supported_platforms.dimension')} />
           <StyledSelect
             name={`${nameSpace}.diskSpaceUnit`}
             value={values.diskSpaceUnit}
@@ -130,7 +109,7 @@ const Requirements = (props: Props) => {
         </Col>
       </Row>
       <FormGroup>
-        <InputLabel label={getLabel('other')} />
+        <StyledInputLabel label={getLabel('other')} />
         <Input
           name={`${nameSpace}.other`}
           value={values.other}
@@ -141,7 +120,9 @@ const Requirements = (props: Props) => {
   );
 };
 
-export default React.memo(Requirements);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(Requirements, areEqual);
 
 const Wrapper = styled.div``;
 
@@ -157,4 +138,9 @@ const StyledSelect = styled(Select)`
 
 export const FormGroup = styled.div`
   min-height: 82px;
+`;
+
+const StyledInputLabel = styled(InputLabel)`
+  display: block;
+  height: 18px;
 `;

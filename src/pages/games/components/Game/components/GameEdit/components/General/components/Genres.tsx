@@ -7,6 +7,8 @@ import { TagsSelector } from 'admin-library';
 import styled from 'styled-components/macro';
 import { Title, Description } from 'pages/games/components/Game/styles';
 
+const GENRES_LIMIT = 3;
+
 interface Props {
   className?: string;
   value: number[];
@@ -25,17 +27,21 @@ const Genres = (props: Props) => {
   return (
     <Wrapper className={className}>
       <Title>{t('game.fields.genres.label')}</Title>
-      <Description>{t('game.fields.genres.description')}</Description>
+      <Description>{t('game.fields.genres.description', { limit: GENRES_LIMIT })}</Description>
       <TagsSelector
         tags={genres}
         onChange={handleChange}
         selected={value}
+        limit={GENRES_LIMIT}
+        name="genres"
       />
     </Wrapper>
   );
 };
 
-export default React.memo(Genres);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(Genres, areEqual);
 
 const Wrapper = styled.div`
   margin-top: 40px;

@@ -27,7 +27,6 @@ const SystemRequirements = (props: Props) => {
 
     if (!checked) {
       delete formik.values.requirements[name];
-      delete formik.errors.requirements[name];
     } else {
       formik.values.requirements[name] = {
         minimal: {},
@@ -83,7 +82,9 @@ const SystemRequirements = (props: Props) => {
   );
 };
 
-export default React.memo(SystemRequirements);
+const areEqual = (prev: Props, next: Props) => prev === next;
+
+export default React.memo(SystemRequirements, areEqual);
 
 const Wrapper = styled.div`
   margin-top: 40px;

@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { GRAY_100, SortIcon } from 'admin-library';
 
-import { FirstCell, Cell, Row } from '../styles';
+import { Cell, Row, CellText } from '../styles';
 
 interface Props {
   className?: string;
@@ -15,29 +15,29 @@ const GamesTableHead = (props: Props) => {
 
   return (
     <Row className={className}>
-      <FirstCell color={GRAY_100}>
-        {t('games.game_title')}
-        <IconWrapper>
-          <SortIcon />
-        </IconWrapper>
-      </FirstCell>
       <Cell color={GRAY_100}>
-        {t('games.price')}
+        <CellText>{t('games.game_title')}</CellText>
         <IconWrapper>
           <SortIcon />
         </IconWrapper>
       </Cell>
       <Cell color={GRAY_100}>
-        {t('games.discount')}
+        <CellText>{t('games.price')}</CellText>
         <IconWrapper>
           <SortIcon />
         </IconWrapper>
       </Cell>
       <Cell color={GRAY_100}>
-        {t('games.release_date')}
+        <CellText>{t('games.discount')}</CellText>
+        <IconWrapper>
+          <SortIcon />
+        </IconWrapper>
       </Cell>
       <Cell color={GRAY_100}>
-        {t('games.status')}
+        <CellText>{t('games.release_date')}</CellText>
+      </Cell>
+      <Cell color={GRAY_100}>
+        <CellText>{t('games.status')}</CellText>
       </Cell>
     </Row>
   );
