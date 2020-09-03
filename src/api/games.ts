@@ -17,6 +17,7 @@ export const uploadMediaRequest = async (id: string, file: Blob) => {
   try {
     const res = await fetch(url, {
       method: 'PUT',
+      credentials: 'include',
       body: formData,
     });
 

@@ -4,6 +4,7 @@ import { Game } from 'types/games';
 import Covers from './components/Covers';
 import Screenshots from './components/Screenshots';
 import { Box, Button, Typography, TextField } from '@material-ui/core';
+import MyDropzone from './components/MyDropzone';
 
 interface Props {
   game: Game;
@@ -60,6 +61,13 @@ const Media = (props: Props) => {
         <Typography gutterBottom variant="h6">
           {t('games.fields.media.trailer')}
         </Typography>
+        <MyDropzone 
+          width={524}
+          height={296}
+          src={covers.wide_slider.url}
+          type="wide_slider"
+          onChangeId={handleChangeCoverId}
+        />
         <TextField
           name="title"
           label={t('games.fields.media.trailer')}
