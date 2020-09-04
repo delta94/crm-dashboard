@@ -1,10 +1,10 @@
-import React, { useState, ChangeEvent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Game } from 'types/games';
-import Covers from './components/Covers';
-import Screenshots from './components/Screenshots';
-import { Box, Button, Typography, TextField } from '@material-ui/core';
-import MyDropzone from './components/MyDropzone';
+import { Game, Image } from 'types/games';
+import Cover from './components/Cover';
+import { useFormik } from 'formik';
+import { PurpleButton } from 'admin-library';
+import { COVERS } from 'const';
 
 interface Props {
   game: Game;
@@ -12,85 +12,36 @@ interface Props {
 }
 
 const Media = (props: Props) => {
-  const { game, onEdit } = props;
-  const { media: { covers, screenshots }, trailer: initTrailer } = game.revision;
-  const [coversIds, setCoversIds] = useState({
-    catalog: covers.catalog.id,
-    horizontal: covers.horizontal.id,
-    horizontal_small: covers.horizontal_small.id,
-    large_single: covers.large_single.id,
-    vertical: covers.vertical.id,
-    wide_slider: covers.wide_slider.id,
+  const { game } = props;
+  const { media } = game.revision;
+  const formik = useFormik({
+    initialValues: {
+      covers: media.covers as Record<string, Image | undefined>,
+    },
+    onSubmit: console.log,
   });
-  const [screenshotsIds, setScreenshotsIds] = useState(
-    screenshots ? screenshots.map(({ id }) => id) : [],
-  );
-  const [trailer, setTrailer] = useState(initTrailer);
 
   const { t } = useTranslation();
 
-  const handleChangeCoverId = (type: string, id: number) => {
-    setCoversIds({
-      ...coversIds,
-      [type]: id,
-    });
-  };
-
-  const handleChangeScreenshotsIds = (ids: number[]) => {
-    setScreenshotsIds(ids);
-  };
-
-  const handleTrailerChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTrailer(e.currentTarget.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const media = {
-      covers: coversIds,
-      screenshots: screenshotsIds,
-    };
-
-    onEdit({ media, trailer });
+  const handleChangeCover = (type: string, cover?: Image) => {
+    formik.setFieldValue(`covers[${type}]`, cover);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Box marginBottom={4}>
-        <Typography gutterBottom variant="h6">
-          {t('games.fields.media.trailer')}
-        </Typography>
-        <MyDropzone 
-          width={524}
-          height={296}
-          src={covers.wide_slider.url}
-          type="wide_slider"
-          onChangeId={handleChangeCoverId}
+    <form onSubmit={formik.handleSubmit}>
+      {COVERS.map(key => (
+        <Cover
+          key={key}
+          onChange={handleChangeCover}
+          cover={formik.values.covers[key] as Image | undefined}
+          type={key}
         />
-        <TextField
-          name="title"
-          label={t('games.fields.media.trailer')}
-          variant="outlined"
-          value={trailer}
-          onChange={handleTrailerChange}
-          fullWidth
-        />
-      </Box>
-      <Box marginBottom={4}>
-        <Covers covers={covers} onChangeId={handleChangeCoverId} />
-      </Box>
-      <Box marginBottom={4}>
-        <Screenshots screenshots={screenshots} onChangeIds={handleChangeScreenshotsIds} />
-      </Box>
-      <Button
+      ))}
+      <PurpleButton
         type="submit"
-        variant="contained"
-        color="primary"
-        size="large"
       >
         {t('save')}
-      </Button>
+      </PurpleButton>
     </form>
   );
 };
