@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 import { Input, Select, Grid, BLACK_500 } from 'admin-library';
 import InputLabel from 'components/InputLabel';
+import { MEGABYTES_PER_GIGABYTE } from 'const';
 
 const { Row, Col } = Grid;
 
@@ -17,7 +18,7 @@ const directXOptions = [
 
 const dimensionOptions = [
   { title: 'MB', value: 1 },
-  { title: 'GB', value: 1024 },
+  { title: 'GB', value: MEGABYTES_PER_GIGABYTE },
 ];
 
 interface Props {
@@ -32,10 +33,24 @@ const Requirements = (props: Props) => {
   const nameSpace = `requirements.${platform}.${type}`;
   const values = formik.values.requirements[platform][type];
   const { t } = useTranslation();
-  
-  if (!values.diskSpaceUnit) {
-    values.diskSpaceUnit = dimensionOptions[0];
-  }
+
+  const convertDiskSpaceToGB = (megabytes: number) => {
+    const gigabytes = Math.round(megabytes * 100 / MEGABYTES_PER_GIGABYTE) / 100;
+
+    formik.setFieldValue(`${nameSpace}.disk_space`, gigabytes);
+    formik.setFieldValue(`${nameSpace}.diskSpaceUnit`, dimensionOptions[1]);
+  };
+
+  useEffect(() => {
+    if (!values.diskSpaceUnit) {
+      values.diskSpaceUnit = dimensionOptions[0];
+    }
+
+    if (values.disk_space >= MEGABYTES_PER_GIGABYTE) {
+      convertDiskSpaceToGB(values.disk_space);
+    }
+    // eslint-disable-next-line
+  }, []);
 
   const getLabel = (field: string) =>
     `${t(`game.fields.supported_platforms.${type}`)} ${t(`game.fields.supported_platforms.${field}`)}`;
