@@ -25,7 +25,7 @@ const transformRequirements = (requirements: any) => {
 
   return {
     ...rest,
-    ...(disk_space && { disk_space: disk_space * diskSpaceUnit.value }),
+    ...(disk_space && { disk_space: Math.round(disk_space * diskSpaceUnit.value) }),
     ram: +ram,
     directX: directX?.value,
   };
