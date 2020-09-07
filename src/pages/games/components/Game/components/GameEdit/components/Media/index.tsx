@@ -6,6 +6,8 @@ import { useFormik } from 'formik';
 import { PurpleButton } from 'admin-library';
 import { COVERS } from 'const';
 
+import Screenshots from './components/Screenshots';
+
 interface Props {
   game: Game;
   onEdit: (data: any) => void;
@@ -17,6 +19,7 @@ const Media = (props: Props) => {
   const formik = useFormik({
     initialValues: {
       covers: media.covers as Record<string, Image | undefined>,
+      screenshots: media.screenshots || [],
     },
     onSubmit: console.log,
   });
@@ -29,6 +32,10 @@ const Media = (props: Props) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      <Screenshots 
+        screenshots={formik.values.screenshots}
+        onChange={formik.setFieldValue}
+      />
       {COVERS.map(key => (
         <Cover
           key={key}

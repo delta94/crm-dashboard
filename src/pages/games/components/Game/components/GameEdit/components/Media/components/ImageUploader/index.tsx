@@ -74,21 +74,23 @@ const MyDropzone = (props: Props) => {
   });
 
   const content = (
-    <>
+    <Content onClick={open}>
       {error ? <RoundedMinusIcon /> : <UploadIcon color={isDragActive ? PURPLE_500 : GRAY_100} />}
-      {withText && error ? (
-        <Text color={RED_500} onClick={open}>
-          {t('game.fields.media.failed_upload_image')}
-          <Caption12 color={PURPLE_500}>
-            {t('game.fields.media.try_again')}
-          </Caption12>
-        </Text>
-      ) : (
-          <Text color={isDragActive ? PURPLE_500 : GRAY_100} onClick={open}>
-            {t('game.fields.media.upload_image')}
+      {withText && (
+        error ? (
+          <Text color={RED_500}>
+            {t('game.fields.media.failed_upload_image')}
+            <Caption12 color={PURPLE_500}>
+              {t('game.fields.media.try_again')}
+            </Caption12>
           </Text>
-        )}
-    </>
+        ) : (
+            <Text color={isDragActive ? PURPLE_500 : GRAY_100} >
+              {t('game.fields.media.upload_image')}
+            </Text>
+          )
+      )}
+    </Content>
   );
 
   return (
@@ -99,9 +101,7 @@ const MyDropzone = (props: Props) => {
       active={loading || isDragActive}
     >
       <input {...getInputProps()} />
-      <Content>
         {loading ? <Spinner /> : content}
-      </Content>
     </Wrapper >
   );
 };

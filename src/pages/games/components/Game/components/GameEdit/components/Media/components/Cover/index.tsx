@@ -1,16 +1,12 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
-import { Caption12, GRAY_100 } from 'admin-library';
+import styled from 'styled-components/macro';
 import { Image } from 'types/games';
 import { COVERS_SIZES } from 'const';
+import InputLabel from 'components/InputLabel';
 
-import ImagePreview from '../Cover/components/ImagePreview';
+import ImagePreview from '../ImagePreview';
 import ImageUploader from '../ImageUploader';
-
-interface SizeProps {
-  width: number;
-  height: number;
-}
+import { absoluteStyles, MediaWrapper, MediaContent } from '../../styles';
 
 interface Props {
   className?: string;
@@ -32,9 +28,9 @@ const MyDropzone = (props: Props) => {
   };
   
   return (
-    <Wrapper width={width}className={props.className}>
-      <Size color={GRAY_100}>{`${width}x${height} px`}</Size>
-      <Content width={width} height={height}>
+    <MediaWrapper width={width}className={props.className}>
+      <InputLabel label={`${width}x${height} px`} required />
+      <MediaContent width={width} height={height}>
         {!cover?.url ? (
           <StyledImageUploader
             onUpload={handleUpload}
@@ -44,36 +40,14 @@ const MyDropzone = (props: Props) => {
         ) : (
           <StyledImagePreview imageSrc={cover.url} onDelete={handleDelete} />
         )}
-      </Content>
-    </Wrapper>
+      </MediaContent>
+    </MediaWrapper>
   );
 };
 
 const areEqual = (prev: Props, next: Props) => prev === next;
 
 export default React.memo(MyDropzone, areEqual);
-
-const Wrapper = styled.div<{ width: number }>`
-  max-width: ${({ width }) => width}px;
-`;
-
-const Content = styled.div<SizeProps>`
-  position: relative;
-  padding-top: ${({ width, height }) => `${(height / width) * 100}%`};
-`;
-
-const Size = styled(Caption12)`
-  display: block;
-  margin-bottom: 4px;
-`;
-
-const absoluteStyles = css`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-`;
 
 const StyledImageUploader = styled(ImageUploader)`
   ${absoluteStyles}

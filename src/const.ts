@@ -22,6 +22,7 @@ export const COVERS_SIZES: Record<string, number[]> = {
   large_single: [744, 410],
   vertical: [200, 266],
   wide_slider: [1064, 599],
+  screenshot: [1920, 1080],
 };
 
 export const COVERS = [

@@ -25,11 +25,7 @@ const areEqual = (prev: Props, next: Props) => prev === next;
 export default React.memo(ImagePreview, areEqual);
 
 const Wrapper = styled.div<{ imageSrc?: string }>`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   background: center / contain no-repeat url(${({ imageSrc }) => imageSrc});
 `;
 
