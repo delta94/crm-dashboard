@@ -8,7 +8,7 @@ import { MEGABYTES_PER_GIGABYTE } from 'const';
 const { Row, Col } = Grid;
 
 const directXOptions = [
-  { title: '', value: undefined },
+  { title: '', value: '' },
   { title: '8', value: 8 },
   { title: '9', value: 9 },
   { title: '10', value: 10 },
