@@ -27,17 +27,8 @@ export interface Image {
   url: string;
 }
 
-export interface Covers {
-  catalog: Image;
-  horizontal: Image;
-  horizontal_small: Image;
-  large_single: Image;
-  vertical: Image;
-  wide_slider: Image;
-}
-
 export interface Media {
-  covers: Covers;
+  covers: Record<string, Image>;
   screenshots: Image[] | null;
 }
 
