@@ -33,3 +33,5 @@ export const COVERS = [
   'horizontal_small',
   'vertical',
 ];
+
+export const LINK_PLACEHOLDER = 'https://';

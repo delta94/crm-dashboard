@@ -7,6 +7,7 @@ import { PurpleButton } from 'admin-library';
 import { COVERS } from 'const';
 
 import Screenshots from './components/Screenshots';
+import YoutubeLinks from './components/YoutubeLinks';
 
 interface Props {
   game: Game;
@@ -16,10 +17,12 @@ interface Props {
 const Media = (props: Props) => {
   const { game } = props;
   const { media } = game.revision;
+  
   const formik = useFormik({
     initialValues: {
-      covers: media.covers as Record<string, Image | undefined>,
-      screenshots: media.screenshots || [],
+      covers: {} as Record<string, Image | undefined>, //media.covers as Record<string, Image | undefined>,
+      screenshots: media?.screenshots || [],
+      links: [],
     },
     onSubmit: console.log,
   });
@@ -35,6 +38,10 @@ const Media = (props: Props) => {
       <Screenshots 
         screenshots={formik.values.screenshots}
         onChange={formik.setFieldValue}
+      />
+      <YoutubeLinks 
+        links={formik.values.links} 
+        onChange={formik.setFieldValue}  
       />
       {COVERS.map(key => (
         <Cover

@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Review } from 'types/games';
 import { Grid, Input, inputStyles, BLACK_500, DeleteIcon, RED_500 } from 'admin-library';
 import InputLabel from 'components/InputLabel';
+import { LINK_PLACEHOLDER } from 'const';
 
 const { Row, Col } = Grid;
 const scoreRegexp = /^\d+\/?\d*$/i;
 const scorePlaceholder = '8/10';
-const linkPlaceholder = 'https://';
 
 interface Props {
   className?: string;
@@ -77,7 +77,7 @@ const PressAgent = (props: Props) => {
                   name={`${name}.link`}
                   value={value.link}
                   onChange={handleChange}
-                  placeholder={linkPlaceholder}
+                  placeholder={LINK_PLACEHOLDER}
                 />
               </FormGroup>
             </Col>

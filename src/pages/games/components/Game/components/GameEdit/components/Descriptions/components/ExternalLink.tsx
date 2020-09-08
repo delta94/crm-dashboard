@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { InputWrapper } from 'pages/games/components/Game/styles';
 import InputLabel from 'components/InputLabel';
-import { Input, buttonStyles, DeleteIcon, BLACK_500, RED_500 } from 'admin-library';
+import { Input, SquareIconButton, DeleteIcon, RED_500 } from 'admin-library';
 
 const getPlaceholder = (type: string) => {
   return `eg. https://www.${type === 'vkontakte' ? 'vk' : type}.com/mygameaddress/?ref=qilin`;
@@ -36,7 +36,7 @@ const ExternalLink = (props: Props) => {
           onChange={onChange}
           placeholder={getPlaceholder(type)}
         />
-        <DeleteButton type="button" onClick={handleDelete}>
+        <DeleteButton type="button" onClick={handleDelete} color={RED_500}>
           <DeleteIcon />
         </DeleteButton>
       </Line>
@@ -52,25 +52,7 @@ const Line = styled.div`
   display: flex;
 `;
 
-const DeleteButton = styled.button.attrs({ color: 'transparent' })`
-  ${buttonStyles}
-  border-radius: 2px;
-  width: 40px;
-  height: 40px;
-  border: 1px solid ${BLACK_500};
-  justify-content: center;
+const DeleteButton = styled(SquareIconButton)`
   margin-left: 8px;
-  transition: all 0.3s ease-in-out;
-
-  path {
-    transition: all 0.3s ease-in-out;
-  }
-
-  :hover {
-    border: 1px solid ${RED_500};
-
-    path {
-      fill: ${RED_500}
-    }
-  }
+  flex-shrink: 0;
 `;

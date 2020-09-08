@@ -21,6 +21,7 @@
     "i18next": "^19.4.5",
     "i18next-browser-languagedetector": "^4.2.0",
     "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.0.3",
     "react-i18next": "^11.5.0",
@@ -63,6 +64,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-beautiful-dnd": "^13.0.0",
     "@types/styled-components": "5.0.1",
     "husky": "^3.0.5",
     "lint-staged": "^9.3.0"
