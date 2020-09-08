@@ -30,6 +30,8 @@ const MyDropzone = (props: Props) => {
   const { t } = useTranslation();
 
   const onDrop = async ([image]: any[]) => {
+    if (!image) return;
+
     setLoading(true);
 
     const { error: createError, json: createJson } = await createGameMediaRequest({
@@ -43,14 +45,7 @@ const MyDropzone = (props: Props) => {
       return;
     }
 
-    if (!image) {
-      setLoading(false);
-
-      return;
-    }
-
     const { id } = createJson;
-
     const { error: uploadError, json: uploadJson } = await uploadMediaRequest(id, image);
 
     setLoading(false);
