@@ -10,6 +10,7 @@ import ImagePreview from '../ImagePreview';
 import ImageUploader from '../ImageUploader';
 
 const SCREENSHOTS_TYPE = 'screenshot';
+const MAX_SCREENSHOTS_COUNT = 7;
 const { Row, Col } = Grid;
 
 interface Props {
@@ -70,15 +71,17 @@ const Screenshots = (props: Props) => {
               />
             </Col>
           ))}
-          <Col xs={12 / 7}>
-            <MediaContent width={width} height={height}>
-              <StyledImageUploader
-                type={SCREENSHOTS_TYPE}
-                onUpload={handleUpload}
-                withText={false}
-              />
-            </MediaContent>
-          </Col>
+          {screenshots.length < MAX_SCREENSHOTS_COUNT && (
+            <Col xs={12 / 7}>
+              <MediaContent width={width} height={height}>
+                <StyledImageUploader
+                  type={SCREENSHOTS_TYPE}
+                  onUpload={handleUpload}
+                  withText={false}
+                />
+              </MediaContent>
+            </Col>
+          )}
         </SelectedScreenshots>
       )}
     </MediaWrapper>

@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { BLACK_700, GRAY_100, WHITE, RED_500, DeleteIcon } from 'admin-library';
+import Popup from 'components/Popup';
+
+import DeleteConfirm from './components/DeleteConfirm';
 
 interface Props {
   className?: string;
@@ -10,12 +13,32 @@ interface Props {
 
 const ImagePreview = (props: Props) => {
   const { className, imageSrc, onDelete } = props;
+  const [popupOpen, setPopupOpen] = useState(false);
+
+  const handlePopupOpen = () => {
+    setPopupOpen(true);
+  };
+
+  const handlePopupClose = () => {
+    setPopupOpen(false);
+  };
+
+  const handleDelete = () => {
+    onDelete();
+    setPopupOpen(false);
+  };
 
   return (
-    <Wrapper className={className} imageSrc={imageSrc} onClick={onDelete}>
-      <DeleteImage>
+    <Wrapper className={className} imageSrc={imageSrc}>
+      <DeleteImage onClick={handlePopupOpen}>
         <DeleteIcon />
       </DeleteImage>
+      <Popup open={popupOpen} onClose={handlePopupClose}>
+        <DeleteConfirm 
+          onDelete={handleDelete}
+          onCancel={handlePopupClose}
+        />
+      </Popup>
     </Wrapper>
   );
 };
