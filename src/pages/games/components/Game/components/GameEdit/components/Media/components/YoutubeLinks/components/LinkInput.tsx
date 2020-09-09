@@ -14,6 +14,8 @@ import {
   PURPLE_500,
 } from 'admin-library';
 
+import YoutubePreview from './YoutubePreview';
+
 interface Props {
   className?: string;
   link: string;
@@ -28,8 +30,6 @@ const LinkInput = (props: Props) => {
   const { className, link, index, name, onDelete, onChange, dragHandleProps = {} } = props;
   const { t } = useTranslation();
   const debouncedLink = useDebounce(link, 1000);
-
-  console.log(debouncedLink);
 
   const handleChange = (e: SyntheticEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -69,11 +69,13 @@ const LinkInput = (props: Props) => {
           <DeleteIcon />
         </Button>
       </Line>
+      {!!debouncedLink && <YoutubePreview url={debouncedLink} />}
     </Wrapper>
   );
 };
 
-const areEqual = (prev: Props, next: Props) => prev === next;
+const areEqual = (prev: Props, next: Props) => prev.link === next.link &&
+  prev.onDelete === next.onDelete;
 
 export default React.memo(LinkInput, areEqual);
 

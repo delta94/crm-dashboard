@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { Title, Description } from 'pages/games/components/Game/styles';
@@ -17,7 +17,7 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
 
 interface Props {
   className?: string;
-  links: string[];
+  links: { id: number; url: string }[];
   onChange: (name: string, value: any) => void;
 }
 
@@ -34,16 +34,15 @@ const YoutubeLinks = (props: Props) => {
   };
 
   const handleAddLink = () => {
-    onChange('links', [...links, '']);
+    onChange('links', [...links, { id: Date.now(), url: '' }]);
   };
 
-  const handleDelete = (index: number) => {
-    console.log(links);
+  const handleDelete = useCallback((index: number) => {
     const newLinks = [...links.slice(0, index),...links.slice(index + 1)];
-    console.log(newLinks);
 
     onChange('links', newLinks);
-  };
+    // eslint-disable-next-line
+  }, [links]);
 
   return (
     <Wrapper className={className}>
@@ -58,18 +57,18 @@ const YoutubeLinks = (props: Props) => {
         <Droppable droppableId="droppable">
           {provided => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
-              {links.map((link, index) => {
+              {links.map(({ id, url }, index) => {
                 return (
-                  <Draggable key={index} draggableId={String(index)} index={index}>
+                  <Draggable key={id} draggableId={String(id)} index={index}>
                     {provided => (
                       <div ref={provided.innerRef} {...provided.draggableProps}>
                         <LinkInput
                           key={index}
-                          link={link}
+                          link={url}
                           index={index}
                           onDelete={handleDelete}
                           onChange={onChange}
-                          name={`links[${index}]`}
+                          name={`links[${index}].url`}
                           dragHandleProps={provided.dragHandleProps}
                         />
                       </div>

@@ -43,8 +43,8 @@ interface Props {
 const ListItem = (props: Props) => {
   const { game, onClick, className } = props;
   const { id, title, revision } = game;
-  const { release_date, status, prices, media: { covers } } = revision;
-  const gameImg = covers.catalog?.url;
+  const { release_date, status, prices, media } = revision;
+  const gameImg = media?.covers?.catalog?.url;
   const [price, discount] = getPriceAndDiscount(prices);
 
   const handleClick = () => {
